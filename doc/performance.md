@@ -193,3 +193,14 @@ iterations after 50 warm-ups in one Dart 3.11.5 JIT run (checksum 2000 rules).
 File IO and inference were excluded. This is illustrative, not a guarantee.
 Medição ilustrativa de importação FCL; leitura de arquivo e inferência ficam fora
 do intervalo cronometrado. O valor depende de máquina, SDK e aquecimento.
+
+## FCL export extension
+
+An illustrative Dart 3.11.5 JIT run of the updated FCL benchmark measured 71.4
+µs/import and 14.1 µs/export for 1000 operations after 50 warm-ups in each phase.
+Checksums: 2000 imported rules and 742000 exported code units. File IO, inference,
+Java startup and external-runtime comparison are outside the timed loops. These
+are local observations, not performance guarantees or cross-library rankings.
+
+O benchmark agora separa importação e exportação FCL; leitura, inferência e Java
+ficam fora dos tempos medidos. Os valores são ilustrativos e variam por ambiente.

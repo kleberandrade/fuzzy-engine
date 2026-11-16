@@ -36,6 +36,23 @@ final class FclResult {
 final class FclModel {
   FclModel._(this.name, this.ruleBlockName, this.engine, this.defaultValue);
 
+  /// Wraps a Dart engine with explicit FCL names and numeric DEFAULT.
+  /// Export separately validates representability of all engine components.
+  factory FclModel.fromEngine(
+      {required String name,
+      required String ruleBlockName,
+      required FuzzyEngine engine,
+      required double defaultValue}) {
+    if (name.trim().isEmpty ||
+        ruleBlockName.trim().isEmpty ||
+        engine.outputs.length != 1 ||
+        !defaultValue.isFinite) {
+      throw ArgumentError(
+          'A named, single-output FCL model and finite DEFAULT are required.');
+    }
+    return FclModel._(name, ruleBlockName, engine, defaultValue);
+  }
+
   /// FUNCTION_BLOCK identifier.
   final String name;
 

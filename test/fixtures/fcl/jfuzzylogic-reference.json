@@ -1,0 +1,1057 @@
+{
+  "report": {
+    "tool": "jFuzzyLogic",
+    "commit": "1f421d1b176b39cd7d08fa8f4d712d733abf1116",
+    "comparisons": 72,
+    "maxRawCrispDifference": 11.0,
+    "maxMappedCrispDifference": 9.769962616701378e-14,
+    "status": "passed",
+    "samplingDefaultDifferences": 8
+  },
+  "cases": [
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "rawExternalValue": 3.4415736885928556,
+      "trapezoidalValue": 3.4444416666667212,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "rawExternalValue": 5.33490998363322,
+      "trapezoidalValue": 5.339394545454547,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.2
+      ],
+      "rawExternalValue": 4.387924139958795,
+      "trapezoidalValue": 4.392155882352958,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "rawExternalValue": 5.33490998363322,
+      "trapezoidalValue": 5.339394545454547,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "default",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "3fefa3994ee1cebc94bae59fd2571ccdb9220e0968cdbe4142c2928626bc16bd",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "inactive",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "5780473de7e1560ea237335786e7db80a293983679a7e5561f55425139d35794",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 0.8
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.6400000000000001,
+        0.07999999999999999
+      ],
+      "rawExternalValue": 3.692104495304119,
+      "trapezoidalValue": 3.6953750000000394,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 0.8
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "rawExternalValue": 5.33490998363322,
+      "trapezoidalValue": 5.339394545454547,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 0.8
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.2
+      ],
+      "rawExternalValue": 4.387924139958795,
+      "trapezoidalValue": 4.392155882352958,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "rawExternalValue": 5.33490998363322,
+      "trapezoidalValue": 5.339394545454547,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.2
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.16000000000000003,
+        0.32000000000000006
+      ],
+      "rawExternalValue": 5.508005115089531,
+      "trapezoidalValue": 5.51212215909091,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.2
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.16000000000000003,
+        0.32000000000000006
+      ],
+      "rawExternalValue": 5.508005115089531,
+      "trapezoidalValue": 5.51212215909091,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "tails",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0.2,0.8) (0.8,0.2);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (0,1) (10,0);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "ca06e9736db49b5ba1bc8aaee5dbc5abfc587ddf4ea934826c9ad988dc3b424b",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.2
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "rawExternalValue": 5.914115071919892,
+      "trapezoidalValue": 5.916668750000003,
+      "externalUsedDefault": false,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": 10.0,
+      "externalUsedDefault": true,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": 10.0,
+      "externalUsedDefault": true,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.0,
+          "low": 1.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": 10.0,
+      "externalUsedDefault": true,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": 10.0,
+      "externalUsedDefault": true,
+      "usedDefault": false,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 0.5,
+          "low": 0.5
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.0,
+          "low": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 0.75,
+          "low": 0.25
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    },
+    {
+      "variant": "endpointOnly",
+      "source": "(* Original analytical fixture, not exported by an external controller. *)\nFUNCTION_BLOCK ventilation\nVAR_INPUT\n temperature : REAL;\n humidity : REAL;\nEND_VAR\nVAR_OUTPUT\n fan : REAL;\nEND_VAR\nFUZZIFY temperature\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nFUZZIFY humidity\n TERM low := (0,1) (1,0);\n TERM high := (0,0) (1,1);\nEND_FUZZIFY\nDEFUZZIFY fan\n TERM low := (9.995,0) (10,1);\n TERM high := (0,0) (10,1);\n METHOD : COG;\n DEFAULT := -1;\n RANGE := (0 .. 10);\nEND_DEFUZZIFY\nRULEBLOCK ventilation_rules\n AND : MIN;\n OR : MAX;\n ACT : MIN;\n ACCU : MAX;\n RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;\n RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0;\nEND_RULEBLOCK\nEND_FUNCTION_BLOCK\n",
+      "sourceSha256": "435357fc5135b6ba405fd13e419c42eb9b9cc1ea77c48e06de0889e1994e757f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "intervals": 1000,
+      "memberships": {
+        "temperature": {
+          "high": 1.0,
+          "low": 0.0
+        },
+        "humidity": {
+          "high": 1.0,
+          "low": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "rawExternalValue": -1.0,
+      "trapezoidalValue": -1.0,
+      "externalUsedDefault": true,
+      "usedDefault": true,
+      "tolerance": 1e-09
+    }
+  ]
+}

@@ -109,3 +109,33 @@ build succeeded. Two existing ventilation model tests now live in the Flutter
 example package instead of importing its lib relatively from the core tests.
 Flutter test execution remains subject to the previously documented local socket
 restriction; no new remote CI success or published score is claimed.
+
+## FCL export and direct runtime comparison
+
+The restricted exporter is covered by 21 tests and direct jFuzzyLogic execution at
+commit 1f421d1b176b39cd7d08fa8f4d712d733abf1116. The external source archive was
+SHA-256 verified and compiled unmodified with Java 21 --release 8. The Dart package
+contains no Java runtime dependency or vendored upstream source. The original
+Java test adapter, Python comparison and reproducible build script live in tool/.
+
+72 original/exported evaluations cover 36 model/input cases, including endpoints,
+saturation, no activation and a narrow endpoint-only output. Memberships,
+strengths and sampled curves match at the declared tolerances. Mapped trapezoidal
+crisp difference is at most 9.769962616701378e-14. Native crisp differences are
+recorded separately and reach 11 in the deliberately different sampling/DEFAULT
+case. See the FCL guide; this is not hidden by a loose tolerance or a core change.
+The 36 recorded reference cases also run as Dart tests without Java.
+
+The live external job is added to the reusable CI. A local pass is not evidence
+that this new remote workflow has completed. Full IEC conformance remains outside
+scope. The maintainer's pending version/changelog preparation is preserved.
+
+Final local results for the export stage: 372 Dart/core/tool tests passed,
+72 live jFuzzyLogic comparisons passed, all 126 existing scikit-fuzzy/NumPy
+comparisons passed, and strict Dart analysis passed. The exporter benchmark and
+console example ran successfully. None of these results changes the published
+score or constitutes a completed remote release.
+
+API documentation generation completed with zero warnings/errors, and the Flutter
+web build passed after the export API was added. No new local widget-test run or
+remote CI completion is claimed.

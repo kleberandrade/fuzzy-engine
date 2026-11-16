@@ -4,13 +4,13 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 281 passing tests, public
+The extensible pipeline stage is implemented locally with 372 passing core/tool tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
 five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
 Versioned model interchange, unit labels and bounded sampling/structural diagnostics
 are implemented. Tsukamoto and an explicit Larsen preset are implemented. Restricted Mamdani/Sugeno FIS import/export, recorded external numerical references
-and the two-input Flutter surface are implemented. Initial restricted FCL import is also implemented; FCL export and full vendor conformance remain pending.
+and the two-input Flutter surface are implemented. Restricted FCL import/export and direct pinned jFuzzyLogic comparisons are implemented; full vendor conformance remains pending.
 
 ## Current scope
 
@@ -26,7 +26,7 @@ not shipped functionality or release-date commitments.
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
 | Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
-| Configuration | Dart objects, JSON v1/v2, metadata, component catalog and experimental Mamdani/Sugeno FIS interchange | FCL export, broader FCL grammar and migrations |
+| Configuration | Dart objects, JSON v1/v2, metadata, component catalog and experimental Mamdani/Sugeno FIS interchange | Broader FCL grammar and migrations |
 | Explanations | Input/output traces, bounded coverage/activation scans and structural findings | Continuous coverage proofs and semantic conflict resolution |
 | Tooling | Flutter demos, console models, component benchmarks, JSON/external numerical fixtures and a two-input surface | Broader vendor conformance datasets |
 
@@ -48,7 +48,7 @@ not shipped functionality or release-date commitments.
 5. **Advanced controllers — runtime implemented, interoperability pending.**
    Larsen preset, monotonic Tsukamoto, inverse validation, JSON v2 and diagnostics
    are implemented, along with restricted Mamdani/Sugeno FIS interchange and external
-   numerical comparisons. Initial restricted FCL import is also implemented; FCL export and full vendor conformance remain pending. See [remaining scope](interoperability.en.md).
+   numerical comparisons. Restricted FCL import/export and direct pinned jFuzzyLogic comparisons are implemented; full vendor conformance remains pending. See [remaining scope](interoperability.en.md).
 
 ## Definition of done for each feature
 

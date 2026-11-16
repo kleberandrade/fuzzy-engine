@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Add bounded FCL export, explicit runtime-setting acknowledgement and rejection of unrepresentable models.
+- Validate 72 original/exported FCL cases against pinned jFuzzyLogic; record native and quadrature-mapped outputs, including sampling-induced DEFAULT differences.
+- Add 21 exporter tests, 36 external reference tests and a live Java comparison CI job.
+
 - Enable official core lints, fix all findings and gate full Pub points with pana in CI.
 - Add restricted experimental FCL import, explicit ranges/defaults, 32 tests and bilingual guides.
 

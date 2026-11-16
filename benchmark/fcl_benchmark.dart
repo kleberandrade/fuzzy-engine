@@ -16,9 +16,23 @@ void main() {
     checksum += importer.decode(source).engine.rules.length;
   }
   watch.stop();
+  final model = importer.decode(source);
+  const exporter = FclExporter();
+  for (var i = 0; i < 50; i++) {
+    exporter.encode(model, acknowledgeRuntimeSettings: true);
+  }
+  var exportedUnits = 0;
+  final exportWatch = Stopwatch()..start();
+  for (var i = 0; i < 1000; i++) {
+    exportedUnits +=
+        exporter.encode(model, acknowledgeRuntimeSettings: true).length;
+  }
+  exportWatch.stop();
   print(jsonEncode({
     'imports': 1000,
     'microsecondsPerImport': watch.elapsedMicroseconds / 1000,
-    'checksum': checksum
+    'checksum': checksum,
+    'microsecondsPerExport': exportWatch.elapsedMicroseconds / 1000,
+    'exportedCodeUnits': exportedUnits
   }));
 }

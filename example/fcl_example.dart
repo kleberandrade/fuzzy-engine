@@ -9,6 +9,10 @@ void main() {
     'humidity': FclRange(0, 1),
   }).decode(source);
   final result = model.evaluate({'temperature': .5, 'humidity': .75});
+  final exported =
+      const FclExporter().encode(model, acknowledgeRuntimeSettings: true);
+  print(
+      'Exported FCL: ${exported.length} characters; input ranges and resolution are external.');
   print('${model.name}: ${result.value}; default: ${result.usedDefault}');
   for (final rule in result.trace.rules) {
     print('${rule.rule.name}: ${rule.strength}');

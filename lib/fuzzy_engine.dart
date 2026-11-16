@@ -26,3 +26,4 @@ export 'src/tsukamoto.dart';
 export 'src/fis_importer.dart';
 export 'src/fis_exporter.dart';
 export 'src/fcl.dart';
+export 'src/fcl_exporter.dart';

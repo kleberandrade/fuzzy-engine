@@ -3,7 +3,7 @@
 [Português](interoperability.pt-BR.md)
 
 **Status: restricted Mamdani/Sugeno FIS import/export and independent numerical
-comparisons are implemented.** See the [accepted profile](fis.en.md). Restricted FCL import is also implemented (see [profile](fcl.en.md)). FCL export, vendor
+comparisons are implemented.** See the [accepted profile](fis.en.md). Restricted FCL import/export and direct jFuzzyLogic validation are implemented (see [profile](fcl.en.md)). Vendor
 exported fixtures and full standard conformance remain pending.
 The runtime and JSON codec support Mamdani, Sugeno and Tsukamoto. That does not
 imply file-format compatibility with MATLAB, IEC 61131-7 or other toolkits.
