@@ -1,0 +1,6 @@
+analyzer:
+  exclude:
+    - example/**
+    - doc/**
+  errors:
+    unused_import: error
