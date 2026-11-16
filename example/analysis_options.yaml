@@ -1,3 +1,7 @@
 analyzer:
+  # Keep Flutter SDK migration from modifying the checkout during pub get.
+  exclude:
+    - build/**
+    - web/**
   errors:
     unused_import: error
