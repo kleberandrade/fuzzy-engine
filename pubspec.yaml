@@ -3,6 +3,12 @@ version: 0.1.0
 description: Explainable Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter, with composable rules and versioned models.
 repository: https://github.com/kleberandrade/fuzzy-engine
 issue_tracker: https://github.com/kleberandrade/fuzzy-engine/issues
+topics:
+  - fuzzy-logic
+  - fuzzy-inference
+  - mamdani
+  - sugeno
+  - tsukamoto
 environment:
   sdk: '>=3.3.0 <4.0.0'
 dev_dependencies:

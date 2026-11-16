@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Add five pub.dev discovery topics and a reproducible release validation script.
+- Clarify package/repository naming and the separate first-publication procedure.
+
 - Add monotonic Tsukamoto inference with analytical Ramp/SShape/ZShape inverses.
 - Validate inverse domains, endpoints, monotonic probes and active-rule consistency.
 - Add the explicit FuzzyEngine.larsen product-implication preset.
