@@ -110,12 +110,12 @@ das regras para climatização, irrigação e dificuldade de jogos, em portuguê
 Veja [como executar](example/README.md).
 
 ```sh
-dart pub get
+dart pub get --no-example
 dart analyze --fatal-infos
 dart test
 dart run example/quick_start.dart
 dart doc
-dart pub publish --dry-run
+flutter pub publish --dry-run
 ```
 
 Consulte o [checklist de publicação](docs/PUBLISHING.md). Licença MIT.

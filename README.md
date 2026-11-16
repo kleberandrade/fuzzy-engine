@@ -108,12 +108,12 @@ climate control, irrigation and adaptive game difficulty. It supports English an
 Portuguese. See [running instructions](example/README.md).
 
 ```sh
-dart pub get
+dart pub get --no-example
 dart analyze --fatal-infos
 dart test
 dart run example/quick_start.dart
 dart doc
-dart pub publish --dry-run
+flutter pub publish --dry-run
 ```
 
 Read the [release checklist](docs/PUBLISHING.md) before publishing. MIT licensed.

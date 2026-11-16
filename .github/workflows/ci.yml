@@ -1,31 +1,42 @@
 name: Dart and Flutter
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   dart:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: ['3.3.4', stable]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dart-lang/setup-dart@v1
-      - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed lib test example
+        with:
+          sdk: ${{ matrix.sdk }}
+      # The core is pure Dart; the example has its own Flutter job.
+      - run: dart pub get --no-example
+      - if: matrix.sdk == 'stable'
+        run: dart format --output=none --set-exit-if-changed lib test example
       - run: dart analyze --fatal-infos
       - run: dart test
-      - run: dart doc
-      - run: dart pub publish --dry-run
+      - if: matrix.sdk == 'stable'
+        run: dart doc
   flutter:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
       - run: flutter pub get
         working-directory: example
-      - run: flutter analyze
+      - run: flutter analyze --no-pub
         working-directory: example
-      - run: flutter test
+      - run: flutter test --no-pub
         working-directory: example
-      - run: flutter create --platforms=web .
+      - run: flutter build web --no-pub
         working-directory: example
-      - run: flutter build web
-        working-directory: example
+      # Publishing validates the bundled Flutter example too.
+      - run: flutter pub get
+      - run: flutter pub publish --dry-run

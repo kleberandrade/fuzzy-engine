@@ -1,3 +1,5 @@
+// Retain compatibility with Flutter SDKs predating the Material UI extraction.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'scenarios.dart';

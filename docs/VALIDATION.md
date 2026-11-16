@@ -6,7 +6,7 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 13 passed, including analytic centroid references |
+| Core tests | 20 passed, including multi-input inference and analytic centroid references |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
@@ -19,9 +19,31 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 13 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 20 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
 de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
 ao pub.dev. Não houve publicação nem inspeção visual manual em navegador.
 A versão mínima Dart 3.3.0 ainda precisa de validação específica.
+
+## CI review after the initial push
+
+The initial [GitHub Actions run](https://github.com/kleberandrade/fuzzy-engine/actions/runs/43810381837)
+failed before testing: Dart pub attempted to resolve the Flutter example without a
+Flutter SDK; Flutter analysis reported the deprecated Material re-export import.
+
+Corrections prepared:
+- Use `dart pub get --no-example` for the standalone Dart core.
+- Test both Dart 3.3.4 and stable; formatting and docs run on stable.
+- Preserve older Flutter compatibility with a targeted suppression on the Material
+  import only. All other analyzer diagnostics remain fatal.
+- Run publication validation in the Flutter job, which can resolve the example.
+- Use the included web runner directly rather than regenerating it during CI.
+
+These CI changes need a new successful remote run. The local Flutter SDK is
+3.41.9; latest Flutter and minimum Dart validation are delegated to CI and must
+not be reported as passed until that run completes.
+
+The public package URL https://pub.dev/packages/fuzzy_engine returned 404 during
+review. No published package was found at that exact URL; this does not reserve
+the name or guarantee that the publication service will accept it.
