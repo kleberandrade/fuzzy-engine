@@ -1,5 +1,22 @@
 ## Unreleased
 
+## 0.2.0
+
+### Português
+
+- Adiciona importação e exportação experimental de um perfil FCL restrito, com validação explícita e guias nos dois idiomas.
+- Compara 72 casos FCL originais/exportados com jFuzzyLogic, documentando diferenças de amostragem e DEFAULT.
+- Ativa os lints oficiais, corrige os avisos de análise estática e exige pontuação máxima do pana no CI.
+- Corrige os testes Flutter em duas alturas de tela e mantém o checkout limpo durante a validação da publicação.
+- Prepara publicação automática por tags, com verificações completas e credenciais OIDC temporárias.
+- Usa o publisher verificado `kleberandrade.dev`.
+
+### English
+
+- Fix Flutter widget tests to reveal lazy list results and cover two viewport heights.
+- Keep Flutter analyzer exclusions checked in so SDK migrations do not dirty release validation.
+- Publish under the verified `kleberandrade.dev` publisher.
+
 - Add bounded FCL export, explicit runtime-setting acknowledgement and rejection of unrepresentable models.
 - Validate 72 original/exported FCL cases against pinned jFuzzyLogic; record native and quadrature-mapped outputs, including sampling-induced DEFAULT differences.
 - Add 21 exporter tests, 36 external reference tests and a live Java comparison CI job.
