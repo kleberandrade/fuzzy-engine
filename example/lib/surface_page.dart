@@ -13,40 +13,50 @@ class SurfacePage extends StatefulWidget {
 }
 
 class _SurfacePageState extends State<SurfacePage> {
-  final FuzzyEngine engine = ventilationController();
-  late final List<List<double?>> grid;
+  final FisModel model = climateFisModel();
+  late final Map<String, List<List<double?>>> grids;
+  String selectedOutput = 'fanDemand';
   double temperature = 20, humidity = 50;
   static const resolution = 21;
   @override
   void initState() {
     super.initState();
-    grid = List.generate(
-        resolution,
-        (h) => List.generate(
-            resolution,
-            (t) => engine.evaluate({
-                  'temperature': 40 * t / (resolution - 1),
-                  'humidity': 100 * h / (resolution - 1)
-                }).value('fanDemand')));
+    grids = {
+      for (final output in model.engine.outputs)
+        output.name: List.generate(
+            resolution, (_) => List<double?>.filled(resolution, null))
+    };
+    for (var h = 0; h < resolution; h++) {
+      for (var t = 0; t < resolution; t++) {
+        final result = model.evaluate({
+          'temperature': 40 * t / (resolution - 1),
+          'humidity': 100 * h / (resolution - 1),
+        });
+        for (final entry in result.values.entries) {
+          grids[entry.key]![h][t] = entry.value;
+        }
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final pt = widget.portuguese;
     final result =
-        engine.evaluate({'temperature': temperature, 'humidity': humidity});
-    final value = result.value('fanDemand');
+        model.evaluate({'temperature': temperature, 'humidity': humidity});
+    final value = result.values['fanDemand'];
+    final heater = result.values['heaterDemand'];
     return Scaffold(
         appBar: AppBar(
             title: Text(
-                pt ? 'Ventilação: duas entradas' : 'Ventilation: two inputs')),
+                pt ? 'Climatização: duas saídas' : 'Climate: two outputs')),
         body: Center(
             child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 800),
                 child: ListView(padding: const EdgeInsets.all(24), children: [
                   Text(pt
-                      ? 'Temperatura e umidade determinam a demanda de ventilação.'
-                      : 'Temperature and humidity determine ventilation demand.'),
+                      ? 'Temperatura e umidade controlam ventilação e aquecimento.'
+                      : 'Temperature and humidity control fan and heater demand.'),
                   const SizedBox(height: 16),
                   Text(
                       '${pt ? 'Temperatura' : 'Temperature'}: ${temperature.toStringAsFixed(1)} °C'),
@@ -70,6 +80,24 @@ class _SurfacePageState extends State<SurfacePage> {
                       '${pt ? 'Demanda' : 'Demand'}: ${value?.toStringAsFixed(1) ?? '—'} / 100',
                       key: const ValueKey('surface-output'),
                       style: Theme.of(context).textTheme.headlineSmall),
+                  Text(
+                      '${pt ? 'Aquecimento' : 'Heating'}: ${heater?.toStringAsFixed(1) ?? '—'} / 100',
+                      key: const ValueKey('heater-output')),
+                  const SizedBox(height: 16),
+                  Text(pt
+                      ? 'Modelo exportado para FIS e importado novamente.'
+                      : 'Model exported to FIS and imported again.'),
+                  Wrap(spacing: 12, children: [
+                    for (final name in grids.keys)
+                      ChoiceChip(
+                          key: ValueKey('surface-$name'),
+                          label: Text(name == 'fanDemand'
+                              ? (pt ? 'Ventilação' : 'Fan')
+                              : (pt ? 'Aquecimento' : 'Heating')),
+                          selected: selectedOutput == name,
+                          onSelected: (_) =>
+                              setState(() => selectedOutput = name)),
+                  ]),
                   const SizedBox(height: 24),
                   Text(
                       pt
@@ -87,8 +115,8 @@ class _SurfacePageState extends State<SurfacePage> {
                               ? 'Mapa de demanda: azul baixo, vermelho alto. O círculo marca as entradas atuais.'
                               : 'Demand map: blue low, red high. The circle marks current inputs.',
                           child: CustomPaint(
-                              painter: _SurfacePainter(
-                                  grid, temperature / 40, humidity / 100)))),
+                              painter: _SurfacePainter(grids[selectedOutput]!,
+                                  temperature / 40, humidity / 100)))),
                   Text(pt
                       ? 'Eixo horizontal: temperatura, 0 a 40 °C.'
                       : 'Horizontal axis: temperature, 0 to 40 °C.'),
@@ -105,9 +133,9 @@ class _SurfacePageState extends State<SurfacePage> {
                   const SizedBox(height: 16),
                   Text(pt ? 'Ativação das regras' : 'Rule activation',
                       style: Theme.of(context).textTheme.titleLarge),
-                  for (final rule in result.rules)
+                  for (final rule in result.trace.rules)
                     ListTile(
-                        title: Text(rule.rule.name),
+                        title: Text('${rule.rule.output}: ${rule.rule.name}'),
                         subtitle: LinearProgressIndicator(value: rule.strength),
                         trailing: Text(
                             '${(rule.strength * 100).toStringAsFixed(0)}%')),

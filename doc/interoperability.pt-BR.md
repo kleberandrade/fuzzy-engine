@@ -13,7 +13,7 @@ de arquivos com MATLAB, IEC 61131-7 ou outras bibliotecas.
 | Área | Alvo inicial | Rejeitar até haver suporte explícito |
 | --- | --- | --- |
 | Famílias | Mamdani tipo 1; depois Sugeno constante/linear | Tipo 2, híbridos e extensões Tsukamoto |
-| Variáveis | Universos de entrada finitos, nomeados e uma saída | Universos implícitos/ilimitados e vetores de regras com múltiplas saídas |
+| Variáveis | Universos finitos e nomeados, múltiplas entradas/saídas e vetores de consequentes | Universos implícitos/ilimitados |
 | Pertinência | trimf, trapmf, gaussmf | Funções arbitrárias e convenções de parâmetros não mapeadas |
 | Condições | AND ou OR planos, complemento explícito e índices de entradas ignoradas | Misturas aninhadas não representáveis no perfil escolhido |
 | Regras | Condição não vazia, uma conclusão e pesos/convenções explícitos | Todas as entradas ignoradas, até haver representação de condição verdadeira |
@@ -51,7 +51,7 @@ política de adaptação explícita, sem mudar os padrões do núcleo inadvertid
    sem aproximação ou descarte silencioso. Testes de ida e volta não bastam.
 6. Manter as fixtures JSON v1/v2 passando e documentar cada dialeto externo aceito.
 
-O intercâmbio tem parser limitado, fixtures analíticas e 126 comparações numéricas
+O intercâmbio tem parser limitado, fixtures analíticas e 234 comparações numéricas
 com scikit-fuzzy/NumPy. Faltam arquivos exportados por fornecedores e comparação
 direta com MATLAB; não há alegação de conformidade completa com fornecedores.
 Use os esquemas JSON para portar modelos do pacote. Não há certificação de

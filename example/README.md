@@ -87,14 +87,29 @@ This is a Dart console example; the Flutter lab UI still uses Mamdani.
 
 ## Two-input decision surface / Superfície com duas entradas
 
-Choose **Explore two inputs** (PT: **Explorar duas entradas**) to open ventilation.
-Independent temperature (0–40 °C) and humidity (0–100%) sliders drive nine Mamdani
-rules. The heatmap is a top view of a 21 × 21 sampled decision surface; blue means
+Choose **Explore two inputs and outputs** (PT: **Explorar duas entradas e saídas**) to open climate control.
+Independent temperature (0–40 °C) and humidity (0–100%) sliders drive eighteen Mamdani
+rules for fan/heater demand. The heatmap is a top view of a 21 × 21 sampled decision surface; blue means
 low demand and red high demand. The marker follows the exact slider inputs, not a
 rounded heatmap cell. The numeric output and activation bars provide a non-color
 explanation. Grid computation is cached; sliders only re-evaluate the current point.
 
-Escolha **Explorar duas entradas** para controlar temperatura e umidade. A malha
+Escolha **Explorar duas entradas e saídas** para controlar temperatura e umidade. A malha
 mostra 441 decisões; o marcador e o resultado numérico usam as entradas exatas.
-As nove regras cobrem o universo didático. Os limites e as regras precisam de
+As dezoito regras cobrem o universo didático. Os limites e as regras precisam de
 calibração antes de qualquer uso com equipamentos reais.
+
+## Multi-output climate / Climatização com múltiplas saídas
+
+Open **Explore two inputs and outputs**. Temperature and humidity drive independent
+fan and heater demand percentages through 18 rules. `climateFisModel()` exports
+and reimports the Mamdani configuration, explicitly restoring the 200-interval
+resolution and preserve-null policy. Both decisions update immediately; select
+Fan or Heating to inspect its cached 21 × 21 surface and scroll to see rule
+activations labeled by output. This is an educational model requiring calibration.
+
+Abra **Explorar duas entradas e saídas**. Temperatura e umidade determinam demandas
+de ventilação e aquecimento em porcentagem, por 18 regras. `climateFisModel()` faz
+a exportação/importação FIS e restaura resolução e política sem decisão. As duas
+saídas se atualizam juntas; selecione a saída para trocar o gráfico e role a tela
+para ver as regras ativadas por saída. O modelo é didático e precisa de calibração.

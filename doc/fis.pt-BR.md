@@ -2,10 +2,9 @@
 
 [English](fis.en.md) · [Roadmap](interoperability.pt-BR.md)
 
-Importe e exporte um perfil restrito de `.fis` Mamdani ou Sugeno tipo 1, com uma
-saída e sem dependências de execução no Dart. O perfil foi testado, mas não implica
-compatibilidade completa com MATLAB. FCL, tipo 2, funções arbitrárias e arquivos
-com múltiplas saídas continuam pendentes.
+Importe e exporte um perfil restrito de `.fis` Mamdani ou Sugeno tipo 1, com múltiplas
+saídas e sem dependências de execução no Dart. O perfil foi testado, mas não implica
+compatibilidade completa com MATLAB. Tipo 2 e funções arbitrárias continuam fora desse perfil. FCL restrito tem um [guia próprio](fcl.pt-BR.md).
 
 ```dart
 final importer = FisImporter(
@@ -39,17 +38,49 @@ dart run example/fis_example.dart test/fixtures/fis/ventilation.fis
 dart run example/fis_roundtrip_example.dart
 ```
 
+## Múltiplas saídas
+
+`decode` e `decodeSugeno` aceitam de `[Output1]` a `[OutputM]`, sem lacunas.
+Leia `result.values['fan']` e `result.values['heater']`. O conjunto imutável
+`fallbackOutputs` identifica exatamente quais saídas usaram ponto médio;
+`usedFallback` indica que pelo menos uma usou. A política atua por saída.
+`throwError` falha se qualquer saída ficar sem decisão, identificando seu nome.
+`trace` sempre conserva os nulls e as ativações originais.
+
+Cada linha contém um índice de consequente por saída. Zero ignora aquela saída,
+sem acrescentar regra nem peso ao denominador Sugeno dela. Índices negativos ou
+fracionários e linhas que ignoram todas as saídas são rejeitados.
+Linhas com vários consequentes viram uma regra do motor por saída não ignorada.
+Os nomes no trace são `ruleN:outputM`; com uma saída continuam `ruleN`.
+A exportação escreve uma linha por regra do motor, preenchendo as outras saídas
+com zero. Preserva a inferência suportada por saída, sem preservar o agrupamento
+original de linhas ou a grafia do arquivo.
+
+O acesso `result.value` e o construtor `FisSugenoModel` de saída única continuam
+funcionando. `.value`, `.consequents`, `.outputMin` e `.outputMax` são atalhos
+para saída única e lançam `StateError` em modelos com várias saídas.
+Para criar Sugeno com várias saídas, use `FisSugenoModel.multiOutput` e
+`outputs: {'fan': FisSugenoOutput(min: 0, max: 100, consequents: catalog), ...}`.
+Os metadados devem corresponder exatamente às saídas do motor. Cada regra deve
+referenciar uma instância do catálogo da sua própria saída. Nomes de termos podem
+se repetir entre saídas; catálogos não usados e ordem declarada são preservados.
+
+```sh
+dart run example/fis_multi_output_example.dart
+# Acrescente --sugeno para avaliar a fixture Sugeno.
+```
+
 ## Perfil aceito
 
 | Área | Suporte |
 | --- | --- |
-| Seções | System, Input1..N contíguos, Output1 e Rules; ordem livre |
+| Seções | System, Input1..N e Output1..M contíguos e Rules; ordem livre |
 | Sistema | Name, Type, NumInputs, NumOutputs, NumRules, AndMethod, OrMethod, ImpMethod, AggMethod, DefuzzMethod; Version=2.0 opcional |
 | Entradas / saída Mamdani | Name, Range finito e crescente, NumMFs e MF1..N contíguos |
 | Pertinência | trimf [a b c], trapmf [a b c d], gaussmf [sigma centro] |
 | Saída Sugeno | Name, Range finito, consequentes constant/linear |
 | Antecedentes | Índices inteiros; zero ignora entrada; negativo complementa termo; pelo menos uma entrada não ignorada |
-| Consequente | Um índice positivo, peso em [0,1] |
+| Consequente | Um índice por saída; zero ignora a saída, positivo seleciona função; pelo menos um não zero; peso em [0,1] |
 | Conectivos | 1=AND plano, 2=OR plano; AND min/prod e OR max/probor |
 | Mamdani | Implicação min/prod, agregação max e centroide |
 | Sugeno | ImpMethod=prod, AggMethod=sum, DefuzzMethod=wtaver/wtsum |
@@ -80,10 +111,10 @@ No Mamdani, `intervals=1000` usa 1001 amostras uniformes, incluindo extremos, e
 centroide por integração trapezoidal composta. Igualar quantidade de amostras não
 garante a mesma convenção de integração.
 
-Limites padrão de importação: 1.000.000 unidades UTF-16, 64 entradas, 4096 regras
+Limites padrão de importação: 1.000.000 unidades UTF-16, 64 entradas, 64 saídas, 4096 linhas/regras expandidas
 e 256 funções por variável. Intervalos devem ser 2..1.000.000. Aumentar limites de
 contagem permite mais trabalho deliberadamente. A exportação limita profundidade
-a 64 e texto a 1.000.000 unidades, além das contagens padrão de 64 entradas, 4096
+a 64 e texto a 1.000.000 unidades, além das contagens padrão de 64 entradas, 64 saídas, 4096
 regras e 256 funções. O texto nunca é executado como código.
 
 ## Validação numérica externa
@@ -91,7 +122,7 @@ regras e 256 funções. O texto nunca é executado como código.
 A comparação reproduzível usa scikit-fuzzy 0.5.0 para pertinências e centroide
 Mamdani, e NumPy 2.2.6 para redução Sugeno independente. O parser Python é separado;
 não importa nem traduz a inferência Dart. Arquivos originais e exportados passaram
-em **126 comparações de 63 combinações de modelo/entradas**: extremos, sobreposição,
+em **234 comparações de 117 combinações de modelo/entradas/saída**: extremos, sobreposição,
 sem ativação, gaussiana, produto/probor, constantes/lineares e ambas as reduções.
 Graus, ativações e curvas Mamdani usam tolerância absoluta de 1e-12.
 
@@ -99,11 +130,11 @@ scikit-fuzzy integra exatamente o momento da curva amostrada linear por partes;
 o núcleo usa quadratura trapezoidal do momento. Para malha uniforme com passo h e
 área A, o limite da diferença crisp é `h² * |grauFinal - grauInicial| / (6*A)`,
 mais 1e-10 por aritmética de ponto flutuante. Ambos integram a área por trapézios.
-A maior diferença observada foi 0,000003333334, dentro desse limite derivado.
+A maior diferença observada foi 0,000016666667, dentro desse limite derivado.
 Casos sem decisão comparam null antes de qualquer fallback.
 
 A referência externa registrada inclui hashes das fontes, graus, ativações e
-saídas. São 63 testes Dart de regressão que não precisam de Python. O CI também
+saídas. São 117 testes Dart de regressão que não precisam de Python. O CI também
 executa a comparação ao vivo, com dependências de teste fixadas:
 
 ```sh
@@ -125,6 +156,9 @@ classDiagram
   FisImporter --> FisSugenoModel : decodeSugeno
   FisModel --> FuzzyEngine : engine
   FisSugenoModel --> SugenoEngine : engine
+  FisSugenoModel "1" *-- "1..*" FisSugenoOutput : outputs
+  FisModel --> FisEvaluation : evaluate
+  FisSugenoModel --> FisSugenoEvaluation : evaluate
   FisExporter --> FisSugenoModel : encodeSugeno
 ```
 

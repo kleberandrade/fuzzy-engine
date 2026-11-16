@@ -1,5 +1,20 @@
 ## Unreleased
 
+### English
+
+- Support multi-output Mamdani/Sugeno FIS import/export, zero consequent indices, independent fallback and immutable output maps; retain single-output conveniences.
+- Retain per-output Sugeno ranges and named catalogs, including unused terms; bound expanded rules and output count.
+- Add multi-output parser, numerical, round-trip and metadata validation tests plus 108 new independent original/exported comparisons (234 total).
+- Extend the bilingual Flutter climate demo with fan/heater decisions, selectable heatmaps and an explicit FIS round-trip.
+- Update bilingual guides, class diagrams, scope and fixture provenance.
+
+### Português
+
+- Adiciona FIS Mamdani/Sugeno com múltiplas saídas, consequentes ignorados e fallback independente, preservando os atalhos de saída única.
+- Conserva intervalos e catálogos Sugeno por saída e limita a expansão de regras.
+- Amplia testes e comparações externas para 234; o exemplo Flutter mostra ventilação/aquecimento, gráficos selecionáveis e intercâmbio FIS.
+- Atualiza guias, diagramas de classes e limitações em português e inglês.
+
 ## 0.2.0
 
 ### Português

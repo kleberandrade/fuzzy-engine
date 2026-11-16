@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fuzzy_engine_example/main.dart';
+import 'package:fuzzy_engine_example/surface_page.dart';
 
 void main() {
   testWidgets('two inputs change the decision and return to the original lab',
@@ -10,8 +11,9 @@ void main() {
     await tester.pumpWidget(const FuzzyApp());
     await tester.tap(find.byKey(const ValueKey('open-surface')));
     await tester.pumpAndSettle();
-    expect(find.text('Ventilação: duas entradas'), findsOneWidget);
+    expect(find.text('Climatização: duas saídas'), findsOneWidget);
     expect(find.text('Demanda: 50.0 / 100'), findsOneWidget);
+    expect(find.text('Aquecimento: 16.7 / 100'), findsOneWidget);
     tester
         .widget<Slider>(find.byKey(const ValueKey('temperature-slider')))
         .onChanged!(40);
@@ -27,6 +29,29 @@ void main() {
     expect(find.text('Climatização'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+  for (final pt in [true, false]) {
+    testWidgets('multi-output surface switches charts and explains rules ($pt)',
+        (tester) async {
+      await tester.pumpWidget(MaterialApp(home: SurfacePage(portuguese: pt)));
+      expect(find.text(pt ? 'Demanda: 50.0 / 100' : 'Demand: 50.0 / 100'),
+          findsOneWidget);
+      expect(find.text(pt ? 'Aquecimento: 16.7 / 100' : 'Heating: 16.7 / 100'),
+          findsOneWidget);
+      final heater = find.byKey(const ValueKey('surface-heaterDemand'));
+      await tester.scrollUntilVisible(heater, 200,
+          scrollable: find.byType(Scrollable));
+      await tester.tap(heater);
+      await tester.pumpAndSettle();
+      expect(tester.widget<ChoiceChip>(heater).selected, isTrue);
+      final fan = find.byKey(const ValueKey('surface-fanDemand'));
+      expect(tester.widget<ChoiceChip>(fan).selected, isFalse);
+      await tester.scrollUntilVisible(
+          find.text('heaterDemand: rule10:output2'), 300,
+          scrollable: find.byType(Scrollable));
+      expect(find.textContaining('heaterDemand: rule'), findsWidgets);
+      expect(tester.takeException(), isNull);
+    });
+  }
   for (final height in [600.0, 900.0]) {
     testWidgets(
         'scenario, language and input changes update the lab at ${height.toInt()}px',

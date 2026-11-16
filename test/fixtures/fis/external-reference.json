@@ -2,14 +2,15 @@
   "report": {
     "externalTool": "scikit-fuzzy",
     "version": "0.5.0",
-    "comparisons": 126,
-    "maxCrispDifference": 3.3333333480101146e-06,
+    "comparisons": 234,
+    "maxCrispDifference": 1.666666640431913e-05,
     "status": "passed"
   },
   "cases": [
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -38,6 +39,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -66,6 +68,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -94,6 +97,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -122,6 +126,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -150,6 +155,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -178,6 +184,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -206,6 +213,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -234,6 +242,7 @@
     {
       "family": "mamdani",
       "variant": "default",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b3ac5e4499f9d02421db0eefb200011097a4d57498a6a9ba491c762f2e9b13e8",
       "inputs": {
@@ -262,6 +271,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -290,6 +300,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -318,6 +329,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -346,6 +358,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -374,6 +387,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -402,6 +416,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -430,6 +445,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -458,6 +474,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -486,6 +503,7 @@
     {
       "family": "mamdani",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "b933e1de6cb52ba2991a12849af82f252de5fa0a03530f018e8abcfaf2dc2137",
       "inputs": {
@@ -514,6 +532,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -542,6 +561,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -570,6 +590,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -598,6 +619,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -626,6 +648,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -654,6 +677,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -682,6 +706,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -710,6 +735,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -738,6 +764,7 @@
     {
       "family": "mamdani",
       "variant": "gaussian",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'gaussmf',[0.2 0.5]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "ed65e512fee5512e479cff60cff4ef2f86e28459b6f10e65378bf6929a986406",
       "inputs": {
@@ -766,6 +793,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -794,6 +822,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -822,6 +851,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -850,6 +880,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -878,6 +909,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -906,6 +938,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -934,6 +967,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -962,6 +996,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -990,6 +1025,7 @@
     {
       "family": "mamdani",
       "variant": "product",
+      "output": "fan",
       "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=3\nAndMethod='prod'\nOrMethod='probor'\nImpMethod='prod'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n0 1, 1 (0) : 1\n",
       "sourceSha256": "84d0235c5ce013a3db0defc0a9ba8d011c0131e81e1372c74020499786e67a54",
       "inputs": {
@@ -1018,6 +1054,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1044,6 +1081,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1070,6 +1108,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1096,6 +1135,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1122,6 +1162,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1148,6 +1189,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1174,6 +1216,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1200,6 +1243,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1226,6 +1270,7 @@
     {
       "family": "sugeno",
       "variant": "default",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "41b8f1188f4e994ba49a4d674b922ca942e5546b05f61440a1b0e79ff4e70860",
       "inputs": {
@@ -1252,6 +1297,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1278,6 +1324,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1304,6 +1351,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1330,6 +1378,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1356,6 +1405,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1382,6 +1432,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1408,6 +1459,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1434,6 +1486,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1460,6 +1513,7 @@
     {
       "family": "sugeno",
       "variant": "inactive",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0) : 1\n-1 2, 2 (0) : 2\n",
       "sourceSha256": "3a4177cb8efd1020c6c68434c8d147f6accc30f4c90ac3e16700410ddd3e8e23",
       "inputs": {
@@ -1486,6 +1540,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1512,6 +1567,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1538,6 +1594,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1564,6 +1621,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1590,6 +1648,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1616,6 +1675,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1642,6 +1702,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1668,6 +1729,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1694,6 +1756,7 @@
     {
       "family": "sugeno",
       "variant": "weightedSum",
+      "output": "fan",
       "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=1\nNumRules=2\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Rules]\n1 1, 1 (0.8) : 1\n-1 2, 2 (0.4) : 2\n",
       "sourceSha256": "ce0af0728d80d043f1ddf56097baa1b567d77a144aed92b0ff605b9788738af4",
       "inputs": {
@@ -1714,6 +1777,1482 @@
         0.4
       ],
       "externalValue": 2.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 3.444444444444441,
+      "crispTolerance": 2.777877777777778e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 19.3333333333334,
+      "crispTolerance": 1.6666766666665956e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 4.5185185185184675,
+      "crispTolerance": 1.851951851851852e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 7.963636363636367,
+      "crispTolerance": 3.636463636363482e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-10,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0,
+          "high": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 4.500000000000029,
+      "crispTolerance": 1.250009999999947e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.0
+      ],
+      "externalValue": 4.083333333333307,
+      "crispTolerance": 2.083433333333333e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.2
+      ],
+      "externalValue": 13.647058823529507,
+      "crispTolerance": 5.882452941176221e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 4.5185185185184675,
+      "crispTolerance": 1.851951851851852e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 7.963636363636367,
+      "crispTolerance": 3.636463636363482e-06,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-10,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5,
+          "high": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 4.500000000000029,
+      "crispTolerance": 1.250009999999947e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-10,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 4.500000000000029,
+      "crispTolerance": 1.250009999999947e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-10,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 4.500000000000029,
+      "crispTolerance": 1.250009999999947e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-10,
+      "intervals": 1000
+    },
+    {
+      "family": "mamdani",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original analytical fixture, not a MATLAB export.\n[System]\nName='ventilation'\nType='mamdani'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='min'\nAggMethod='max'\nDefuzzMethod='centroid'\n\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trapmf',[0 0 0 1]\nMF2='high':'trapmf',[0 1 1 1]\n\n[Output1]\nName='fan'\nRange=[0 10]\nNumMFs=2\nMF1='low':'trimf',[0 0 10]\nMF2='high':'trimf',[0 10 10]\n\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='low':'trimf',[-20 -20 40]\nMF2='high':'trimf',[-20 40 40]\nMF3='unused':'trapmf',[-10 0 10 20]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "7778f4147ef08c90cf1a3659c72b2537e6ee96792bdaaf9880acf8654c19ac0f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0,
+          "high": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 4.500000000000029,
+      "crispTolerance": 1.250009999999947e-05,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 10.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 11.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 10.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 65.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 100.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.0
+      ],
+      "externalValue": 10.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.2
+      ],
+      "externalValue": 39.666666666666664,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 10.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 64.4,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 100.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 100.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 100.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multi",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtaver'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "b5fb999f704fbf20b52d8b874f3260c0e6cf6f3734c14ea4d762c33881a74d3f",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 100.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 8.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.8,
+        0.0
+      ],
+      "externalValue": 8.8,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 2.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 32.5,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 1.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 40.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.0
+      ],
+      "externalValue": 4.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.4,
+        0.2
+      ],
+      "externalValue": 23.8,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.0
+      ],
+      "externalValue": 2.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.2,
+        0.30000000000000004
+      ],
+      "externalValue": 32.2,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 0.5,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.5
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 40.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 1.0,
+          "high": 0.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 40.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 0.75
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.25,
+          "high": 0.75
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 40.0,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "fan",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.0
+      ],
+      "externalValue": null,
+      "crispTolerance": 1e-12,
+      "intervals": 1000
+    },
+    {
+      "family": "sugeno",
+      "variant": "multiWeightedSum",
+      "output": "heater",
+      "source": "% Original fixture: weights .2 and .3 at inputs [.5 .75].\n[System]\nName='ventilation-sugeno'\nType='sugeno'\nVersion=2.0\nNumInputs=2\nNumOutputs=2\nNumRules=3\nAndMethod='min'\nOrMethod='max'\nImpMethod='prod'\nAggMethod='sum'\nDefuzzMethod='wtsum'\n[Input1]\nName='temperature'\nRange=[0 1]\nNumMFs=1\nMF1='low':'trimf',[0 0 1]\n[Input2]\nName='humidity'\nRange=[0 1]\nNumMFs=2\nMF1='low':'trimf',[0 0 1]\nMF2='high':'trimf',[0 1 1]\n[Output1]\nName='fan'\nRange=[-10 100]\nNumMFs=3\nMF1='constant':'constant',[10]\nMF2='linear':'linear',[2 -4 7]\nMF3='unused':'constant',[123]\n[Output2]\nName='heater'\nRange=[-20 40]\nNumMFs=3\nMF1='constant':'constant',[100]\nMF2='linear':'linear',[-3 2 11]\nMF3='unused':'constant',[-42]\n\n[Rules]\n1 1, 1 2 (0.8) : 1\n-1 2, 0 1 (0.4) : 2\n0 1, 2 0 (0.0) : 1\n",
+      "sourceSha256": "174b49337cec6804a78f0a0c748836d91b56e472ded4fe17a876cea292ed5c02",
+      "inputs": {
+        "temperature": 1.0,
+        "humidity": 1.0
+      },
+      "memberships": {
+        "temperature": {
+          "low": 0.0
+        },
+        "humidity": {
+          "low": 0.0,
+          "high": 1.0
+        }
+      },
+      "strengths": [
+        0.0,
+        0.4
+      ],
+      "externalValue": 40.0,
       "crispTolerance": 1e-12,
       "intervals": 1000
     }

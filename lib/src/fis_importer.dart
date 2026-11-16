@@ -17,21 +17,30 @@ enum FisNoDecisionPolicy {
   throwError,
 }
 
-/// FIS adapter result; the original explanation never hides a fallback.
+/// Adapted Mamdani outputs with an unchanged core explanation.
 final class FisEvaluation {
-  FisEvaluation._(this.trace, this.value, this.usedFallback);
+  FisEvaluation._(
+      this.trace, Map<String, double?> values, Set<String> fallbacks)
+      : values = Map.unmodifiable(values),
+        fallbackOutputs = Set.unmodifiable(fallbacks);
 
   /// Unmodified core result, including null outputs and activation strengths.
   final FuzzyResult trace;
 
-  /// Adapted single output.
-  final double? value;
+  /// Adapted decisions in output declaration order.
+  final Map<String, double?> values;
 
-  /// Whether a null core output was replaced with the universe midpoint.
-  final bool usedFallback;
+  /// Outputs whose null decision was replaced by their universe midpoint.
+  final Set<String> fallbackOutputs;
+
+  /// Single-output convenience; throws StateError for multi-output models.
+  double? get value => values.values.single;
+
+  /// Whether any output used a midpoint fallback.
+  bool get usedFallback => fallbackOutputs.isNotEmpty;
 }
 
-/// Imported single-output Mamdani model and its explicit adapter policy.
+/// Imported Mamdani model and its explicit per-output adapter policy.
 final class FisModel {
   FisModel._(this.name, this.engine, this.noDecisionPolicy);
 
@@ -41,55 +50,95 @@ final class FisModel {
   /// Core inference configuration. Direct evaluation preserves core semantics.
   final FuzzyEngine engine;
 
-  /// Policy supplied by the caller, not inferred from the file.
+  /// Policy supplied by the caller, applied independently to every output.
   final FisNoDecisionPolicy noDecisionPolicy;
 
-  /// Evaluate with the selected no-decision policy and retain the original trace.
+  /// Evaluate all outputs while retaining the original trace.
   FisEvaluation evaluate(Map<String, double> inputs) {
     final trace = engine.evaluate(inputs);
-    final output = engine.outputs.single;
-    final value = trace.value(output.name);
-    if (value != null) return FisEvaluation._(trace, value, false);
-    switch (noDecisionPolicy) {
-      case FisNoDecisionPolicy.preserveNull:
-        return FisEvaluation._(trace, null, false);
-      case FisNoDecisionPolicy.midpoint:
-        return FisEvaluation._(
-            trace, output.min + (output.max - output.min) / 2, true);
-      case FisNoDecisionPolicy.throwError:
-        throw StateError('FIS output has no sampled area.');
+    final values = <String, double?>{};
+    final fallbacks = <String>{};
+    for (final output in engine.outputs) {
+      values[output.name] = _adapt(trace.value(output.name), output.name,
+          output.min, output.max, noDecisionPolicy, fallbacks);
     }
+    return FisEvaluation._(trace, values, fallbacks);
   }
 }
 
-/// Sugeno adapter retaining the finite FIS output range and consequent catalog.
-/// The range supplies a midpoint fallback; it never clamps crisp consequents.
+/// Finite Sugeno FIS universe and named consequent catalog for one output.
+/// Bounds supply a midpoint fallback; they never clamp crisp consequents.
+final class FisSugenoOutput {
+  /// Retains unused terms and their declaration order too.
+  FisSugenoOutput(
+      {required this.min,
+      required this.max,
+      required Map<String, SugenoConsequent> consequents})
+      : consequents = Map.unmodifiable(consequents) {
+    if (!min.isFinite ||
+        !max.isFinite ||
+        min >= max ||
+        !(max - min).isFinite ||
+        consequents.isEmpty ||
+        consequents.keys.any((name) => name.trim().isEmpty)) {
+      throw ArgumentError('Invalid Sugeno FIS output.');
+    }
+  }
+
+  /// Lower bound used for fallback only.
+  final double min;
+
+  /// Upper bound used for fallback only.
+  final double max;
+
+  /// Named consequents, including unused terms, in declaration order.
+  final Map<String, SugenoConsequent> consequents;
+}
+
+/// Sugeno adapter retaining each output's FIS universe and consequent catalog.
 final class FisSugenoModel {
-  /// Construct a model with an explicit range and catalog. All rules must refer
-  /// to the supplied consequent instances so export preserves named FIS terms.
+  /// Backward-compatible single-output constructor.
   FisSugenoModel(
+      {required String name,
+      required SugenoEngine engine,
+      required double outputMin,
+      required double outputMax,
+      required Map<String, SugenoConsequent> consequents,
+      required FisNoDecisionPolicy noDecisionPolicy})
+      : this.multiOutput(
+            name: name,
+            engine: engine,
+            outputs: {
+              engine.outputs.single.name: FisSugenoOutput(
+                  min: outputMin, max: outputMax, consequents: consequents)
+            },
+            noDecisionPolicy: noDecisionPolicy);
+
+  /// Every engine output needs its own range and catalog. Rules must use
+  /// consequent instances from the catalog of the output they target.
+  FisSugenoModel.multiOutput(
       {required this.name,
       required this.engine,
-      required this.outputMin,
-      required this.outputMax,
-      required Map<String, SugenoConsequent> consequents,
+      required Map<String, FisSugenoOutput> outputs,
       required this.noDecisionPolicy})
-      : consequents = Map.unmodifiable(consequents) {
+      : outputs = Map.unmodifiable({
+          for (final output in engine.outputs)
+            if (outputs.containsKey(output.name))
+              output.name: outputs[output.name]!
+        }) {
     if (name.trim().isEmpty ||
-        engine.outputs.length != 1 ||
-        !outputMin.isFinite ||
-        !outputMax.isFinite ||
-        outputMin >= outputMax ||
-        !(outputMax - outputMin).isFinite ||
-        consequents.isEmpty ||
-        consequents.keys.any((name) => name.trim().isEmpty) ||
-        engine.rules
-            .any((rule) => !consequents.values.contains(rule.consequent))) {
+        outputs.length != engine.outputs.length ||
+        this.outputs.length != outputs.length ||
+        engine.rules.any((rule) => !this
+            .outputs[rule.output]!
+            .consequents
+            .values
+            .contains(rule.consequent))) {
       throw ArgumentError('Invalid Sugeno FIS model.');
     }
     final inputs = engine.inputs.map((input) => input.name).toSet();
-    if (consequents.values
-        .any((c) => c.references.any((name) => !inputs.contains(name)))) {
+    if (outputs.values.any((output) => output.consequents.values
+        .any((c) => c.references.any((name) => !inputs.contains(name))))) {
       throw ArgumentError('Unknown consequent input in FIS catalog.');
     }
   }
@@ -97,50 +146,73 @@ final class FisSugenoModel {
   /// FIS system name.
   final String name;
 
-  /// Single-output Sugeno engine.
+  /// Sugeno inference engine.
   final SugenoEngine engine;
 
-  /// FIS range lower bound, used for fallback only.
-  final double outputMin;
+  /// Output metadata keyed by engine output name, in engine declaration order.
+  final Map<String, FisSugenoOutput> outputs;
 
-  /// FIS range upper bound, used for fallback only.
-  final double outputMax;
+  /// Single-output lower bound; throws StateError for multi-output models.
+  double get outputMin => outputs.values.single.min;
 
-  /// Named consequents, including unused terms, in declaration order.
-  final Map<String, SugenoConsequent> consequents;
+  /// Single-output upper bound; throws StateError for multi-output models.
+  double get outputMax => outputs.values.single.max;
 
-  /// Explicit adapter behavior when no rule fires.
+  /// Single-output catalog; throws StateError for multi-output models.
+  Map<String, SugenoConsequent> get consequents =>
+      outputs.values.single.consequents;
+
+  /// Explicit adapter behavior when an output has no active rule.
   final FisNoDecisionPolicy noDecisionPolicy;
 
-  /// Evaluates without modifying the original Sugeno trace.
+  /// Evaluate all outputs without modifying the original trace.
   FisSugenoEvaluation evaluate(Map<String, double> inputs) {
     final trace = engine.evaluate(inputs);
-    final value = trace.value(engine.outputs.single.name);
-    if (value != null) return FisSugenoEvaluation._(trace, value, false);
-    switch (noDecisionPolicy) {
-      case FisNoDecisionPolicy.preserveNull:
-        return FisSugenoEvaluation._(trace, null, false);
-      case FisNoDecisionPolicy.midpoint:
-        return FisSugenoEvaluation._(
-            trace, outputMin + (outputMax - outputMin) / 2, true);
-      case FisNoDecisionPolicy.throwError:
-        throw StateError('FIS output has no active rule.');
+    final values = <String, double?>{};
+    final fallbacks = <String>{};
+    for (final output in outputs.entries) {
+      values[output.key] = _adapt(trace.value(output.key), output.key,
+          output.value.min, output.value.max, noDecisionPolicy, fallbacks);
     }
+    return FisSugenoEvaluation._(trace, values, fallbacks);
   }
 }
 
-/// Adapted Sugeno value with its unchanged core explanation.
+/// Adapted Sugeno outputs with their unchanged core explanation.
 final class FisSugenoEvaluation {
-  FisSugenoEvaluation._(this.trace, this.value, this.usedFallback);
+  FisSugenoEvaluation._(
+      this.trace, Map<String, double?> values, Set<String> fallbacks)
+      : values = Map.unmodifiable(values),
+        fallbackOutputs = Set.unmodifiable(fallbacks);
 
   /// Original core result.
   final SugenoResult trace;
 
-  /// Adapted single output.
-  final double? value;
+  /// Adapted decisions in output declaration order.
+  final Map<String, double?> values;
 
-  /// Whether the midpoint replaced a null decision.
-  final bool usedFallback;
+  /// Outputs whose null decision was replaced by their universe midpoint.
+  final Set<String> fallbackOutputs;
+
+  /// Single-output convenience; throws StateError for multi-output models.
+  double? get value => values.values.single;
+
+  /// Whether any output used a midpoint fallback.
+  bool get usedFallback => fallbackOutputs.isNotEmpty;
+}
+
+double? _adapt(double? value, String name, double min, double max,
+    FisNoDecisionPolicy policy, Set<String> fallbacks) {
+  if (value != null) return value;
+  switch (policy) {
+    case FisNoDecisionPolicy.preserveNull:
+      return null;
+    case FisNoDecisionPolicy.midpoint:
+      fallbacks.add(name);
+      return min + (max - min) / 2;
+    case FisNoDecisionPolicy.throwError:
+      throw StateError('FIS output "$name" has no decision.');
+  }
 }
 
 /// Experimental bounded importer for restricted Mamdani and Sugeno text FIS.
@@ -155,6 +227,7 @@ final class FisImporter {
     this.maxSourceLength = 1000000,
     this.maxRules = 4096,
     this.maxInputs = 64,
+    this.maxOutputs = 64,
     this.maxMembershipsPerVariable = 256,
   }) {
     if (intervals < 2 ||
@@ -162,6 +235,7 @@ final class FisImporter {
         maxSourceLength < 1 ||
         maxRules < 1 ||
         maxInputs < 1 ||
+        maxOutputs < 1 ||
         maxMembershipsPerVariable < 1) {
       throw ArgumentError('Invalid FIS import limits.');
     }
@@ -176,20 +250,23 @@ final class FisImporter {
   /// Maximum UTF-16 source length, checked before tokenization.
   final int maxSourceLength;
 
-  /// Maximum number of rules.
+  /// Maximum source rows and expanded core rules (one per active output).
   final int maxRules;
 
   /// Maximum number of inputs.
   final int maxInputs;
 
+  /// Maximum number of output variables.
+  final int maxOutputs;
+
   /// Maximum memberships on each input or output.
   final int maxMembershipsPerVariable;
 
-  /// Parses System, InputN, Output1 and Rules sections. Names are single-quoted
+  /// Parses System, InputN, OutputN and Rules sections. Names are single-quoted
   /// without embedded quotes; percent comments outside quoted strings are allowed.
   FisModel decode(String source) => _decode(source, false) as FisModel;
 
-  /// Import a single-output Sugeno FIS with constant/linear consequents.
+  /// Import a Sugeno FIS with constant/linear consequents.
   /// ImpMethod=prod and AggMethod=sum are required, not silently ignored.
   FisSugenoModel decodeSugeno(String source) =>
       _decode(source, true) as FisSugenoModel;
@@ -204,8 +281,9 @@ final class FisImporter {
     for (var i = 0; i < lines.length; i++) {
       final line = _Line(_uncomment(lines[i]).trim(), i + 1);
       if (line.text.isEmpty) continue;
-      final header = RegExp(r'^\[(System|Input[1-9][0-9]*|Output1|Rules)\]$')
-          .firstMatch(line.text);
+      final header =
+          RegExp(r'^\[(System|Input[1-9][0-9]*|Output[1-9][0-9]*|Rules)\]$')
+              .firstMatch(line.text);
       if (header != null) {
         final name = header[1]!;
         if (sections.containsKey(name)) line.fail('Duplicate section.');
@@ -250,13 +328,11 @@ final class FisImporter {
     }
     final count = system.get('NumInputs').count(maxInputs);
     final ruleCount = system.get('NumRules').count(maxRules);
-    if (system.get('NumOutputs').count(1) != 1) {
-      system.header.fail('Exactly one output is required.');
-    }
+    final outputCount = system.get('NumOutputs').count(maxOutputs);
     final expected = {
       'System',
       'Rules',
-      'Output1',
+      for (var i = 1; i <= outputCount; i++) 'Output$i',
       for (var i = 1; i <= count; i++) 'Input$i'
     };
     if (sections.length != expected.length ||
@@ -266,14 +342,24 @@ final class FisImporter {
     final inputs = [
       for (var i = 1; i <= count; i++) _variable(sections['Input$i']!)
     ];
-    final outSection = sections['Output1']!;
-    final output = sugeno ? null : _variable(outSection);
-    final outputName = output?.name ?? outSection.get('Name').quoted();
-    final consequentCatalog = sugeno
-        ? _consequents(outSection, inputs)
-        : <String, SugenoConsequent>{};
-    final outputTerms =
-        output?.terms.keys.toList() ?? consequentCatalog.keys.toList();
+    final outSections = [
+      for (var i = 1; i <= outputCount; i++) sections['Output$i']!
+    ];
+    final outputs = sugeno
+        ? <FuzzyVariable>[]
+        : [for (final section in outSections) _variable(section)];
+    final outputNames = [
+      for (var i = 0; i < outputCount; i++)
+        sugeno ? outSections[i].get('Name').quoted() : outputs[i].name
+    ];
+    final catalogs = [
+      for (final section in outSections)
+        sugeno ? _consequents(section, inputs) : <String, SugenoConsequent>{}
+    ];
+    final outputTerms = [
+      for (var i = 0; i < outputCount; i++)
+        sugeno ? catalogs[i].keys.toList() : outputs[i].terms.keys.toList()
+    ];
     final and = _tnorm(system.get('AndMethod'));
     final or = switch (system.get('OrMethod').quoted()) {
       'max' => const Maximum(),
@@ -291,9 +377,10 @@ final class FisImporter {
     if (rows.length != ruleCount) system.header.fail('Rule count mismatch.');
     final rules = <FuzzyRule>[];
     final sugenoRules = <SugenoRule>[];
-    for (final row in rows) {
+    for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+      final row = rows[rowIndex];
       final match =
-          RegExp(r'^([0-9\s-]+),\s*([0-9]+)\s*\(([^()]+)\)\s*:\s*([12])$')
+          RegExp(r'^([0-9\s-]+),\s*([0-9\s]+)\s*\(([^()]+)\)\s*:\s*([12])$')
               .firstMatch(row.text);
       if (match == null) row.fail('Unsupported rule syntax.');
       final indices = match[1]!.trim().split(RegExp(r'\s+'));
@@ -320,40 +407,66 @@ final class FisImporter {
       if (condition == null) {
         row.fail('All-ignored antecedents are unsupported.');
       }
-      final index = int.tryParse(match[2]!);
-      if (index == null || index < 1 || index > outputTerms.length) {
-        row.fail('Output index out of range.');
+      final indicesOut = match[2]!.trim().split(RegExp(r'\s+'));
+      if (indicesOut.length != outputCount) {
+        row.fail('Output index count mismatch.');
       }
       final weight = _Line(match[3]!, row.number).numberValue();
       if (weight < 0 || weight > 1) row.fail('Rule weight must be in [0, 1].');
-      if (sugeno) {
-        sugenoRules.add(SugenoRule(
-            name: 'rule${sugenoRules.length + 1}',
-            when: condition,
-            output: outputName,
-            consequent: consequentCatalog[outputTerms[index - 1]]!,
-            weight: weight));
-      } else {
-        rules.add(FuzzyRule(
-            name: 'rule${rules.length + 1}',
-            when: condition,
-            output: outputName,
-            term: outputTerms[index - 1],
-            weight: weight));
+      var activeOutputs = 0;
+      for (var o = 0; o < outputCount; o++) {
+        final index = int.tryParse(indicesOut[o]);
+        if (index == null || index < 0 || index > outputTerms[o].length) {
+          row.fail('Output index out of range.');
+        }
+        if (index == 0) continue;
+        activeOutputs++;
+        if (rules.length + sugenoRules.length >= maxRules) {
+          row.fail('Expanded core rule limit exceeded.');
+        }
+        // A FIS row with several consequents becomes independent core rules.
+        // Keep the historic single-output label, otherwise identify row/output.
+        final label = outputCount == 1
+            ? 'rule${rowIndex + 1}'
+            : 'rule${rowIndex + 1}:output${o + 1}';
+        if (sugeno) {
+          sugenoRules.add(SugenoRule(
+              name: label,
+              when: condition,
+              output: outputNames[o],
+              consequent: catalogs[o][outputTerms[o][index - 1]]!,
+              weight: weight));
+        } else {
+          rules.add(FuzzyRule(
+              name: label,
+              when: condition,
+              output: outputNames[o],
+              term: outputTerms[o][index - 1],
+              weight: weight));
+        }
+      }
+      if (activeOutputs == 0) {
+        row.fail('All-ignored consequents are unsupported.');
       }
     }
     try {
       if (sugeno) {
-        final range = outSection.get('Range').vector(2);
-        return FisSugenoModel(
+        final metadata = <String, FisSugenoOutput>{};
+        for (var i = 0; i < outputCount; i++) {
+          final range = outSections[i].get('Range').vector(2);
+          if (metadata.containsKey(outputNames[i])) {
+            outSections[i].header.fail('Duplicate output name.');
+          }
+          metadata[outputNames[i]] = FisSugenoOutput(
+              min: range[0], max: range[1], consequents: catalogs[i]);
+        }
+        return FisSugenoModel.multiOutput(
             name: name,
-            outputMin: range[0],
-            outputMax: range[1],
-            consequents: consequentCatalog,
+            outputs: metadata,
             noDecisionPolicy: noDecisionPolicy,
             engine: SugenoEngine(
                 inputs: inputs,
-                outputs: [SugenoOutput(outputName)],
+                outputs: [for (final name in outputNames) SugenoOutput(name)],
                 rules: sugenoRules,
                 operators: FuzzyOperators(conjunction: and, disjunction: or),
                 aggregation: defuzz == 'wtaver'
@@ -364,7 +477,7 @@ final class FisImporter {
           name,
           FuzzyEngine(
               inputs: inputs,
-              outputs: [output!],
+              outputs: outputs,
               rules: rules,
               intervals: intervals,
               operators: FuzzyOperators(conjunction: and, disjunction: or),

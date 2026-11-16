@@ -4,7 +4,7 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 372 testes de núcleo/ferramentas passando,
+A etapa de pipeline extensível está implementada localmente, com 454 testes de núcleo/ferramentas passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
 A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
 cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
@@ -15,7 +15,7 @@ superfície Flutter com duas entradas estão implementados. O intercâmbio restr
 ## Escopo atual
 
 A versão em desenvolvimento inclui motores Mamdani, Sugeno e Tsukamoto tipo 1. Ainda não é um framework completo
-de lógica fuzzy. Há inferência com múltiplas entradas/saídas, e o Flutter inclui uma superfície dedicada com duas entradas. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
+de lógica fuzzy. Há inferência com múltiplas entradas/saídas, e o Flutter inclui uma superfície FIS com duas entradas e duas saídas. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
 representar recursos já entregues nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
@@ -26,7 +26,7 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
 | Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
-| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e intercâmbio experimental FIS Mamdani/Sugeno | Ampliação da gramática e migrações |
+| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e intercâmbio experimental FIS Mamdani/Sugeno com múltiplas saídas | Ampliação da gramática e migrações |
 | Explicação | Rastreamento de entradas/saídas, cobertura amostrada e análise estrutural | Provas de cobertura contínua e resolução semântica de conflitos |
 | Ferramentas | Demos Flutter, modelos de console, benchmarks, referências externas e superfície com duas entradas | Bases amplas de conformidade externa |
 

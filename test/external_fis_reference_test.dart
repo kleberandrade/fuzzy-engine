@@ -11,7 +11,10 @@ void main() {
     final fixture = raw as Map<String, dynamic>;
     final inputs = (fixture['inputs'] as Map<String, dynamic>)
         .map((key, value) => MapEntry(key, (value as num).toDouble()));
-    test('scikit-fuzzy ${fixture['family']} ${fixture['variant']} $inputs', () {
+    final output = fixture['output'] as String? ?? 'fan';
+    test(
+        'scikit-fuzzy ${fixture['family']} ${fixture['variant']} $output $inputs',
+        () {
       final importer = FisImporter(
           noDecisionPolicy: FisNoDecisionPolicy.preserveNull,
           intervals: fixture['intervals'] as int);
@@ -52,8 +55,12 @@ void main() {
               .engine
         ]) {
           final result = engine.evaluate(inputs);
-          verify(result.value('fan'), result.memberships,
-              result.rules.map((r) => r.strength));
+          verify(
+              result.value(output),
+              result.memberships,
+              result.rules
+                  .where((r) => r.rule.output == output)
+                  .map((r) => r.strength));
         }
       } else {
         final model = importer.decodeSugeno(fixture['source'] as String);
@@ -65,8 +72,12 @@ void main() {
               .engine
         ]) {
           final result = engine.evaluate(inputs);
-          verify(result.value('fan'), result.memberships,
-              result.rules.map((r) => r.strength));
+          verify(
+              result.value(output),
+              result.memberships,
+              result.rules
+                  .where((r) => r.rule.output == output)
+                  .map((r) => r.strength));
         }
       }
     });

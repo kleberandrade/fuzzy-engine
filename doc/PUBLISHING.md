@@ -5,15 +5,16 @@ A versão 0.1.0 foi publicada em 16/11/2026 e confirmada pela API pública do Pu
 
 ## One-time activation / Ativação única
 
-The repository workflow is prepared; publication is not fully enabled until an
-uploader configures [package administration](https://pub.dev/packages/fuzzy_engine/admin):
+Automated GitHub OIDC publishing is enabled and successfully published 0.2.0 on
+2026-11-16. The package belongs to `kleberandrade.dev`. To configure it again, use [package administration](https://pub.dev/packages/fuzzy_engine/admin):
 
 - Enable publishing from GitHub Actions.
 - Repository: `kleberandrade/fuzzy-engine`.
 - Tag pattern: `v{{version}}`.
 
-O workflow está preparado no repositório. Para ativá-lo, um uploader precisa
-configurar os valores acima na seção Automated publishing do painel do pacote.
+A publicação OIDC está ativa e publicou a versão 0.2.0 em 16/11/2026. O pacote
+pertence a `kleberandrade.dev`. Para reconfigurar, use os valores acima em
+Automated publishing no painel do pacote.
 Essa autorização permite publicar a partir das tags desse repositório. Não é
 necessário criar/copiar tokens ou chaves persistentes. A sessão do navegador não
 substitui essa configuração. Sem ela, o job falhará na autenticação.
@@ -40,15 +41,15 @@ incompatíveis precisam ser documentadas e incrementar minor; após 1.0, use maj
 Faça um bump por release, sem publicar uma nova versão a cada commit de documentação.
 
 Review changes and run the release checks before committing. For a prepared
-0.1.1 release, for example:
+0.3.0 release, for example:
 
 ```sh
 bash tool/check_release.sh
 git add pubspec.yaml CHANGELOG.md
-git commit -m "chore(release): prepare 0.1.1"
+git commit -m "chore(release): prepare 0.3.0"
 git push origin main
-git tag v0.1.1
-git push origin v0.1.1
+git tag v0.3.0
+git push origin v0.3.0
 ```
 
 Use the actual prepared version. Do not push a 0.1.0 tag to test this automation;

@@ -129,7 +129,8 @@ void main() {
     'unknown section': '$source\n[Unexpected]\n',
     'Sugeno': source.replaceFirst("Type='mamdani'", "Type='sugeno'"),
     'wrong version': source.replaceFirst('Version=2.0', 'Version=3'),
-    'multiple outputs': source.replaceFirst('NumOutputs=1', 'NumOutputs=2'),
+    'missing declared second output':
+        source.replaceFirst('NumOutputs=1', 'NumOutputs=2'),
     'unknown membership': source
         .replaceFirst("'gaussmf'", "'unsupported'")
         .replaceFirst("'trimf'", "'unsupported'"),

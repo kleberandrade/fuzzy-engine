@@ -1,0 +1,43 @@
+% Original fixture: weights .2 and .3 at inputs [.5 .75].
+[System]
+Name='ventilation-sugeno'
+Type='sugeno'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=3
+AndMethod='min'
+OrMethod='max'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+[Input1]
+Name='temperature'
+Range=[0 1]
+NumMFs=1
+MF1='low':'trimf',[0 0 1]
+[Input2]
+Name='humidity'
+Range=[0 1]
+NumMFs=2
+MF1='low':'trimf',[0 0 1]
+MF2='high':'trimf',[0 1 1]
+[Output1]
+Name='fan'
+Range=[-10 100]
+NumMFs=3
+MF1='constant':'constant',[10]
+MF2='linear':'linear',[2 -4 7]
+MF3='unused':'constant',[123]
+[Output2]
+Name='heater'
+Range=[-20 40]
+NumMFs=3
+MF1='constant':'constant',[100]
+MF2='linear':'linear',[-3 2 11]
+MF3='unused':'constant',[-42]
+
+[Rules]
+1 1, 1 2 (0.8) : 1
+-1 2, 0 1 (0.4) : 2
+0 1, 2 0 (0.0) : 1

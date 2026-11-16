@@ -62,8 +62,8 @@ class _LabState extends State<Lab> {
                     key: const ValueKey('open-surface'),
                     icon: const Icon(Icons.grid_on),
                     label: Text(portuguese
-                        ? 'Explorar duas entradas'
-                        : 'Explore two inputs'),
+                        ? 'Explorar duas entradas e saídas'
+                        : 'Explore two inputs and outputs'),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
                             builder: (_) =>

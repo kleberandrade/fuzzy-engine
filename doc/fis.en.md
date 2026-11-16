@@ -2,9 +2,9 @@
 
 [Português](fis.pt-BR.md) · [Interoperability roadmap](interoperability.en.md)
 
-Import and export a restricted, type-1, single-output Mamdani or Sugeno text `.fis`
+Import and export a restricted, type-1, multi-output Mamdani or Sugeno text `.fis`
 model without Dart runtime dependencies. This is a tested subset, not full MATLAB
-compatibility. FCL, type-2, arbitrary functions and multi-output files are pending.
+compatibility. Type-2 and arbitrary functions remain outside this profile. Restricted FCL has its own [guide](fcl.en.md).
 
 ```dart
 final importer = FisImporter(
@@ -38,17 +38,48 @@ dart run example/fis_example.dart test/fixtures/fis/ventilation.fis
 dart run example/fis_roundtrip_example.dart
 ```
 
+## Multiple outputs
+
+`decode` and `decodeSugeno` accept contiguous `[Output1]` through `[OutputM]`.
+Read `result.values['fan']` and `result.values['heater']`. The immutable
+`fallbackOutputs` set identifies exactly which decisions used a midpoint;
+`usedFallback` means at least one did. Policy is applied independently per output.
+`throwError` fails the evaluation if any output has no decision, naming that output.
+`trace` always preserves the original nulls and rule activations.
+
+Each source row contains one consequent index per declared output. Zero omits
+that output and contributes neither a rule nor weight to its Sugeno denominator.
+Negative/fractional indices and rows that ignore every output are rejected.
+A shared-consequent row is expanded into one core rule per nonzero output.
+Trace names are `ruleN:outputM`; single-output traces retain `ruleN`.
+Export writes one row per core rule with zeroes for other outputs; it preserves
+supported per-output inference, not the original row grouping or source spelling.
+
+Existing single-output `result.value` access and the `FisSugenoModel` constructor
+remain supported. `.value`, `.consequents`, `.outputMin`, and `.outputMax`
+are single-output conveniences and throw `StateError` on multi-output models.
+For programmatic multi-output Sugeno use `FisSugenoModel.multiOutput`, with
+`outputs: {'fan': FisSugenoOutput(min: 0, max: 100, consequents: catalog), ...}`.
+Metadata must exactly match engine outputs and each rule must reference a
+consequent instance from its own output's catalog. Repeated term labels across
+outputs are independent; unused catalogs and declaration order are retained.
+
+```sh
+dart run example/fis_multi_output_example.dart
+# Add --sugeno to evaluate the Sugeno fixture instead.
+```
+
 ## Accepted profile
 
 | Area | Supported |
 | --- | --- |
-| Sections | Exactly System, contiguous Input1..N, Output1, Rules; order independent |
+| Sections | Exactly System, contiguous Input1..N, Output1..M, Rules; order independent |
 | System | Name, Type, NumInputs, NumOutputs, NumRules, AndMethod, OrMethod, ImpMethod, AggMethod, DefuzzMethod; optional Version=2.0 |
 | Inputs / Mamdani output | Name, finite increasing Range, NumMFs, contiguous MF1..N |
 | Memberships | trimf [a b c], trapmf [a b c d], gaussmf [sigma center] |
 | Sugeno output | Name, finite Range, constant/linear consequent MFs |
 | Antecedents | Integer MF indices; zero ignores an input; negative complements a term; at least one nonzero input |
-| Consequent | One positive MF index, weight in [0,1] |
+| Consequent | One index per output; zero ignores that output, positive selects an MF; at least one nonzero; weight in [0,1] |
 | Connectives | 1=flat AND, 2=flat OR; min/prod AND, max/probor OR |
 | Mamdani | min/prod implication, max aggregation, centroid |
 | Sugeno | ImpMethod=prod, AggMethod=sum, DefuzzMethod=wtaver/wtsum |
@@ -79,18 +110,18 @@ Mamdani `intervals=1000` means 1001 equally spaced samples, including endpoints,
 with composite trapezoidal centroid integration. Match resolution deliberately;
 matching sample count does not imply matching integration conventions.
 
-Import limits default to 1,000,000 UTF-16 code units, 64 inputs, 4096 rules and
+Import limits default to 1,000,000 UTF-16 code units, 64 inputs, 64 outputs, 4096 source rows / expanded core rules and
 256 MFs per variable. Intervals must be 2..1,000,000. Caller-supplied larger count
 limits permit more work deliberately. Export limits condition depth to 64 and
 source length to 1,000,000 code units by default; it also enforces the default
-64-input, 4096-rule and 256-MF profile counts. No file text is executed.
+64-input, 64-output, 4096-rule and 256-MF profile counts. No file text is executed.
 
 ## External numerical validation
 
 The reproducible comparison uses scikit-fuzzy 0.5.0 for membership functions and
 Mamdani centroid, and NumPy 2.2.6 for an independent Sugeno reduction. Python parses
 the FIS text independently; it does not import or translate Dart inference code.
-Original and exported files passed **126 comparisons across 63 input/model cases**:
+Original and exported files passed **234 comparisons across 117 input/model/output cases**:
 endpoints, overlap, no activation, Gaussian input, product/probor methods,
 constant/linear consequents and both Sugeno reductions. Memberships, strengths and
 sampled Mamdani curves use absolute tolerance 1e-12.
@@ -99,11 +130,11 @@ scikit-fuzzy integrates the sampled piecewise-linear moment exactly; our core us
 trapezoidal moment quadrature. On a uniform grid of spacing h and sampled area A,
 the crisp difference bound is `h² * |lastDegree - firstDegree| / (6*A)` plus
 1e-10 for floating arithmetic. Both integrate sampled area trapezoidally. Maximum
-observed crisp difference was 0.000003333334, within this derived bound.
+observed crisp difference was 0.000016666667, within this derived bound.
 No-decision cases compare null before any adapter fallback.
 
 The recorded external reference contains source hashes, input memberships,
-strengths and crisp outputs; 63 Dart regression tests run without Python.
+strengths and crisp outputs; 117 Dart regression tests run without Python.
 CI also executes the live comparison with pinned test-only dependencies:
 
 ```sh
@@ -125,6 +156,9 @@ classDiagram
   FisImporter --> FisSugenoModel : decodeSugeno
   FisModel --> FuzzyEngine : engine
   FisSugenoModel --> SugenoEngine : engine
+  FisSugenoModel "1" *-- "1..*" FisSugenoOutput : outputs
+  FisModel --> FisEvaluation : evaluate
+  FisSugenoModel --> FisSugenoEvaluation : evaluate
   FisExporter --> FisSugenoModel : encodeSugeno
 ```
 

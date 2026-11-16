@@ -4,8 +4,8 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 372 passing core/tool tests, public
-strategy contracts and a runnable example. New remote CI validation is pending.
+The extensible pipeline stage is implemented locally with 454 passing core/tool tests, public
+strategy contracts and a runnable example. The 0.2.0 release passed remote CI; the current release must pass it again.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
 five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
 Versioned model interchange, unit labels and bounded sampling/structural diagnostics
@@ -15,7 +15,7 @@ and the two-input Flutter surface are implemented. Restricted FCL import/export 
 ## Current scope
 
 The development version includes type-1 Mamdani, Sugeno and Tsukamoto engines. It is not a complete fuzzy logic
-framework. Multi-input/output inference exists, and the Flutter example includes a dedicated two-input decision surface. Implemented items are marked below. Remaining roadmap entries are proposals,
+framework. Multi-input/output inference exists, and the Flutter example includes a dedicated two-input, two-output FIS decision surface. Implemented items are marked below. Remaining roadmap entries are proposals,
 not shipped functionality or release-date commitments.
 
 | Area | Implemented | Missing / proposed |
@@ -26,7 +26,7 @@ not shipped functionality or release-date commitments.
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
 | Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
-| Configuration | Dart objects, JSON v1/v2, metadata, component catalog and experimental Mamdani/Sugeno FIS interchange | Broader FCL grammar and migrations |
+| Configuration | Dart objects, JSON v1/v2, metadata, component catalog and experimental multi-output Mamdani/Sugeno FIS interchange | Broader FCL grammar and migrations |
 | Explanations | Input/output traces, bounded coverage/activation scans and structural findings | Continuous coverage proofs and semantic conflict resolution |
 | Tooling | Flutter demos, console models, component benchmarks, JSON/external numerical fixtures and a two-input surface | Broader vendor conformance datasets |
 

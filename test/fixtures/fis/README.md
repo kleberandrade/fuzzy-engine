@@ -32,8 +32,8 @@ intercept so parameter-order errors are observable.
 scikit-fuzzy 0.5.0 wheel, NumPy 2.2.6, SciPy 1.15.3, packaging 25.0 and networkx
 3.4.2, installed into a temporary test directory. Wheels were downloaded from
 PyPI and checked against its SHA-256 metadata. No library source is vendored.
-The file records 63 independent numerical cases, source hashes and tolerances;
-original and exported sources passed 126 live comparisons. The maximum observed
+The file records 117 independent numerical cases, source hashes and tolerances;
+original and exported sources passed 234 live comparisons. The maximum observed
 crisp difference was 3.3333333480101146e-6. It is bounded by the known trapezoidal
 versus exact piecewise-linear moment difference, documented in doc/fis.en.md.
 
@@ -42,3 +42,11 @@ The Python evaluator uses scikit-fuzzy for memberships/centroid and independent
 NumPy arithmetic for Sugeno. It does not validate against MATLAB itself or claim
 that an external tool exported our original FIS fixtures. Golden regression tests
 are complemented by a live comparison job in CI.
+
+## Multi-output fixtures
+
+`mamdani-multi.fis` and `sugeno-multi.fis` are MIT project-authored extensions.
+Each has fan/heater outputs with unequal ranges, shared-consequent rows, zero
+output indices, repeated term names, unused terms and partial no-decision cases.
+Sugeno runs both weighted average and sum. Each of 27 multi-output input/model
+cases compares both outputs, original and exported (108 additional comparisons).

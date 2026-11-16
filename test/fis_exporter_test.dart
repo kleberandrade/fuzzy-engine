@@ -106,7 +106,6 @@ void main() {
     'implication': build(implication: const BoundedDifference()),
     'aggregation': build(aggregation: const ProbabilisticSum()),
     'defuzzifier': build(defuzzifier: const Bisector()),
-    'multiple outputs': build(twoOutputs: true),
     'quoted name': build(name: "temp'bad"),
     'multiline name': build(name: 'temp\nbad'),
   };

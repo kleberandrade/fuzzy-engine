@@ -48,7 +48,7 @@ def degree(kind, params, values):
     raise ValueError(kind)
 
 
-def evaluate(source, inputs, intervals):
+def evaluate(source, inputs, intervals, output_name="fan"):
     data = sections(source)
     system = data['System']
     variables = [data[f'Input{i+1}'] for i in range(int(system['NumInputs']))]
@@ -62,15 +62,20 @@ def evaluate(source, inputs, intervals):
             degrees[label] = float(degree(kind, params, np.array([inputs[name]]))[0])
         memberships[name] = degrees
         ordered.append(list(degrees.values()))
-    output = data['Output1']
+    output_index = next(i for i in range(int(system['NumOutputs']))
+                        if data[f'Output{i+1}']['Name'][1:-1] == output_name)
+    output = data[f'Output{output_index+1}']
     terms = [mf(output[f'MF{i+1}']) for i in range(int(output['NumMFs']))]
     bounds = [float(v) for v in output['Range'][1:-1].split()]
     xs = np.linspace(*bounds, intervals+1)
     aggregate = np.zeros_like(xs)
     strengths, consequents = [], []
     for row in data['Rules']:
-        match = re.fullmatch(r'(.+),\s*(\d+)\s*\(([^)]+)\)\s*:\s*([12])', row)
-        indices, out, weight, connector = match.groups()
+        match = re.fullmatch(r'(.+),\s*([0-9\s]+)\s*\(([^)]+)\)\s*:\s*([12])', row)
+        indices, outs, weight, connector = match.groups()
+        out = int(outs.split()[output_index])
+        if out == 0:
+            continue
         active = []
         for i, index in enumerate(map(int, indices.split())):
             if index:
@@ -114,7 +119,7 @@ def main():
     for case in cases:
         for key in ['source', 'exportedSource']:
             memberships, strengths, value, curve, tolerance = evaluate(
-                case[key], case['inputs'], case.get('intervals', 1000))
+                case[key], case['inputs'], case.get('intervals', 1000), case.get('output', 'fan'))
             for variable, terms in memberships.items():
                 for term, degree_value in terms.items():
                     np.testing.assert_allclose(degree_value, case['memberships'][variable][term], atol=1e-12, rtol=0)
@@ -131,6 +136,7 @@ def main():
             if key == 'source':
                 references.append({
                     'family': case['family'], 'variant': case['variant'],
+                    'output': case.get('output', 'fan'),
                     'source': case[key],
                     'sourceSha256': hashlib.sha256(case[key].encode()).hexdigest(),
                     'inputs': case['inputs'], 'memberships': memberships,

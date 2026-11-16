@@ -57,5 +57,54 @@ void main() {
       }
     }
   }
+  for (final family in ['mamdani', 'sugeno']) {
+    final original =
+        File('test/fixtures/fis/$family-multi.fis').readAsStringSync();
+    for (final variant in [
+      'multi',
+      if (family == 'sugeno') 'multiWeightedSum'
+    ]) {
+      final source = variant == 'multiWeightedSum'
+          ? original.replaceFirst("'wtaver'", "'wtsum'")
+          : original;
+      final model = family == 'mamdani' ? importer.decode(source) : null;
+      final sugeno = family == 'sugeno' ? importer.decodeSugeno(source) : null;
+      final exported = model != null
+          ? exporter.encodeMamdani(model.engine,
+              name: model.name, acknowledgeRuntimeSettings: true)
+          : exporter.encodeSugeno(sugeno!, acknowledgeRuntimeSettings: true);
+      for (final x in [0.0, .5, 1.0]) {
+        for (final y in [0.0, .75, 1.0]) {
+          final inputs = {'temperature': x, 'humidity': y};
+          final result = model?.engine.evaluate(inputs);
+          final crisp = sugeno?.engine.evaluate(inputs);
+          for (final output in ['fan', 'heater']) {
+            cases.add({
+              'family': family,
+              'variant': variant,
+              'output': output,
+              'source': source,
+              'exportedSource': exported,
+              'inputs': inputs,
+              'memberships': result?.memberships ?? crisp!.memberships,
+              'strengths': result != null
+                  ? result.rules
+                      .where((r) => r.rule.output == output)
+                      .map((r) => r.strength)
+                      .toList()
+                  : crisp!.rules
+                      .where((r) => r.rule.output == output)
+                      .map((r) => r.strength)
+                      .toList(),
+              'value':
+                  result != null ? result.value(output) : crisp!.value(output),
+              if (result != null) 'degrees': result.outputSets[output]!.degrees,
+              if (result != null) 'intervals': model!.engine.intervals,
+            });
+          }
+        }
+      }
+    }
+  }
   stdout.writeln(jsonEncode(cases));
 }

@@ -4,12 +4,12 @@ Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for D
 
 [Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md)
 
-**Published:** [fuzzy_engine 0.1.0](https://pub.dev/packages/fuzzy_engine).
+**Published:** [fuzzy_engine](https://pub.dev/packages/fuzzy_engine).
 Install with `dart pub add fuzzy_engine` or `flutter pub add fuzzy_engine`.
 
 [Experimental Mamdani/Sugeno FIS import and export](doc/fis.en.md) includes
-explicit no-decision policies and independent numerical comparisons. The Flutter
-demo also offers a two-input decision surface.
+explicit no-decision policies and independent numerical comparisons. Multi-output FIS is supported; the Flutter
+demo round-trips a two-input climate controller and shows fan/heater decisions.
 
 ## Architecture and scope
 
@@ -36,7 +36,7 @@ dependencies:
     path: ../fuzzy_engine
 ```
 
-Dart >=3.3.0. No Flutter dependency in the core. Once released, use
+Dart >=3.3.0. No Flutter dependency in the core. Install the published package with
 `dart pub add fuzzy_engine` (or `flutter pub add fuzzy_engine`).
 
 ## Complete example
@@ -146,6 +146,6 @@ Read the [release checklist](doc/PUBLISHING.md) before publishing. MIT licensed.
 [JSON model interchange and diagnostics](doc/model-tools.en.md), with a checked-in schema and runnable example.
 
 [Tsukamoto and Larsen](doc/tsukamoto.en.md), [JSON v2](doc/model-v2.schema.json) and the [FIS/FCL profile proposal](doc/interoperability.en.md). The restricted Mamdani/Sugeno FIS profile is implemented and compared numerically
-with scikit-fuzzy/NumPy; FCL and full vendor conformance remain pending.
+with scikit-fuzzy/NumPy. Restricted FCL import/export is also implemented; full vendor conformance remains pending.
 
 [Experimental FCL interchange](doc/fcl.en.md) · [Pub quality checks](doc/pub-quality.md)

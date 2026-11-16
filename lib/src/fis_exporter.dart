@@ -20,34 +20,39 @@ final class FisExporter {
   /// Maximum generated UTF-16 source length.
   final int maxSourceLength;
 
-  /// Export a single-output Mamdani engine. Rule labels become positional labels.
+  /// Export a Mamdani engine with one or more outputs. Rule labels become positional labels.
   /// Caller must explicitly acknowledge settings not carried by the FIS format.
   String encodeMamdani(FuzzyEngine engine,
       {required String name, required bool acknowledgeRuntimeSettings}) {
     _acknowledge(acknowledgeRuntimeSettings);
-    if (engine.outputs.length != 1 ||
-        engine.aggregation is! Maximum ||
-        engine.defuzzifier is! Centroid) {
+    if (engine.aggregation is! Maximum || engine.defuzzifier is! Centroid) {
       throw UnsupportedError(
-          'FIS profile requires one output, max and centroid.');
+          'FIS Mamdani profile requires max aggregation and centroid.');
     }
-    final out = engine.outputs.single;
     final text = StringBuffer(_system(
         name,
         'mamdani',
         engine.inputs.length,
+        engine.outputs.length,
         engine.rules.length,
         engine.operators,
         _tnorm(engine.implication),
         'max',
         'centroid'));
     _inputs(text, engine.inputs);
-    text.write(_variable('Output1', out));
+    for (var i = 0; i < engine.outputs.length; i++) {
+      text.write(_variable('Output${i + 1}', engine.outputs[i]));
+    }
     text.writeln('[Rules]');
     for (final rule in engine.rules) {
-      final index = out.terms.keys.toList().indexOf(rule.term) + 1;
+      final indices = [
+        for (final out in engine.outputs)
+          out.name == rule.output
+              ? out.terms.keys.toList().indexOf(rule.term) + 1
+              : 0
+      ];
       text.writeln(
-          '${_condition(rule.when, engine.inputs)}, $index (${rule.weight}) : ${_connector(rule.when)}');
+          '${_condition(rule.when, engine.inputs)}, ${indices.join(' ')} (${rule.weight}) : ${_connector(rule.when)}');
     }
     return _finish(text);
   }
@@ -58,7 +63,7 @@ final class FisExporter {
       {required bool acknowledgeRuntimeSettings}) {
     _acknowledge(acknowledgeRuntimeSettings);
     final engine = model.engine;
-    if (model.consequents.length > 256) {
+    if (model.outputs.values.any((out) => out.consequents.length > 256)) {
       throw UnsupportedError(
           'FIS output catalog exceeds the supported profile.');
     }
@@ -66,6 +71,7 @@ final class FisExporter {
         model.name,
         'sugeno',
         engine.inputs.length,
+        engine.outputs.length,
         engine.rules.length,
         engine.operators,
         'prod',
@@ -74,42 +80,54 @@ final class FisExporter {
             ? 'wtaver'
             : 'wtsum'));
     _inputs(text, engine.inputs);
-    text.writeln('[Output1]');
-    text.writeln('Name=${_quote(engine.outputs.single.name)}');
-    text.writeln('Range=[${model.outputMin} ${model.outputMax}]');
-    text.writeln('NumMFs=${model.consequents.length}');
-    var i = 0;
-    for (final entry in model.consequents.entries) {
-      final consequent = entry.value;
-      final String type;
-      final List<double> parameters;
-      if (consequent is ConstantConsequent) {
-        type = 'constant';
-        parameters = [consequent.value];
-      } else if (consequent is LinearConsequent) {
-        type = 'linear';
-        parameters = [
-          for (final input in engine.inputs)
-            consequent.coefficients[input.name] ?? 0,
-          consequent.intercept
-        ];
-      } else {
-        throw UnsupportedError(
-            'Only constant and linear FIS consequents are supported.');
+    for (var o = 0; o < engine.outputs.length; o++) {
+      final name = engine.outputs[o].name;
+      final output = model.outputs[name]!;
+      text.writeln('[Output${o + 1}]');
+      text.writeln('Name=${_quote(name)}');
+      text.writeln('Range=[${output.min} ${output.max}]');
+      text.writeln('NumMFs=${output.consequents.length}');
+      var i = 0;
+      for (final entry in output.consequents.entries) {
+        final consequent = entry.value;
+        final String type;
+        final List<double> parameters;
+        if (consequent is ConstantConsequent) {
+          type = 'constant';
+          parameters = [consequent.value];
+        } else if (consequent is LinearConsequent) {
+          type = 'linear';
+          parameters = [
+            for (final input in engine.inputs)
+              consequent.coefficients[input.name] ?? 0,
+            consequent.intercept
+          ];
+        } else {
+          throw UnsupportedError(
+              'Only constant and linear FIS consequents are supported.');
+        }
+        text.writeln(
+            'MF${++i}=${_quote(entry.key)}:${_quote(type)},[${parameters.join(' ')}]');
       }
-      text.writeln(
-          'MF${++i}=${_quote(entry.key)}:${_quote(type)},[${parameters.join(' ')}]');
+      text.writeln();
     }
     text.writeln('\n[Rules]');
-    final consequents = model.consequents.values.toList();
     for (final rule in engine.rules) {
-      final index = consequents.indexOf(rule.consequent) + 1;
-      if (index == 0) {
+      final indices = [
+        for (final output in engine.outputs)
+          output.name == rule.output
+              ? model.outputs[output.name]!.consequents.values
+                      .toList()
+                      .indexOf(rule.consequent) +
+                  1
+              : 0
+      ];
+      if (indices.every((index) => index == 0)) {
         throw UnsupportedError(
             'Rule consequent is absent from the FIS catalog.');
       }
       text.writeln(
-          '${_condition(rule.when, engine.inputs)}, $index (${rule.weight}) : ${_connector(rule.when)}');
+          '${_condition(rule.when, engine.inputs)}, ${indices.join(' ')} (${rule.weight}) : ${_connector(rule.when)}');
     }
     return _finish(text);
   }
@@ -135,14 +153,15 @@ final class FisExporter {
       String name,
       String type,
       int inputs,
+      int outputs,
       int rules,
       FuzzyOperators operators,
       String implication,
       String aggregation,
       String defuzzifier) {
-    if (inputs > 64 || rules > 4096) {
+    if (inputs > 64 || outputs > 64 || rules > 4096) {
       throw UnsupportedError(
-          'FIS input or rule count exceeds the supported profile.');
+          'FIS input, output or rule count exceeds the supported profile.');
     }
     if (operators.negation is! StandardNegation) {
       throw UnsupportedError('FIS requires standard complement.');
@@ -152,7 +171,7 @@ final class FisExporter {
       ProbabilisticSum() => 'probor',
       _ => throw UnsupportedError('Unsupported FIS OR operator.'),
     };
-    return '[System]\nName=${_quote(name)}\nType=${_quote(type)}\nVersion=2.0\nNumInputs=$inputs\nNumOutputs=1\nNumRules=$rules\nAndMethod=${_quote(_tnorm(operators.conjunction))}\nOrMethod=${_quote(or)}\nImpMethod=${_quote(implication)}\nAggMethod=${_quote(aggregation)}\nDefuzzMethod=${_quote(defuzzifier)}\n\n';
+    return '[System]\nName=${_quote(name)}\nType=${_quote(type)}\nVersion=2.0\nNumInputs=$inputs\nNumOutputs=$outputs\nNumRules=$rules\nAndMethod=${_quote(_tnorm(operators.conjunction))}\nOrMethod=${_quote(or)}\nImpMethod=${_quote(implication)}\nAggMethod=${_quote(aggregation)}\nDefuzzMethod=${_quote(defuzzifier)}\n\n';
   }
 
   void _inputs(StringBuffer text, List<FuzzyVariable> inputs) {

@@ -8,8 +8,11 @@ Motores de lógica fuzzy Mamdani, Sugeno e Tsukamoto para Dart e Flutter, explic
 
 [English](README.md) · [Guia conceitual](doc/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)
 
-**Publicado:** [fuzzy_engine 0.1.0](https://pub.dev/packages/fuzzy_engine).
+**Publicado:** [fuzzy_engine](https://pub.dev/packages/fuzzy_engine).
 Instale com `dart pub add fuzzy_engine` ou `flutter pub add fuzzy_engine`.
+
+O FIS aceita múltiplas saídas. O exemplo Flutter demonstra ventilação e aquecimento
+com duas entradas, gráficos e regras visíveis após exportação/importação FIS.
 
 ## Arquitetura e escopo
 
@@ -148,6 +151,6 @@ Consulte o [checklist de publicação](doc/PUBLISHING.md). Licença MIT.
 [Intercâmbio JSON e diagnósticos](doc/model-tools.pt-BR.md), com esquema versionado e exemplo executável.
 
 [Tsukamoto e Larsen](doc/tsukamoto.pt-BR.md), [JSON v2](doc/model-v2.schema.json) e [proposta FIS/FCL](doc/interoperability.pt-BR.md). O perfil restrito FIS Mamdani/Sugeno está implementado e comparado numericamente
-com scikit-fuzzy/NumPy; FCL e conformidade completa continuam pendentes.
+com scikit-fuzzy/NumPy. FCL restrito também tem importação/exportação; conformidade completa continua pendente.
 
 [Intercâmbio experimental FCL](doc/fcl.pt-BR.md) · [Qualidade no pub.dev](doc/pub-quality.md)

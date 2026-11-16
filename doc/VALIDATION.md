@@ -139,3 +139,24 @@ score or constitutes a completed remote release.
 API documentation generation completed with zero warnings/errors, and the Flutter
 web build passed after the export API was added. No new local widget-test run or
 remote CI completion is claimed.
+
+## Multi-output FIS (0.3.0)
+
+The adapters now accept contiguous output declarations and zero consequent
+indices. Shared rows expand to independent core rules; export preserves numerical
+semantics without preserving original row grouping. Defaults remain per-output,
+trace nulls remain visible, and expansion is bounded by maxRules. Existing
+single-output getters and the Sugeno constructor remain available.
+
+450 core tests and 4 release-tool tests pass. The independent pinned Python
+comparison passes 234 original/exported comparisons across 117 input/model/output
+cases (including partial nulls, unequal universes and both Sugeno reductions).
+Maximum observed crisp difference is 0.000016666667, within the analytical
+quadrature bound. These are project-authored fixtures, not vendor certification.
+The Flutter demo round-trips the FIS model and caches fan/heater surfaces.
+All 8 Flutter tests pass, including language/chart navigation and two viewport
+heights. Strict analysis, API docs (no warnings/errors) and the web build pass.
+
+Os adaptadores agora aceitam múltiplas saídas, índices zero e fallback independente.
+São 450 testes do motor, 4 das ferramentas de release e 234 comparações externas.
+O exemplo Flutter demonstra ventilação e aquecimento com gráficos e trace FIS.

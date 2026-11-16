@@ -13,10 +13,10 @@ imply file-format compatibility with MATLAB, IEC 61131-7 or other toolkits.
 | Area | Initial target | Reject until explicitly supported |
 | --- | --- | --- |
 | Families | Type-1 Mamdani; then constant/linear Sugeno | Type-2, hybrid, Tsukamoto format extensions |
-| Variables | Named finite input universes and one output | Implicit/unbounded universes and multi-output rule vectors |
+| Variables | Named finite inputs/outputs and multi-output rule vectors | Implicit/unbounded universes |
 | Membership | trimf, trapmf, gaussmf | Arbitrary function names and unsupported parameter conventions |
 | Antecedents | Flat AND or OR, explicit complement, optional ignored input indices | Mixed nested connectives not representable in the chosen file profile |
-| Rules | One nonempty antecedent, one consequent; explicit weights/conventions | All-inputs-ignored rules until a true-condition representation is designed |
+| Rules | One nonempty antecedent, independent output consequents; explicit weights/conventions | All-inputs-ignored rules until a true-condition representation is designed |
 | Decision | Explicit min/product conjunction, max/probabilistic disjunction, min/product implication, max aggregation, centroid or normalized Sugeno average | Any unsupported method, fallback or stateful behavior |
 
 This table describes the broader target; implemented support is listed separately
@@ -52,7 +52,7 @@ not an unnoticed change to core engine defaults.
    than approximate it or discard it. Round-trip tests alone are insufficient.
 6. Keep JSON v1/v2 fixtures passing and document each accepted external dialect.
 
-The importer/exporter has bounded parsing, analytical fixtures and 126 numerical
+The importer/exporter has bounded parsing, analytical fixtures and 234 numerical
 comparisons using scikit-fuzzy/NumPy. Vendor-exported fixtures and direct MATLAB
 validation remain pending, so stronger vendor-conformance claims are not made. Use the documented JSON schemas for
 portable package models. No vendor certification or full conformance is claimed.

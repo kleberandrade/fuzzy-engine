@@ -56,3 +56,48 @@ FuzzyEngine ventilationController() {
                 term: table[t][h]),
       ]);
 }
+
+/// Two-input, two-output climate model for the FIS round-trip demonstration.
+/// Fan and heater demands are independent actuator percentages, not temperatures.
+FuzzyEngine climateController() {
+  final fan = ventilationController();
+  const names = ['low', 'medium', 'high'];
+  const heater = [
+    ['high', 'high', 'medium'],
+    ['medium', 'low', 'low'],
+    ['low', 'low', 'low'],
+  ];
+  return FuzzyEngine(
+      inputs: fan.inputs,
+      outputs: [
+        ...fan.outputs,
+        FuzzyVariable(name: 'heaterDemand', min: 0, max: 100, terms: {
+          'low': Triangle(0, 0, 50),
+          'medium': Triangle(0, 50, 100),
+          'high': Triangle(50, 100, 100),
+        }),
+      ],
+      intervals: fan.intervals,
+      rules: [
+        ...fan.rules,
+        for (var t = 0; t < 3; t++)
+          for (var h = 0; h < 3; h++)
+            FuzzyRule(
+                name: 'heater: ${names[t]} + ${names[h]} → ${heater[t][h]}',
+                when: Term('temperature', names[t])
+                    .and(Term('humidity', names[h])),
+                output: 'heaterDemand',
+                term: heater[t][h]),
+      ]);
+}
+
+/// Export/import explicitly restores runtime settings absent from text FIS.
+FisModel climateFisModel() {
+  final engine = climateController();
+  final source = const FisExporter().encodeMamdani(engine,
+      name: 'Climate lab', acknowledgeRuntimeSettings: true);
+  return FisImporter(
+          noDecisionPolicy: FisNoDecisionPolicy.preserveNull,
+          intervals: engine.intervals)
+      .decode(source);
+}
