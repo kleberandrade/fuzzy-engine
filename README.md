@@ -7,6 +7,12 @@ An explainable, dependency-free Mamdani fuzzy logic engine for Dart and Flutter.
 **Development version:** not yet published. The package name is provisional;
 registry availability has not been confirmed. Use a local path today.
 
+## Architecture and scope
+
+See the [class diagrams](docs/architecture.en.md) and the
+[implemented-versus-planned feature matrix](docs/roadmap.en.md). This release
+provides an initial type-1 Mamdani core, not a complete fuzzy logic framework.
+
 ## What is fuzzy logic?
 
 Instead of deciding only true/false, describe how much a value belongs to a

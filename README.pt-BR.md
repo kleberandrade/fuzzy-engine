@@ -7,6 +7,12 @@ Motor de lógica fuzzy Mamdani para Dart e Flutter, explicável e sem dependênc
 **Versão em desenvolvimento:** ainda não publicada. O nome é provisório e sua
 disponibilidade no pub.dev não foi confirmada. Use uma dependência local por enquanto.
 
+## Arquitetura e escopo
+
+Consulte os [diagramas de classes](docs/architecture.pt-BR.md) e a
+[matriz de recursos e evolução](docs/roadmap.pt-BR.md). Esta versão entrega
+um núcleo Mamdani tipo 1 inicial, ainda não um framework completo de lógica fuzzy.
+
 ## O que é lógica fuzzy?
 
 Em vez de apenas verdadeiro/falso, descrevemos quanto um valor pertence a um
