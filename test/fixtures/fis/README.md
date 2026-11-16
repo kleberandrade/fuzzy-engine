@@ -21,3 +21,24 @@ References:
 - https://help.functionbay.com/2026/RecurDynHelp/Colink/Colink_ch06_s12_02.html
 - https://www.mathworks.com/help/fuzzy/gaussmf.html
 - https://la.mathworks.com/help/fuzzy/fuzzy.evalfis.evalfisoptions.html
+
+## Recorded external references
+
+`sugeno.fis` is also original MIT-licensed fixture data. It deliberately includes
+an unused consequent and a linear function with asymmetric coefficients and an
+intercept so parameter-order errors are observable.
+
+`external-reference.json` was generated on 2026-11-16 with the unmodified official
+scikit-fuzzy 0.5.0 wheel, NumPy 2.2.6, SciPy 1.15.3, packaging 25.0 and networkx
+3.4.2, installed into a temporary test directory. Wheels were downloaded from
+PyPI and checked against its SHA-256 metadata. No library source is vendored.
+The file records 63 independent numerical cases, source hashes and tolerances;
+original and exported sources passed 126 live comparisons. The maximum observed
+crisp difference was 3.3333333480101146e-6. It is bounded by the known trapezoidal
+versus exact piecewise-linear moment difference, documented in doc/fis.en.md.
+
+Regenerate with tool/export_external_cases.dart and tool/compare_external.py.
+The Python evaluator uses scikit-fuzzy for memberships/centroid and independent
+NumPy arithmetic for Sugeno. It does not validate against MATLAB itself or claim
+that an external tool exported our original FIS fixtures. Golden regression tests
+are complemented by a live comparison job in CI.

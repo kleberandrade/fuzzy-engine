@@ -1,0 +1,6 @@
+# Test-only dependencies; no Python dependency is added to the Dart package.
+numpy==2.2.6
+scipy==1.15.3
+scikit-fuzzy==0.5.0
+packaging==25.0
+networkx==3.4.2

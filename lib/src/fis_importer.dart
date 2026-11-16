@@ -3,6 +3,7 @@ import 'engine.dart';
 import 'membership.dart';
 import 'model.dart';
 import 'operators.dart';
+import 'sugeno.dart';
 
 /// Explicit adapter policy when the sampled output has no positive area.
 enum FisNoDecisionPolicy {
@@ -61,7 +62,88 @@ final class FisModel {
   }
 }
 
-/// Experimental bounded importer for a restricted text FIS Mamdani profile.
+/// Sugeno adapter retaining the finite FIS output range and consequent catalog.
+/// The range supplies a midpoint fallback; it never clamps crisp consequents.
+final class FisSugenoModel {
+  /// Construct a model with an explicit range and catalog. All rules must refer
+  /// to the supplied consequent instances so export preserves named FIS terms.
+  FisSugenoModel(
+      {required this.name,
+      required this.engine,
+      required this.outputMin,
+      required this.outputMax,
+      required Map<String, SugenoConsequent> consequents,
+      required this.noDecisionPolicy})
+      : consequents = Map.unmodifiable(consequents) {
+    if (name.trim().isEmpty ||
+        engine.outputs.length != 1 ||
+        !outputMin.isFinite ||
+        !outputMax.isFinite ||
+        outputMin >= outputMax ||
+        !(outputMax - outputMin).isFinite ||
+        consequents.isEmpty ||
+        consequents.keys.any((name) => name.trim().isEmpty) ||
+        engine.rules
+            .any((rule) => !consequents.values.contains(rule.consequent))) {
+      throw ArgumentError('Invalid Sugeno FIS model.');
+    }
+    final inputs = engine.inputs.map((input) => input.name).toSet();
+    if (consequents.values
+        .any((c) => c.references.any((name) => !inputs.contains(name)))) {
+      throw ArgumentError('Unknown consequent input in FIS catalog.');
+    }
+  }
+
+  /// FIS system name.
+  final String name;
+
+  /// Single-output Sugeno engine.
+  final SugenoEngine engine;
+
+  /// FIS range lower bound, used for fallback only.
+  final double outputMin;
+
+  /// FIS range upper bound, used for fallback only.
+  final double outputMax;
+
+  /// Named consequents, including unused terms, in declaration order.
+  final Map<String, SugenoConsequent> consequents;
+
+  /// Explicit adapter behavior when no rule fires.
+  final FisNoDecisionPolicy noDecisionPolicy;
+
+  /// Evaluates without modifying the original Sugeno trace.
+  FisSugenoEvaluation evaluate(Map<String, double> inputs) {
+    final trace = engine.evaluate(inputs);
+    final value = trace.value(engine.outputs.single.name);
+    if (value != null) return FisSugenoEvaluation._(trace, value, false);
+    switch (noDecisionPolicy) {
+      case FisNoDecisionPolicy.preserveNull:
+        return FisSugenoEvaluation._(trace, null, false);
+      case FisNoDecisionPolicy.midpoint:
+        return FisSugenoEvaluation._(
+            trace, outputMin + (outputMax - outputMin) / 2, true);
+      case FisNoDecisionPolicy.throwError:
+        throw StateError('FIS output has no active rule.');
+    }
+  }
+}
+
+/// Adapted Sugeno value with its unchanged core explanation.
+final class FisSugenoEvaluation {
+  FisSugenoEvaluation._(this.trace, this.value, this.usedFallback);
+
+  /// Original core result.
+  final SugenoResult trace;
+
+  /// Adapted single output.
+  final double? value;
+
+  /// Whether the midpoint replaced a null decision.
+  final bool usedFallback;
+}
+
+/// Experimental bounded importer for restricted Mamdani and Sugeno text FIS.
 /// No code is executed. Unsupported fields and methods cause FormatException.
 /// This is not a vendor-conformance or numerical-equivalence guarantee.
 final class FisImporter {
@@ -105,7 +187,14 @@ final class FisImporter {
 
   /// Parses System, InputN, Output1 and Rules sections. Names are single-quoted
   /// without embedded quotes; percent comments outside quoted strings are allowed.
-  FisModel decode(String source) {
+  FisModel decode(String source) => _decode(source, false) as FisModel;
+
+  /// Import a single-output Sugeno FIS with constant/linear consequents.
+  /// ImpMethod=prod and AggMethod=sum are required, not silently ignored.
+  FisSugenoModel decodeSugeno(String source) =>
+      _decode(source, true) as FisSugenoModel;
+
+  Object _decode(String source, bool sugeno) {
     if (source.length > maxSourceLength) {
       throw const FormatException('FIS source length limit exceeded.');
     }
@@ -153,7 +242,7 @@ final class FisImporter {
       'DefuzzMethod'
     });
     final name = system.get('Name').quoted();
-    _expect(system.get('Type'), 'mamdani');
+    _expect(system.get('Type'), sugeno ? 'sugeno' : 'mamdani');
     final version = system.fields['Version'];
     if (version != null && version.numberValue() != 2) {
       version.fail('Only FIS version 2 is supported.');
@@ -176,7 +265,14 @@ final class FisImporter {
     final inputs = [
       for (var i = 1; i <= count; i++) _variable(sections['Input$i']!)
     ];
-    final output = _variable(sections['Output1']!);
+    final outSection = sections['Output1']!;
+    final output = sugeno ? null : _variable(outSection);
+    final outputName = output?.name ?? outSection.get('Name').quoted();
+    final consequentCatalog = sugeno
+        ? _consequents(outSection, inputs)
+        : <String, SugenoConsequent>{};
+    final outputTerms =
+        output?.terms.keys.toList() ?? consequentCatalog.keys.toList();
     final and = _tnorm(system.get('AndMethod'));
     final or = switch (system.get('OrMethod').quoted()) {
       'max' => const Maximum(),
@@ -184,11 +280,16 @@ final class FisImporter {
       _ => system.get('OrMethod').fail('Unsupported OR method.'),
     };
     final implication = _tnorm(system.get('ImpMethod'));
-    _expect(system.get('AggMethod'), 'max');
-    _expect(system.get('DefuzzMethod'), 'centroid');
+    _expect(system.get('AggMethod'), sugeno ? 'sum' : 'max');
+    if (sugeno) _expect(system.get('ImpMethod'), 'prod');
+    final defuzz = system.get('DefuzzMethod').quoted();
+    if (sugeno ? !{'wtaver', 'wtsum'}.contains(defuzz) : defuzz != 'centroid') {
+      system.get('DefuzzMethod').fail('Unsupported defuzzification method.');
+    }
     final rows = sections['Rules']!.rows;
     if (rows.length != ruleCount) system.header.fail('Rule count mismatch.');
     final rules = <FuzzyRule>[];
+    final sugenoRules = <SugenoRule>[];
     for (final row in rows) {
       final match =
           RegExp(r'^([0-9\s-]+),\s*([0-9]+)\s*\(([^()]+)\)\s*:\s*([12])$')
@@ -217,24 +318,50 @@ final class FisImporter {
       if (condition == null)
         row.fail('All-ignored antecedents are unsupported.');
       final index = int.tryParse(match[2]!);
-      if (index == null || index < 1 || index > output.terms.length) {
+      if (index == null || index < 1 || index > outputTerms.length) {
         row.fail('Output index out of range.');
       }
       final weight = _Line(match[3]!, row.number).numberValue();
       if (weight < 0 || weight > 1) row.fail('Rule weight must be in [0, 1].');
-      rules.add(FuzzyRule(
-          name: 'rule${rules.length + 1}',
-          when: condition,
-          output: output.name,
-          term: output.terms.keys.elementAt(index - 1),
-          weight: weight));
+      if (sugeno) {
+        sugenoRules.add(SugenoRule(
+            name: 'rule${sugenoRules.length + 1}',
+            when: condition,
+            output: outputName,
+            consequent: consequentCatalog[outputTerms[index - 1]]!,
+            weight: weight));
+      } else {
+        rules.add(FuzzyRule(
+            name: 'rule${rules.length + 1}',
+            when: condition,
+            output: outputName,
+            term: outputTerms[index - 1],
+            weight: weight));
+      }
     }
     try {
+      if (sugeno) {
+        final range = outSection.get('Range').vector(2);
+        return FisSugenoModel(
+            name: name,
+            outputMin: range[0],
+            outputMax: range[1],
+            consequents: consequentCatalog,
+            noDecisionPolicy: noDecisionPolicy,
+            engine: SugenoEngine(
+                inputs: inputs,
+                outputs: [SugenoOutput(outputName)],
+                rules: sugenoRules,
+                operators: FuzzyOperators(conjunction: and, disjunction: or),
+                aggregation: defuzz == 'wtaver'
+                    ? SugenoAggregation.weightedAverage
+                    : SugenoAggregation.weightedSum));
+      }
       return FisModel._(
           name,
           FuzzyEngine(
               inputs: inputs,
-              outputs: [output],
+              outputs: [output!],
               rules: rules,
               intervals: intervals,
               operators: FuzzyOperators(conjunction: and, disjunction: or),
@@ -245,6 +372,37 @@ final class FisImporter {
       system.header
           .fail('Invalid model configuration or duplicate variable names.');
     }
+  }
+
+  Map<String, SugenoConsequent> _consequents(
+      _Section section, List<FuzzyVariable> inputs) {
+    final count = section.get('NumMFs').count(maxMembershipsPerVariable);
+    section.only(
+        {'Name', 'Range', 'NumMFs', for (var i = 1; i <= count; i++) 'MF$i'});
+    final catalog = <String, SugenoConsequent>{};
+    for (var i = 1; i <= count; i++) {
+      final line = section.get('MF$i');
+      final match = RegExp(r"^'([^']+)'\s*:\s*'([^']+)'\s*,\s*(\[.*\])$")
+          .firstMatch(line.text);
+      if (match == null || match[1]!.trim().isEmpty)
+        line.fail('Invalid Sugeno consequent.');
+      if (catalog.containsKey(match[1]))
+        line.fail('Duplicate consequent name.');
+      final params = _Line(match[3]!, line.number);
+      switch (match[2]) {
+        case 'constant':
+          catalog[match[1]!] = ConstantConsequent(params.vector(1).single);
+        case 'linear':
+          final values = params.vector(inputs.length + 1);
+          catalog[match[1]!] =
+              LinearConsequent(intercept: values.last, coefficients: {
+            for (var j = 0; j < inputs.length; j++) inputs[j].name: values[j]
+          });
+        default:
+          line.fail('Only constant/linear Sugeno consequents are supported.');
+      }
+    }
+    return catalog;
   }
 
   FuzzyVariable _variable(_Section section) {

@@ -4,3 +4,4 @@ doc/api/
 example/build/
 example/.dart_tool/
 pubspec.lock
+tool/

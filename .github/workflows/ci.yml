@@ -3,6 +3,18 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
+  interoperability:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dart-lang/setup-dart@v1
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - run: dart pub get --no-example
+      - run: python -m pip install -r tool/external-requirements.txt
+      - run: dart run tool/export_external_cases.dart > /tmp/fis-cases.json
+      - run: python tool/compare_external.py /tmp/fis-cases.json
   dart:
     runs-on: ubuntu-24.04
     strategy:
@@ -17,7 +29,7 @@ jobs:
       # The core is pure Dart; the example has its own Flutter job.
       - run: dart pub get --no-example
       - if: matrix.sdk == 'stable'
-        run: dart format --output=none --set-exit-if-changed lib test example benchmark
+        run: dart format --output=none --set-exit-if-changed lib test example benchmark tool
       - run: dart analyze --fatal-infos
       - run: dart test
       - if: matrix.sdk == 'stable'

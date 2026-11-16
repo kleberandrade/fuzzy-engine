@@ -7,7 +7,7 @@ command -v dart >/dev/null
 command -v flutter >/dev/null
 
 dart pub get --no-example
-dart format --output=none --set-exit-if-changed lib test example benchmark
+dart format --output=none --set-exit-if-changed lib test example benchmark tool
 dart analyze --fatal-infos
 dart test
 dart doc

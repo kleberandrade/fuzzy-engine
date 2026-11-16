@@ -4,19 +4,18 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 187 testes passando,
+A etapa de pipeline extensível está implementada localmente, com 281 testes passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
 A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
 cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
 Intercâmbio versionado, unidades e diagnósticos estruturais/por amostragem limitada
-estão implementados. Tsukamoto e o atalho Larsen estão implementados. A importação experimental de FIS Mamdani com uma saída está implementada;
-exportação, FIS Sugeno, FCL e conformidade externa continuam pendentes.
+estão implementados. Tsukamoto e o atalho Larsen estão implementados. O intercâmbio restrito FIS Mamdani/Sugeno, as referências numéricas externas e a
+superfície Flutter com duas entradas estão implementados. FCL e conformidade completa continuam pendentes.
 
 ## Escopo atual
 
 A versão em desenvolvimento inclui motores Mamdani, Sugeno e Tsukamoto tipo 1. Ainda não é um framework completo
-de lógica fuzzy. Há inferência com múltiplas entradas/saídas, mas cada cenário
-Flutter usa uma entrada. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
+de lógica fuzzy. Há inferência com múltiplas entradas/saídas, e o Flutter inclui uma superfície dedicada com duas entradas. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
 representar recursos já entregues nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
@@ -27,9 +26,9 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
 | Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
-| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e importação experimental FIS Mamdani | Exportação FIS, FIS Sugeno, FCL e migrações |
+| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e intercâmbio experimental FIS Mamdani/Sugeno | FCL e migrações |
 | Explicação | Rastreamento de entradas/saídas, cobertura amostrada e análise estrutural | Provas de cobertura contínua e resolução semântica de conflitos |
-| Ferramentas | Demos Flutter, modelos de console, benchmarks e fixtures JSON | Superfícies interativas e bases externas de conformidade |
+| Ferramentas | Demos Flutter, modelos de console, benchmarks, referências externas e superfície com duas entradas | Bases amplas de conformidade externa |
 
 ## Sequência proposta
 
@@ -48,8 +47,8 @@ representar recursos já entregues nem compromisso com datas de lançamento.
    os achados amostrados não provam cobertura ou contradição matemáticas.
 5. **Controladores avançados — motor implementado, interoperabilidade pendente.**
    Atalho Larsen, Tsukamoto monotônico, validação de inversas, JSON v2 e diagnósticos
-   implementados, com importação experimental FIS Mamdani. Exportação, FIS Sugeno,
-   FCL e fixtures externas de conformidade continuam pendentes. Veja o [escopo restante](interoperability.pt-BR.md).
+   implementados, com intercâmbio restrito FIS Mamdani/Sugeno e comparação numérica
+   externa. FCL e conformidade completa continuam pendentes. Veja o [escopo restante](interoperability.pt-BR.md).
 
 ## Critério de conclusão de cada recurso
 

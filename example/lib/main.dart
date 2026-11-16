@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'scenarios.dart';
+import 'surface_page.dart';
 
 void main() => runApp(const FuzzyApp());
 
@@ -57,6 +58,17 @@ class _LabState extends State<Lab> {
                           : 'Gradual decisions. Visible rules.',
                       style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 24),
+                  OutlinedButton.icon(
+                    key: const ValueKey('open-surface'),
+                    icon: const Icon(Icons.grid_on),
+                    label: Text(portuguese
+                        ? 'Explorar duas entradas'
+                        : 'Explore two inputs'),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                            builder: (_) =>
+                                SurfacePage(portuguese: portuguese))),
+                  ),
                   Wrap(
                       spacing: 12,
                       children: List.generate(

@@ -1,0 +1,27 @@
+import 'package:test/test.dart';
+import '../example/lib/scenarios.dart';
+
+void main() {
+  test('ventilation surface covers endpoints and every sampled input pair', () {
+    final engine = ventilationController();
+    expect(engine.inputs.length, 2);
+    expect(engine.rules.length, 9);
+    for (var t = 0; t <= 20; t++) {
+      for (var h = 0; h <= 20; h++) {
+        final result =
+            engine.evaluate({'temperature': 2.0 * t, 'humidity': 5.0 * h});
+        expect(result.value('fanDemand'), inInclusiveRange(0, 100));
+        expect(result.rules.any((r) => r.strength > 0), true);
+      }
+    }
+  });
+  test('each input independently changes the ventilation decision', () {
+    final engine = ventilationController();
+    double value(double t, double h) =>
+        engine.evaluate({'temperature': t, 'humidity': h}).value('fanDemand')!;
+    expect(value(20, 50), closeTo(50, 1e-10));
+    expect(value(40, 50), greaterThan(value(20, 50)));
+    expect(value(40, 0), closeTo(50, 1e-10));
+    expect(value(0, 0), lessThan(value(40, 100)));
+  });
+}

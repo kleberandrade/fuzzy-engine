@@ -2,9 +2,9 @@
 
 [Português](interoperability.pt-BR.md)
 
-**Status: experimental Mamdani FIS import is implemented.** See the
-[accepted profile, policies and limitations](fis.en.md). Export, Sugeno FIS,
-FCL and external numerical conformance remain pending.
+**Status: restricted Mamdani/Sugeno FIS import/export and independent numerical
+comparisons are implemented.** See the [accepted profile](fis.en.md). FCL, vendor
+exported fixtures and full standard conformance remain pending.
 The runtime and JSON codec support Mamdani, Sugeno and Tsukamoto. That does not
 imply file-format compatibility with MATLAB, IEC 61131-7 or other toolkits.
 
@@ -52,9 +52,9 @@ not an unnoticed change to core engine defaults.
    than approximate it or discard it. Round-trip tests alone are insufficient.
 6. Keep JSON v1/v2 fixtures passing and document each accepted external dialect.
 
-The initial importer has bounded parsing and original analytical fixtures.
-Independent vendor exports and cross-tool comparisons are still pending; the gate
-for stronger compatibility claims is not met. Use the documented JSON schemas for
+The importer/exporter has bounded parsing, analytical fixtures and 126 numerical
+comparisons using scikit-fuzzy/NumPy. Vendor-exported fixtures and direct MATLAB
+validation remain pending, so stronger vendor-conformance claims are not made. Use the documented JSON schemas for
 portable package models. No vendor certification or full conformance is claimed.
 
 Primary references:

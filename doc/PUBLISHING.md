@@ -77,7 +77,7 @@ o servidor faz essa validação na publicação.
 
 ```sh
 dart pub get --no-example
-dart format --output=none --set-exit-if-changed lib test example
+dart format --output=none --set-exit-if-changed lib test example benchmark tool
 dart analyze --fatal-infos
 dart test
 dart doc
@@ -85,7 +85,6 @@ flutter pub publish --dry-run
 cd example
 flutter pub get
 flutter analyze
-flutter create --platforms=web .
 flutter build web
 # From the package root after all release checks:
 # flutter pub publish
@@ -95,3 +94,19 @@ Official references / Referências oficiais:
 - https://dart.dev/tools/pub/publishing
 - https://dart.dev/tools/pub/create-packages
 - https://dart.dev/tools/pub/cmd/pub-lish
+
+## First-release handoff / Primeira release
+
+The four planned development items are implemented: Mamdani FIS export,
+independent numerical comparisons, Sugeno FIS import/export and the two-input
+Flutter surface. Local core tests and comparisons pass. Publication is not yet
+confirmed: the terminal cannot reach pub.dev, Pub CLI has no credentials at the
+standard locations, and this exact commit needs a new CI run. The browser account
+session does not authenticate the Pub CLI automatically.
+
+Os quatro itens estão implementados e a validação local do núcleo passou. Ainda
+falta o CI deste commit e o envio autenticado. Estar conectado ao pub.dev no
+navegador não autentica automaticamente o CLI. Depois de validar e revisar a
+lista do pacote, execute `flutter pub publish` na raiz e conclua o login solicitado.
+Somente a mensagem de envio bem-sucedido e a versão na página pública confirmam
+a publicação. Não use `--skip-validation` ou `--ignore-warnings` para contornar falhas.

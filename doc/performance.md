@@ -167,3 +167,21 @@ engine construction validates references without allocating inference output gri
 Na medição local, importar a fixture levou 81,909 µs por operação após aquecimento.
 Leitura do arquivo e inferência ficam fora do tempo medido. O valor varia com
 máquina, SDK e modelo; não é garantia nem comparação com outras bibliotecas.
+
+## FIS import/export extension (2026-11-16)
+
+The updated benchmark separates import and export for both original fixtures.
+One Dart 3.11.5 JIT run, 50 warm-ups and 1000 operations per case:
+
+| Family | Import µs/op | Export µs/op |
+| --- | ---: | ---: |
+| Mamdani (598 input code units) | 56.707 | 11.563 |
+| Sugeno (596 input code units) | 31.803 | 8.029 |
+
+Import checksums were 3000/2000 rules; export checksums were 600000/582000 code
+units. File reading and inference are excluded. Results are illustrative and
+sensitive to warm-up/order, machine and SDK. They are not vendor comparisons.
+
+O benchmark agora separa importação e exportação Mamdani/Sugeno. As medições são
+ilustrativas, sem leitura de arquivo nem inferência no intervalo cronometrado.
+Não representam garantia de desempenho nem comparação com outras ferramentas.

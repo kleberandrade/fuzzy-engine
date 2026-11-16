@@ -2,9 +2,9 @@
 
 [English](interoperability.en.md)
 
-**Estado: importação experimental de FIS Mamdani implementada.** Veja o
-[perfil aceito, políticas e limitações](fis.pt-BR.md). Exportação, FIS Sugeno,
-FCL e conformidade numérica externa continuam pendentes.
+**Estado: intercâmbio restrito FIS Mamdani/Sugeno e comparação numérica independente
+implementados.** Veja o [perfil aceito](fis.pt-BR.md). FCL, fixtures exportadas por
+fornecedores e conformidade completa continuam pendentes.
 Suportar Mamdani, Sugeno e Tsukamoto no motor e no JSON não significa compatibilidade
 de arquivos com MATLAB, IEC 61131-7 ou outras bibliotecas.
 
@@ -51,9 +51,9 @@ política de adaptação explícita, sem mudar os padrões do núcleo inadvertid
    sem aproximação ou descarte silencioso. Testes de ida e volta não bastam.
 6. Manter as fixtures JSON v1/v2 passando e documentar cada dialeto externo aceito.
 
-O importador inicial tem parser limitado e fixtures analíticas originais. Ainda
-faltam arquivos exportados por ferramentas externas e comparação numérica; os
-critérios para alegações mais fortes de compatibilidade não foram atendidos.
+O intercâmbio tem parser limitado, fixtures analíticas e 126 comparações numéricas
+com scikit-fuzzy/NumPy. Faltam arquivos exportados por fornecedores e comparação
+direta com MATLAB; não há alegação de conformidade completa com fornecedores.
 Use os esquemas JSON para portar modelos do pacote. Não há certificação de
 fornecedor nem conformidade completa com padrões externos.
 

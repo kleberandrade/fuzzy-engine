@@ -1,20 +1,20 @@
 # fuzzy_engine
 
-[Importação experimental de FIS Mamdani](docs/fis.pt-BR.md), com política explícita
-para saída sem decisão, parser limitado e exemplo executável. Exportação e
-conformidade numérica externa continuam pendentes.
+[Importação/exportação experimental FIS Mamdani/Sugeno](doc/fis.pt-BR.md), com
+política explícita para saída sem decisão e comparação numérica independente.
+O exemplo Flutter também oferece uma superfície com duas entradas.
 
 Motores de lógica fuzzy Mamdani, Sugeno e Tsukamoto para Dart e Flutter, explicáveis e sem dependências de execução.
 
-[English](README.md) · [Guia conceitual](docs/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)
+[English](README.md) · [Guia conceitual](doc/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)
 
 **Versão em desenvolvimento:** ainda não publicada. O nome é provisório e sua
 disponibilidade no pub.dev não foi confirmada. Use uma dependência local por enquanto.
 
 ## Arquitetura e escopo
 
-Consulte os [diagramas de classes](docs/architecture.pt-BR.md) e a
-[matriz de recursos e evolução](docs/roadmap.pt-BR.md). Esta versão entrega
+Consulte os [diagramas de classes](doc/architecture.pt-BR.md) e a
+[matriz de recursos e evolução](doc/roadmap.pt-BR.md). Esta versão entrega
 motores Mamdani, Sugeno e Tsukamoto tipo 1, ainda não um framework completo de lógica fuzzy.
 
 ## O que é lógica fuzzy?
@@ -103,7 +103,7 @@ final condition = const Term('temperature', 'hot')
 As variáveis e os termos referenciados precisam existir na configuração.
 Uma regra com `weight: 0.8` multiplica sua ativação por 0,8.
 
-Veja as [estratégias configuráveis](docs/strategies.pt-BR.md) e execute
+Veja as [estratégias configuráveis](doc/strategies.pt-BR.md) e execute
 `dart run example/strategies_example.dart` para um pipeline personalizado completo.
 
 ## Comportamento e limites
@@ -139,12 +139,13 @@ dart doc
 flutter pub publish --dry-run
 ```
 
-Consulte o [checklist de publicação](docs/PUBLISHING.md). Licença MIT.
+Consulte o [checklist de publicação](doc/PUBLISHING.md). Licença MIT.
 
-[Guia das funções e exemplo de irrigação com duas entradas](docs/toolbox.pt-BR.md).
+[Guia das funções e exemplo de irrigação com duas entradas](doc/toolbox.pt-BR.md).
 
-[Guia Sugeno e exemplo executável](docs/sugeno.pt-BR.md). Use `SugenoEngine` para conclusões constantes/lineares; o `FuzzyEngine` existente mantém os padrões Mamdani.
+[Guia Sugeno e exemplo executável](doc/sugeno.pt-BR.md). Use `SugenoEngine` para conclusões constantes/lineares; o `FuzzyEngine` existente mantém os padrões Mamdani.
 
-[Intercâmbio JSON e diagnósticos](docs/model-tools.pt-BR.md), com esquema versionado e exemplo executável.
+[Intercâmbio JSON e diagnósticos](doc/model-tools.pt-BR.md), com esquema versionado e exemplo executável.
 
-[Tsukamoto e Larsen](docs/tsukamoto.pt-BR.md), [JSON v2](docs/model-v2.schema.json) e [proposta FIS/FCL](docs/interoperability.pt-BR.md). A importação/exportação desses formatos externos não está implementada.
+[Tsukamoto e Larsen](doc/tsukamoto.pt-BR.md), [JSON v2](doc/model-v2.schema.json) e [proposta FIS/FCL](doc/interoperability.pt-BR.md). O perfil restrito FIS Mamdani/Sugeno está implementado e comparado numericamente
+com scikit-fuzzy/NumPy; FCL e conformidade completa continuam pendentes.
