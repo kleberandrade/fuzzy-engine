@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.3.0
+
 ### English
 
 - Support multi-output Mamdani/Sugeno FIS import/export, zero consequent indices, independent fallback and immutable output maps; retain single-output conveniences.
