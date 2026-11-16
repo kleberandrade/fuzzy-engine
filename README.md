@@ -1,6 +1,6 @@
 # fuzzy_engine
 
-An explainable, dependency-free Mamdani fuzzy logic engine for Dart and Flutter.
+Explainable, dependency-free Mamdani and Sugeno fuzzy inference for Dart and Flutter.
 
 [Português](README.pt-BR.md) · [Concepts and design](docs/guide.en.md) · [Flutter demo](example/README.md)
 
@@ -11,7 +11,7 @@ registry availability has not been confirmed. Use a local path today.
 
 See the [class diagrams](docs/architecture.en.md) and the
 [implemented-versus-planned feature matrix](docs/roadmap.en.md). This release
-provides an initial type-1 Mamdani core, not a complete fuzzy logic framework.
+provides type-1 Mamdani and Sugeno engines, not a complete fuzzy logic framework.
 
 ## What is fuzzy logic?
 
@@ -76,6 +76,8 @@ void main() {
 
 ## Features
 
+- Sugeno zero/first-order consequents, normalized weighted average and explicit weighted sum.
+
 - Eleven membership functions, including smooth S/Z/Pi curves and interpolated discrete sets.
 - Five defuzzifiers: centroid, bisector and three maxima methods; Very/Somewhat hedges.
 - Configurable AND/OR/NOT, implication and aggregation; min/max/complement defaults.
@@ -130,3 +132,5 @@ flutter pub publish --dry-run
 Read the [release checklist](docs/PUBLISHING.md) before publishing. MIT licensed.
 
 [Toolbox guide and two-input irrigation example](docs/toolbox.en.md).
+
+[Sugeno guide and executable example](docs/sugeno.en.md). Use `SugenoEngine` for crisp constant/linear consequents; the existing `FuzzyEngine` keeps its Mamdani defaults.

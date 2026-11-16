@@ -74,3 +74,34 @@ defuzzificação, após aquecimento. São microbenchmarks JIT, com apenas três 
 no conjunto discreto. As medições locais não estabelecem uma classificação geral
 de desempenho. Bissetor e máximos têm varreduras lineares; DiscreteSet busca em
 O(log(pontos)). As outras funções de pertinência têm custo O(1).
+
+## Sugeno benchmark
+
+```sh
+dart run benchmark/sugeno_benchmark.dart 1000
+```
+
+Two inputs, one crisp output, product AND, linear consequents and 1/10/100 rules;
+50 warm-up calls per scenario. No output integration grid is used. Each consequent
+is 23 for the chosen input; strengths are 0.4. At 1000 calls, average checksums are
+23000; sum checksums are approximately 9200 / 92000 / 920000.
+
+| Rules | Weighted average µs/evaluation | Weighted sum µs/evaluation |
+| --- | ---: | ---: |
+| 1 | 11.256 | 1.742 |
+| 10 | 12.455 | 3.112 |
+| 100 | 18.105 | 15.391 |
+
+One illustrative local Dart 3.11.5 JIT run, same environment as earlier notes.
+JIT warm-up/order affects these timings; no stable ranking or speedup is claimed.
+The Mamdani benchmark uses different output semantics and is not an equivalent
+controller. Sugeno cost is approximately O(input terms + condition nodes + total
+consequent coefficients + rules + outputs), with O(rules + input memberships +
+outputs + largest consequent coefficient count) peak working storage, excluding
+configuration and garbage-collector behavior. These measurements do not measure
+peak memory or GUI frame latency.
+
+Duas entradas, uma saída crisp, AND produto, conclusões lineares e 1/10/100 regras.
+Os tempos acima são uma execução JIT local ilustrativa, sem promessa de desempenho.
+Não há grade de integração. O benchmark Mamdani tem outra semântica de saída e não
+é um controlador equivalente. Não foram medidos pico de memória nem quadros de UI.

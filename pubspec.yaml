@@ -1,6 +1,6 @@
 name: fuzzy_engine
 version: 0.1.0
-description: Explainable Mamdani fuzzy logic for Dart and Flutter, with composable rules and centroid defuzzification.
+description: Explainable Mamdani and Sugeno fuzzy inference for Dart and Flutter, with composable rules and configurable strategies.
 repository: https://github.com/kleberandrade/fuzzy-engine
 issue_tracker: https://github.com/kleberandrade/fuzzy-engine/issues
 environment:

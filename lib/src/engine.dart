@@ -1,6 +1,7 @@
 import 'operators.dart';
 import 'defuzzification.dart';
 import 'model.dart';
+import 'inference_support.dart';
 
 /// Rule activation before and after applying its weight.
 final class RuleActivation {
@@ -68,7 +69,8 @@ final class FuzzyEngine {
     if (inputs.isEmpty || outputs.isEmpty || rules.isEmpty || intervals < 2) {
       throw ArgumentError('Inputs, outputs, rules and >=2 intervals required.');
     }
-    final ins = _index(inputs), outs = _index(outputs);
+    final ins = indexFuzzyVariables(inputs),
+        outs = indexFuzzyVariables(outputs);
     final names = <String>{};
     for (final rule in rules) {
       if (!names.add(rule.name))
@@ -109,32 +111,10 @@ final class FuzzyEngine {
   /// Number of equally spaced integration intervals.
   final int intervals;
 
-  static Map<String, FuzzyVariable> _index(List<FuzzyVariable> variables) {
-    final map = <String, FuzzyVariable>{};
-    for (final v in variables) {
-      if (map.containsKey(v.name))
-        throw ArgumentError('Duplicate variable: ${v.name}');
-      map[v.name] = v;
-    }
-    return map;
-  }
-
   /// Evaluates an exact set of finite inputs inside their declared ranges.
   /// Throws [ArgumentError] on missing, extra or out-of-range inputs.
   FuzzyResult evaluate(Map<String, double> values) {
-    if (values.length != inputs.length ||
-        values.keys.any((k) => !inputs.any((v) => v.name == k))) {
-      throw ArgumentError('Supply exactly the declared inputs.');
-    }
-    final memberships = <String, Map<String, double>>{};
-    for (final v in inputs) {
-      final x = values[v.name];
-      if (x == null || !x.isFinite || x < v.min || x > v.max) {
-        throw ArgumentError('Input ${v.name} must be in [${v.min}, ${v.max}].');
-      }
-      memberships[v.name] =
-          v.terms.map((k, f) => MapEntry(k, checkedDegree(f.degree(x))));
-    }
+    final memberships = fuzzifyInputs(inputs, values);
     final activations = rules.map((r) {
       final degree = r.when.evaluate(memberships, operators: operators);
       return RuleActivation(r, degree, degree * r.weight);

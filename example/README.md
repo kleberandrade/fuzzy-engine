@@ -52,3 +52,15 @@ Two-input educational irrigation with smooth membership curves, a Somewhat hedge
 and five defuzzification methods. This is a Dart console example, separate from
 the Flutter lab UI. Modelo didático com duas entradas, curvas suaves, modificador
 Somewhat e cinco métodos de defuzzificação; exemplo de console Dart.
+
+## Sugeno
+
+From the package root / A partir da raiz:
+
+```sh
+dart run example/sugeno_example.dart
+```
+
+Compares constant/linear consequents and normalized weighted average versus raw
+weighted sum. Console example; the Flutter lab remains Mamdani. Compara conclusões
+constantes/lineares, média normalizada e soma ponderada; exemplo de console.

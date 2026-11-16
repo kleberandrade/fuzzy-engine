@@ -51,7 +51,7 @@ can affect both area and centroid; it is not a multiplier on the crisp output.
 
 The educational models intentionally use one input each. Add humidity to climate,
 temperature to irrigation, or recent errors to game difficulty using another
-input variable and composed conditions. Sugeno inference, serialization and
-automatic rule learning are outside version 0.1.0.
+input variable and composed conditions. Sugeno is available through the separate [SugenoEngine](sugeno.en.md).
+Serialization and automatic rule learning remain outside the current scope.
 
 [Full toolbox reference](toolbox.en.md): eleven membership functions, linguistic modifiers and five defuzzifiers.

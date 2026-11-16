@@ -195,8 +195,8 @@ Implement `MembershipFunction`, `TNorm`, `SNorm`, `FuzzyNegation` or `Defuzzifie
 to customize the pipeline. `FuzzyEngine` applies selected strategies engine-wide.
 `FuzzyResult.outputSets` exposes immutable aggregated samples. `Defuzzifier` returns
 **double?**; nullability is omitted in the diagram for renderer portability.
-See [strategy contracts and examples](strategies.en.md). Sugeno still needs a
-separate consequent model and is not implemented by these changes.
+See [strategy contracts and examples](strategies.en.md). Sugeno now has a separate
+consequent model and engine, documented below.
 
 Source: [engine](../lib/src/engine.dart), [model](../lib/src/model.dart),
 [membership](../lib/src/membership.dart), [operators](../lib/src/operators.dart),
@@ -275,3 +275,72 @@ classDiagram
 ```
 
 _MaximumDefuzzifier is a private implementation base, omitted from the overview; the three maxima strategies implement Defuzzifier through it. _Hedged is private and created by Condition.hedge. See [behavior contracts](toolbox.en.md).
+
+## Sugeno
+
+```mermaid
+classDiagram
+    direction TB
+    class SugenoEngine
+    class FuzzyVariable
+    class SugenoOutput {
+        +String name
+    }
+    class SugenoRule
+    class FuzzyOperators
+    SugenoEngine "1" o-- "1..*" FuzzyVariable : inputs
+    SugenoEngine "1" o-- "1..*" SugenoOutput : outputs
+    SugenoEngine "1" o-- "1..*" SugenoRule : rules
+    SugenoEngine --> FuzzyOperators : operators
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class SugenoRule
+    class Condition
+    class SugenoConsequent {
+        <<interface>>
+        +references Iterable
+        +evaluate(inputs) double
+    }
+    class ConstantConsequent {
+        +double value
+    }
+    class LinearConsequent {
+        +double intercept
+        +Map coefficients
+    }
+    SugenoRule --> Condition : when
+    SugenoRule --> SugenoConsequent : consequent
+    SugenoConsequent <|.. ConstantConsequent
+    SugenoConsequent <|.. LinearConsequent
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class SugenoEngine {
+        +SugenoAggregation aggregation
+        +evaluate(values) SugenoResult
+    }
+    class SugenoResult {
+        +Map outputs
+        +Map memberships
+        +Map totalWeights
+        +List rules
+        +value(name) double
+    }
+    class SugenoActivation {
+        +double antecedent
+        +double strength
+        +double consequentValue
+        +double weightedContribution
+    }
+    class SugenoRule
+    SugenoEngine ..> SugenoResult : creates
+    SugenoResult "1" *-- "1..*" SugenoActivation : diagnostics
+    SugenoActivation --> SugenoRule : rule
+```
+
+SugenoAggregation selects weightedAverage or weightedSum. Diagram return types omit nullability: result values, inactive consequent values and contributions are nullable. The engines share input validation/fuzzification internally, without sharing their consequent or reduction models. [Sugeno behavior](sugeno.en.md).

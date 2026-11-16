@@ -6,7 +6,7 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 68 passed, including membership/defuzzifier toolbox, modifiers and analytic references |
+| Core tests | 92 passed, including Sugeno analytic reductions, toolbox and compatibility checks |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
@@ -19,7 +19,7 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 68 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 92 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
 de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
@@ -67,3 +67,15 @@ references. The two-input irrigation example executes all five defuzzifiers. Sta
 passed for the core and Flutter example; the web build succeeded and API docs
 generated without warnings.
 Remote CI, minimum Dart and latest Flutter checks remain pending for this stage.
+
+## Sugeno stage
+
+All 68 previous tests plus 24 Sugeno tests pass locally. Checks cover constant and
+linear equations, weighted average versus sum, rule weights, custom consequents,
+multiple outputs, inactive rules, immutable explanations, input/reference errors,
+tiny common strengths, compensated cancellation and genuine arithmetic overflow.
+Mamdani and Sugeno now share internal input validation/fuzzification; all existing
+Mamdani tests remain unchanged and passing. The example and benchmark execute.
+Static analysis passed for the core and Flutter example; the web build succeeded.
+API documentation generated without warnings.
+Remote CI, minimum Dart and latest Flutter checks are pending for this stage.

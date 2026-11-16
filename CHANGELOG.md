@@ -1,5 +1,10 @@
 ## Unreleased
 
+- Add SugenoEngine with constant, linear and custom crisp consequents.
+- Add distinct weighted-average/weighted-sum reductions and immutable explanations.
+- Share input validation and fuzzification with the existing Mamdani engine.
+- Add 24 analytical/edge-case tests, a Sugeno example and a microbenchmark.
+
 - Add Ramp, Sigmoid, Bell, SShape, ZShape, PiShape, Rectangle and DiscreteSet.
 - Add Bisector, SmallestOfMaximum, LargestOfMaximum and MeanOfMaximum.
 - Add linguistic Very/Somewhat modifiers and the FuzzyHedge extension interface.

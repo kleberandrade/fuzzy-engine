@@ -4,21 +4,22 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 68 passing tests, public
+The extensible pipeline stage is implemented locally with 92 passing tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
-five defuzzifiers and Very/Somewhat modifiers. Sugeno is the next stage.
+five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
+Model portability and diagnostics are the next stage.
 
 ## Current scope
 
-Version 0.1.0 is an initial type-1 Mamdani engine. It is not a complete fuzzy logic
+The development version includes type-1 Mamdani and Sugeno engines. It is not a complete fuzzy logic
 framework. Multi-input/output inference exists, but the Flutter scenarios each
 use one input. Implemented items are marked below. Remaining roadmap entries are proposals,
 not shipped functionality or release-date commitments.
 
 | Area | Implemented | Missing / proposed |
 | --- | --- | --- |
-| Inference | Mamdani defaults, configurable product implication | Sugeno zero/first order, Tsukamoto |
+| Inference | Mamdani defaults, product implication, Sugeno zero/first order | Tsukamoto and hybrid engines |
 | AND / OR / NOT | Configurable norms and negation; min/product/bounded AND, max/probabilistic/bounded OR; Very/Somewhat modifiers | Additional hedges |
 | Implication / aggregation | Configurable; min/product/bounded implication and max/probabilistic/bounded aggregation | Per-rule-block/per-output strategies |
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
@@ -36,8 +37,9 @@ not shipped functionality or release-date commitments.
 2. **Broader type-1 Mamdani toolbox — implemented, awaiting remote CI.** Common
    membership shapes, Very/Somewhat modifiers, bisector and maxima defuzzifiers are
    included. Endpoint, plateau, tolerance and zero-area contracts are documented.
-3. **Sugeno.** Use constant and linear consequents with normalized weighted average;
-   keep weighted sum distinct. Test analytical results and zero-total-weight behavior.
+3. **Sugeno — implemented, awaiting remote CI.** Constant/linear consequents,
+   normalized weighted average, explicit weighted sum and immutable explanations.
+   Analytical, zero-strength and extreme-arithmetic tests are included.
 4. **Model portability and diagnostics.** Versioned JSON with round-trip tests;
    diagnostics for coverage, inactive/contradictory rules, output curves and units.
    Do not evaluate arbitrary Dart expressions from configuration files.

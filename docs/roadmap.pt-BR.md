@@ -4,21 +4,22 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 68 testes passando,
+A etapa de pipeline extensível está implementada localmente, com 92 testes passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
 A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
-cinco defuzzificadores e modificadores Very/Somewhat. Sugeno é a próxima etapa.
+cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
+Portabilidade de modelos e diagnóstico são a próxima etapa.
 
 ## Escopo atual
 
-A versão 0.1.0 é um motor Mamdani tipo 1 inicial. Ainda não é um framework completo
+A versão em desenvolvimento inclui motores Mamdani e Sugeno tipo 1. Ainda não é um framework completo
 de lógica fuzzy. Há inferência com múltiplas entradas/saídas, mas cada cenário
 Flutter usa uma entrada. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
 representar recursos já entregues nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
 | --- | --- | --- |
-| Inferência | Padrões Mamdani e implicação produto configurável | Sugeno de ordem zero/um e Tsukamoto |
+| Inferência | Mamdani, implicação produto e Sugeno de ordem zero/um | Tsukamoto e motores híbridos |
 | AND / OR / NOT | Normas e negação configuráveis; AND mínimo/produto/limitado e OR máximo/probabilístico/limitado; Very/Somewhat | Outros modificadores |
 | Implicação / agregação | Configuráveis; mínimo/produto/limitado e máximo/probabilístico/limitado | Estratégias por bloco de regras/saída |
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
@@ -36,9 +37,9 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 2. **Ampliar Mamdani tipo 1 — implementado, aguardando CI remoto.** Novas funções
    de pertinência, Very/Somewhat, bissetor e métodos de máximos incluídos. Extremos,
    platôs, tolerância e área zero têm contratos documentados.
-3. **Sugeno.** Conclusões constantes e lineares com média ponderada normalizada;
-   manter soma ponderada como método distinto. Testar resultados analíticos e peso
-   total zero.
+3. **Sugeno — implementado, aguardando CI remoto.** Conclusões constantes/lineares,
+   média ponderada normalizada, soma ponderada explícita e explicações imutáveis.
+   Testes analíticos, de ativação zero e aritmética extrema incluídos.
 4. **Portabilidade e diagnóstico.** JSON versionado com testes de ida e volta;
    diagnóstico de cobertura, regras inativas/contraditórias, curvas e unidades.
    A configuração não deve executar expressões Dart arbitrárias.

@@ -19,3 +19,4 @@ export 'src/operators.dart'
         FuzzyOperators;
 export 'src/defuzzification.dart';
 export 'src/hedges.dart';
+export 'src/sugeno.dart';
