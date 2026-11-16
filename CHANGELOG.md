@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add tag-triggered OIDC publishing gated by the full CI and version checks.
+- Add tested release bump tooling and persistent contributor versioning rules.
+
 ## 0.1.0
 
 First release candidate; publication status is tracked in doc/PUBLISHING.md.

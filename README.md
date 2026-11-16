@@ -4,8 +4,8 @@ Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for D
 
 [Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md)
 
-**Development version:** not yet published. The package name is provisional;
-registry availability has not been confirmed. Use a local path today.
+**Published:** [fuzzy_engine 0.1.0](https://pub.dev/packages/fuzzy_engine).
+Install with `dart pub add fuzzy_engine` or `flutter pub add fuzzy_engine`.
 
 [Experimental Mamdani/Sugeno FIS import and export](doc/fis.en.md) includes
 explicit no-decision policies and independent numerical comparisons. The Flutter

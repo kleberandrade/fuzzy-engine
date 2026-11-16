@@ -8,8 +8,8 @@ Motores de lógica fuzzy Mamdani, Sugeno e Tsukamoto para Dart e Flutter, explic
 
 [English](README.md) · [Guia conceitual](doc/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)
 
-**Versão em desenvolvimento:** ainda não publicada. O nome é provisório e sua
-disponibilidade no pub.dev não foi confirmada. Use uma dependência local por enquanto.
+**Publicado:** [fuzzy_engine 0.1.0](https://pub.dev/packages/fuzzy_engine).
+Instale com `dart pub add fuzzy_engine` ou `flutter pub add fuzzy_engine`.
 
 ## Arquitetura e escopo
 

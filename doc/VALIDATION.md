@@ -1,5 +1,9 @@
 # Validation / Validação
 
+Publication update: version 0.1.0 is public, confirmed on 2026-11-16. The blocked
+local publication attempts described below are historical. Tag-based OIDC
+automation is now prepared; its one-time Pub authorization is still required.
+
 Evidence collected on 2026-11-16 with Dart 3.11.5 and Flutter 3.41.9.
 
 | Check | Current local result |
@@ -13,7 +17,7 @@ Evidence collected on 2026-11-16 with Dart 3.11.5 and Flutter 3.41.9.
 | Recorded external references | 63 cases, replayed by Dart tests |
 | Flutter widget tests | Execution blocked by local server-socket permission |
 | Publication dry run | Packaging reached validation; terminal cannot connect to pub.dev |
-| Actual publication | Not completed; no Pub CLI credential file at standard locations |
+| Actual publication | 0.1.0 published by the maintainer; confirmed through the public Pub API |
 
 The two-input example's 441-point grid and independent slider effects are tested
 as pure Dart models. Navigation/slider widget tests are included for CI. No manual

@@ -1,112 +1,72 @@
-# Release checklist / Checklist de publicação
+# Releases / Publicações
 
-Current state: development source, not a published release.
-Estado atual: código em desenvolvimento, ainda não publicado.
+Version 0.1.0 was published on 2026-11-16 and confirmed through the public Pub API.
+A versão 0.1.0 foi publicada em 16/11/2026 e confirmada pela API pública do Pub.
 
-## Names and publication / Nomes e publicação
+## One-time activation / Ativação única
 
-The GitHub repository is `fuzzy-engine`; the Dart package and import are
-`fuzzy_engine` and `package:fuzzy_engine/fuzzy_engine.dart`. Dart package names
-use lowercase letters and underscores, so the repository does not need renaming.
+The repository workflow is prepared; publication is not fully enabled until an
+uploader configures [package administration](https://pub.dev/packages/fuzzy_engine/admin):
 
-O repositório no GitHub é `fuzzy-engine`; o pacote Dart é `fuzzy_engine`, com
-import `package:fuzzy_engine/fuzzy_engine.dart`. O nome do pacote usa letras
-minúsculas e underscore. Não é necessário renomear o repositório.
+- Enable publishing from GitHub Actions.
+- Repository: `kleberandrade/fuzzy-engine`.
+- Tag pattern: `v{{version}}`.
 
-GitHub pushes, commits and release tags do not upload this package to pub.dev.
-The current CI runs `flutter pub publish --dry-run` only: this checks the upload
-without creating a package page. There is no automatic publishing workflow.
+O workflow está preparado no repositório. Para ativá-lo, um uploader precisa
+configurar os valores acima na seção Automated publishing do painel do pacote.
+Essa autorização permite publicar a partir das tags desse repositório. Não é
+necessário criar/copiar tokens ou chaves persistentes. A sessão do navegador não
+substitui essa configuração. Sem ela, o job falhará na autenticação.
 
-Push, commit e tag no GitHub não publicam este pacote no pub.dev. O CI atual
-executa somente `flutter pub publish --dry-run`, que valida o envio sem publicar.
-Não há publicação automática configurada.
+## Release flow / Fluxo de release
 
-## Validation and first upload / Validação e primeiro envio
+Add user-facing notes under `## Unreleased`, then prepare the version:
+Adicione as mudanças em `## Unreleased` e prepare a versão:
 
-From the repository root, with Dart and Flutter on PATH and network access:
-Na raiz do repositório, com Dart e Flutter no PATH e acesso à rede:
+```sh
+dart run tool/bump_version.dart patch
+# or minor / major, according to the change
+```
+
+The command updates pubspec.yaml and moves pending notes into the new changelog
+section. It does not commit, tag, push or publish. Patch fixes compatible behavior;
+minor adds features. During 0.x, document breaking changes and increment minor.
+After 1.0, breaking changes require major. Bump once per release, not per commit.
+A documentation/automation commit alone need not create a new package release.
+
+O comando atualiza versão e changelog juntos, sem alterar o Git nem publicar.
+Use patch para correções compatíveis e minor para novos recursos. Em 0.x, mudanças
+incompatíveis precisam ser documentadas e incrementar minor; após 1.0, use major.
+Faça um bump por release, sem publicar uma nova versão a cada commit de documentação.
+
+Review changes and run the release checks before committing. For a prepared
+0.1.1 release, for example:
 
 ```sh
 bash tool/check_release.sh
+git add pubspec.yaml CHANGELOG.md
+git commit -m "chore(release): prepare 0.1.1"
+git push origin main
+git tag v0.1.1
+git push origin v0.1.1
 ```
 
-The script stops at the first failure and never publishes. Check the remote CI
-matrix too; a local run does not test every supported SDK. Resolve all warnings,
-review the dry-run file list, and consolidate the unreleased changelog into the
-version selected for the first upload before proceeding.
+Use the actual prepared version. Do not push a 0.1.0 tag to test this automation;
+that version is already published. The tag workflow verifies that tag, pubspec
+and changelog match, then runs the full reusable CI (minimum/stable Dart, release
+tool tests, Flutter analysis/tests/web build, external comparisons and dry-run).
+Only after success does the publish job acquire temporary OIDC credentials,
+repeat the dry-run and upload using `flutter pub publish --force`. Here `--force`
+removes the interactive prompt; validation and warnings remain enforced.
 
-O script para na primeira falha e nunca publica. Confira também a matriz do CI,
-resolva os avisos, revise os arquivos do dry-run e consolide o changelog pendente
-na versão escolhida para o primeiro envio. A execução local não cobre todos os SDKs.
+Use a versão realmente preparada. A tag precisa corresponder à versão e ao
+changelog. O CI completo bloqueia a publicação em caso de falha. Somente o job de
+envio recebe permissão OIDC; nenhum segredo é salvo no código. Não use
+`--skip-validation` ou `--ignore-warnings` para contornar falhas.
 
-Then, from the root, run the actual upload and complete the pub.dev authentication
-if requested. Use the intended account; do not commit authentication tokens.
-Em seguida, na raiz, execute o envio real e conclua a autenticação solicitada com
-a conta desejada. Não adicione tokens ao repositório.
+Confirm each new version at https://pub.dev/packages/fuzzy_engine and inspect the
+[workflow runs](https://github.com/kleberandrade/fuzzy-engine/actions).
+A workflow committed locally is not evidence of a completed remote publication.
+Confirme cada versão na página pública e no resultado do workflow remoto.
 
-```sh
-flutter pub publish
-```
-
-After successful upload, confirm the version at
-https://pub.dev/packages/fuzzy_engine and test installation from a separate
-project with `dart pub add fuzzy_engine` (or `flutter pub add fuzzy_engine`).
-A URL returns 404 before a package page exists; that alone does not guarantee
-the name can be registered. The server validates availability during publication.
-
-Após o envio confirmado, verifique a versão na página do pacote e teste a
-instalação em outro projeto. Um 404 não garante a disponibilidade do nome;
-o servidor faz essa validação na publicação.
-
-## Checklist
-
-1. Confirm the package name is available on pub.dev before the first upload.
-   Confirme a disponibilidade do nome antes da primeira publicação.
-2. Review the MIT license, copyright and public source repository.
-   Revise a licença e o repositório público.
-3. Verify the `repository` and `issue_tracker` URLs in pubspec.yaml.
-   Confirme os links do repositório e das issues.
-4. Review both READMEs, version, changelog, exported API and generated docs.
-   Revise documentação, versão, changelog e interface pública.
-5. Run the commands below and resolve warnings. Test Flutter in a supported browser.
-   Execute os comandos abaixo e valide o exemplo em um navegador.
-6. Check the dry-run file list for generated files and unintended data.
-   Revise os arquivos incluídos no pacote.
-7. Use the intended pub.dev account/publisher and publish deliberately.
-   Publique com a conta/publisher desejada. Publishing is a separate release step.
-
-```sh
-dart pub get --no-example
-dart format --output=none --set-exit-if-changed lib test example benchmark tool
-dart analyze --fatal-infos
-dart test
-dart doc
-flutter pub publish --dry-run
-cd example
-flutter pub get
-flutter analyze
-flutter build web
-# From the package root after all release checks:
-# flutter pub publish
-```
-
-Official references / Referências oficiais:
-- https://dart.dev/tools/pub/publishing
-- https://dart.dev/tools/pub/create-packages
-- https://dart.dev/tools/pub/cmd/pub-lish
-
-## First-release handoff / Primeira release
-
-The four planned development items are implemented: Mamdani FIS export,
-independent numerical comparisons, Sugeno FIS import/export and the two-input
-Flutter surface. Local core tests and comparisons pass. Publication is not yet
-confirmed: the terminal cannot reach pub.dev, Pub CLI has no credentials at the
-standard locations, and this exact commit needs a new CI run. The browser account
-session does not authenticate the Pub CLI automatically.
-
-Os quatro itens estão implementados e a validação local do núcleo passou. Ainda
-falta o CI deste commit e o envio autenticado. Estar conectado ao pub.dev no
-navegador não autentica automaticamente o CLI. Depois de validar e revisar a
-lista do pacote, execute `flutter pub publish` na raiz e conclua o login solicitado.
-Somente a mensagem de envio bem-sucedido e a versão na página pública confirmam
-a publicação. Não use `--skip-validation` ou `--ignore-warnings` para contornar falhas.
+Official reference: https://dart.dev/tools/pub/automated-publishing

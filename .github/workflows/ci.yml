@@ -1,5 +1,9 @@
 name: Dart and Flutter
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
 permissions:
   contents: read
 jobs:
@@ -32,6 +36,7 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib test example benchmark tool
       - run: dart analyze --fatal-infos
       - run: dart test
+      - run: dart test tool/test
       - if: matrix.sdk == 'stable'
         run: dart doc
   flutter:
