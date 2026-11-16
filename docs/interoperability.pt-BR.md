@@ -2,7 +2,9 @@
 
 [English](interoperability.en.md)
 
-**Estado: somente projeto. Não há importador/exportador .fis ou .fcl implementado.**
+**Estado: importação experimental de FIS Mamdani implementada.** Veja o
+[perfil aceito, políticas e limitações](fis.pt-BR.md). Exportação, FIS Sugeno,
+FCL e conformidade numérica externa continuam pendentes.
 Suportar Mamdani, Sugeno e Tsukamoto no motor e no JSON não significa compatibilidade
 de arquivos com MATLAB, IEC 61131-7 ou outras bibliotecas.
 
@@ -17,7 +19,7 @@ de arquivos com MATLAB, IEC 61131-7 ou outras bibliotecas.
 | Regras | Condição não vazia, uma conclusão e pesos/convenções explícitos | Todas as entradas ignoradas, até haver representação de condição verdadeira |
 | Decisão | Conjunção mínimo/produto, disjunção máximo/probabilística, implicação mínimo/produto, agregação máximo, centroide ou média Sugeno normalizada | Métodos, valores alternativos ou estado anterior não suportados |
 
-A tabela é um objetivo, não suporte entregue. O parser precisa mapear os parâmetros
+A tabela descreve o objetivo amplo; o guia de importação lista o perfil entregue. O parser precisa mapear os parâmetros
 pelo significado, não pela posição do construtor. Convenções de largura/centro da
 gaussiana devem ser verificadas na definição do formato. Coeficientes lineares
 precisam ser associados à ordem declarada das entradas, com convenção do intercepto
@@ -37,7 +39,7 @@ não pode substituir silenciosamente um DEFAULT numérico ou estado anterior.
 O exemplo de referência do jFuzzyLogic usa DEFAULT := 0; esse caso exigirá uma
 política de adaptação explícita, sem mudar os padrões do núcleo inadvertidamente.
 
-## Critérios para iniciar a implementação
+## Critérios para alegações de compatibilidade
 
 1. Definir lexer/parser com limites para o dialeto escolhido; nunca executar o texto.
 2. Obter fixtures independentes, com origem e licenças registradas.
@@ -49,9 +51,11 @@ política de adaptação explícita, sem mudar os padrões do núcleo inadvertid
    sem aproximação ou descarte silencioso. Testes de ida e volta não bastam.
 6. Manter as fixtures JSON v1/v2 passando e documentar cada dialeto externo aceito.
 
-Até esses critérios serem atendidos, use os esquemas JSON documentados para portar
-modelos do pacote. Não há certificação de fornecedor nem conformidade completa
-com padrões externos.
+O importador inicial tem parser limitado e fixtures analíticas originais. Ainda
+faltam arquivos exportados por ferramentas externas e comparação numérica; os
+critérios para alegações mais fortes de compatibilidade não foram atendidos.
+Use os esquemas JSON para portar modelos do pacote. Não há certificação de
+fornecedor nem conformidade completa com padrões externos.
 
 Referências primárias:
 - [MathWorks readfis](https://in.mathworks.com/help/fuzzy/readfis.html)

@@ -7,6 +7,10 @@ Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for D
 **Development version:** not yet published. The package name is provisional;
 registry availability has not been confirmed. Use a local path today.
 
+[Experimental Mamdani FIS import](docs/fis.en.md) includes explicit no-decision
+policies, bounded parsing and an executable example. Export and external numeric
+conformance remain pending.
+
 ## Architecture and scope
 
 See the [class diagrams](docs/architecture.en.md) and the

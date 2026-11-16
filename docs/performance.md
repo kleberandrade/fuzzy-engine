@@ -150,3 +150,20 @@ Medições JIT ilustrativas, sem garantia de desempenho. A construção valida t
 as funções, enquanto o tempo de inferência inclui inversão e verificação direta
 por regra ativa. Não há grade de integração de saída. Os cenários não são modelos
 numericamente equivalentes aos benchmarks Mamdani/Sugeno.
+
+## Experimental FIS import
+
+```sh
+dart run benchmark/fis_benchmark.dart 1000
+```
+
+The original 598-code-unit ventilation fixture, 50 warm-up imports and 1000 timed
+imports measured 81.909 µs/import in one local Dart 3.11.5 JIT run; checksum 3000
+rules. File reading and inference are outside the timed loop. This is an
+informational observation, not a performance guarantee or vendor comparison.
+Parsing is bounded by source size and explicit input/rule/membership limits;
+engine construction validates references without allocating inference output grids.
+
+Na medição local, importar a fixture levou 81,909 µs por operação após aquecimento.
+Leitura do arquivo e inferência ficam fora do tempo medido. O valor varia com
+máquina, SDK e modelo; não é garantia nem comparação com outras bibliotecas.

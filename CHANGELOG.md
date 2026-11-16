@@ -1,5 +1,14 @@
 ## Unreleased
 
+- Add experimental bounded single-output Mamdani FIS import with explicit
+  no-decision policies and unmodified inference traces.
+- Support trimf/trapmf/gaussmf, flat AND/OR, complement/ignored input indices,
+  rule weights, min/product implication and centroid with external resolution.
+- Reject unsupported syntax/components instead of silently degrading models.
+- Add 43 analytical/validation tests, original FIS fixture, console example,
+  import benchmark and bilingual documentation with class diagrams.
+- Keep FIS export, Sugeno FIS, FCL and cross-tool conformance pending.
+
 - Add five pub.dev discovery topics and a reproducible release validation script.
 - Clarify package/repository naming and the separate first-publication procedure.
 

@@ -2,7 +2,9 @@
 
 [Português](interoperability.pt-BR.md)
 
-**Status: design only. No .fis or .fcl importer/exporter is implemented.**
+**Status: experimental Mamdani FIS import is implemented.** See the
+[accepted profile, policies and limitations](fis.en.md). Export, Sugeno FIS,
+FCL and external numerical conformance remain pending.
 The runtime and JSON codec support Mamdani, Sugeno and Tsukamoto. That does not
 imply file-format compatibility with MATLAB, IEC 61131-7 or other toolkits.
 
@@ -17,7 +19,8 @@ imply file-format compatibility with MATLAB, IEC 61131-7 or other toolkits.
 | Rules | One nonempty antecedent, one consequent; explicit weights/conventions | All-inputs-ignored rules until a true-condition representation is designed |
 | Decision | Explicit min/product conjunction, max/probabilistic disjunction, min/product implication, max aggregation, centroid or normalized Sugeno average | Any unsupported method, fallback or stateful behavior |
 
-This table is a target, not implemented support. A parser must map parameters by
+This table describes the broader target; implemented support is listed separately
+in the import guide. A parser must map parameters by
 meaning, not constructor position: for example, Gaussian width/center conventions
 must be checked against an authoritative format definition. Linear output
 coefficients must be associated with declared input order, with an explicitly
@@ -49,8 +52,10 @@ not an unnoticed change to core engine defaults.
    than approximate it or discard it. Round-trip tests alone are insufficient.
 6. Keep JSON v1/v2 fixtures passing and document each accepted external dialect.
 
-Until this gate is met, use the documented JSON schemas for portable package
-models. No vendor certification or full standard conformance is claimed.
+The initial importer has bounded parsing and original analytical fixtures.
+Independent vendor exports and cross-tool comparisons are still pending; the gate
+for stronger compatibility claims is not met. Use the documented JSON schemas for
+portable package models. No vendor certification or full conformance is claimed.
 
 Primary references:
 - [MathWorks readfis](https://in.mathworks.com/help/fuzzy/readfis.html)

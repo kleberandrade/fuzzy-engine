@@ -4,13 +4,13 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 144 passing tests, public
+The extensible pipeline stage is implemented locally with 187 passing tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
 five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
 Versioned model interchange, unit labels and bounded sampling/structural diagnostics
-are implemented. Tsukamoto and an explicit Larsen preset are implemented. FIS/FCL profiles are
-designed, but their parsers/exporters and external conformance fixtures remain pending.
+are implemented. Tsukamoto and an explicit Larsen preset are implemented. Experimental single-output Mamdani FIS import is implemented; export, Sugeno FIS,
+FCL and external conformance fixtures remain pending.
 
 ## Current scope
 
@@ -27,7 +27,7 @@ not shipped functionality or release-date commitments.
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
 | Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
-| Configuration | Dart objects, JSON v1/v2, metadata and explicit component catalog | FCL/FIS import/export and migrations |
+| Configuration | Dart objects, JSON v1/v2, metadata, component catalog and experimental Mamdani FIS import | FIS export, Sugeno FIS, FCL and migrations |
 | Explanations | Input/output traces, bounded coverage/activation scans and structural findings | Continuous coverage proofs and semantic conflict resolution |
 | Tooling | Flutter demos, console models, component benchmarks and JSON fixtures | Interactive multi-input surfaces and external conformance datasets |
 
@@ -48,8 +48,8 @@ not shipped functionality or release-date commitments.
    sampled findings are not mathematical coverage/conflict proofs.
 5. **Advanced controllers — runtime implemented, interoperability pending.**
    Larsen preset, monotonic Tsukamoto, inverse validation, JSON v2 and diagnostics
-   are implemented. FIS/FCL profiles are proposed; parsers, exporters and external
-   conformance fixtures are not implemented. See [remaining scope](interoperability.en.md).
+   are implemented, along with experimental Mamdani FIS import. Export, Sugeno FIS,
+   FCL and external conformance fixtures remain pending. See [remaining scope](interoperability.en.md).
 
 ## Definition of done for each feature
 

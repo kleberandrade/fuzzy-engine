@@ -1,5 +1,9 @@
 # fuzzy_engine
 
+[Importação experimental de FIS Mamdani](docs/fis.pt-BR.md), com política explícita
+para saída sem decisão, parser limitado e exemplo executável. Exportação e
+conformidade numérica externa continuam pendentes.
+
 Motores de lógica fuzzy Mamdani, Sugeno e Tsukamoto para Dart e Flutter, explicáveis e sem dependências de execução.
 
 [English](README.md) · [Guia conceitual](docs/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)

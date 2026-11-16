@@ -1,0 +1,39 @@
+% Original analytical fixture, not a MATLAB export.
+[System]
+Name='ventilation'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=3
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='temperature'
+Range=[0 1]
+NumMFs=2
+MF1='low':'trimf',[0 0 1]
+MF2='high':'trimf',[0 1 1]
+
+[Input2]
+Name='humidity'
+Range=[0 1]
+NumMFs=2
+MF1='low':'trapmf',[0 0 0 1]
+MF2='high':'trapmf',[0 1 1 1]
+
+[Output1]
+Name='fan'
+Range=[0 10]
+NumMFs=2
+MF1='low':'trimf',[0 0 10]
+MF2='high':'trimf',[0 10 10]
+
+[Rules]
+1 1, 1 (0.8) : 1
+-1 2, 2 (0.4) : 2
+0 1, 1 (0) : 1

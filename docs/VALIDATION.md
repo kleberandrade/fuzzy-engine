@@ -6,12 +6,12 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 144 passed, including monotonic inverses, Tsukamoto decisions, v1/v2 interchange and compatibility |
+| Core tests | 187 passed, including 43 experimental FIS importer tests and all previous engine/JSON tests |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
 | Flutter widget test | Included; execution blocked by local socket permissions |
-| Publication dry run | Blocked by pub.dev network access during dependency resolution |
+| Publication dry run | Latest attempt blocked by Pub cache write permission; earlier attempts also encountered network restrictions |
 | Actual publication | Not performed |
 
 The web build emitted a missing optional Cupertino icon font warning; the demo
@@ -19,12 +19,27 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 144 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 187 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
-de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
-ao pub.dev. Não houve publicação nem inspeção visual manual em navegador.
+de abertura de porta local. A simulação de publicação mais recente foi bloqueada
+pela gravação no cache do Pub; houve também bloqueios anteriores de rede.
+Não houve publicação nem inspeção visual manual em navegador.
 A versão mínima Dart 3.3.0 ainda precisa de validação específica.
+
+## Experimental FIS import verification
+
+Re-ran all 187 core tests, core analysis and API documentation (zero warnings or
+errors). The console fixture produces 5.339394545454449 with 1000 intervals; the
+independent four-interval reference test checks 235/44 and the full sampled curve.
+These are different resolutions, not a cross-tool comparison. The fixture is
+original, not a MATLAB export. FIS export and vendor numerical conformance are
+not tested or claimed. The Flutter web build result above predates this importer;
+no UI files changed in this stage.
+
+Os testes de FIS verificam sintaxe, limites, graus, ativações e quadratura própria.
+Não representam certificação nem comparação numérica com MATLAB. O núcleo continua
+sem dependências de execução; o exemplo FIS usa dart:io apenas para ler o arquivo.
 
 ## CI review after the initial push
 
