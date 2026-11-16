@@ -10,7 +10,7 @@ A etapa de ampliação Mamdani também está implementada: onze funções de per
 cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
 Intercâmbio versionado, unidades e diagnósticos estruturais/por amostragem limitada
 estão implementados. Tsukamoto e o atalho Larsen estão implementados. O intercâmbio restrito FIS Mamdani/Sugeno, as referências numéricas externas e a
-superfície Flutter com duas entradas estão implementados. FCL e conformidade completa continuam pendentes.
+superfície Flutter com duas entradas estão implementados. A importação inicial restrita FCL também está implementada; exportação FCL e conformidade completa continuam pendentes.
 
 ## Escopo atual
 
@@ -26,7 +26,7 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
 | Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
-| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e intercâmbio experimental FIS Mamdani/Sugeno | FCL e migrações |
+| Configuração | Objetos Dart, JSON v1/v2, metadados, catálogo e intercâmbio experimental FIS Mamdani/Sugeno | Exportação FCL, ampliação da gramática e migrações |
 | Explicação | Rastreamento de entradas/saídas, cobertura amostrada e análise estrutural | Provas de cobertura contínua e resolução semântica de conflitos |
 | Ferramentas | Demos Flutter, modelos de console, benchmarks, referências externas e superfície com duas entradas | Bases amplas de conformidade externa |
 
@@ -48,7 +48,7 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 5. **Controladores avançados — motor implementado, interoperabilidade pendente.**
    Atalho Larsen, Tsukamoto monotônico, validação de inversas, JSON v2 e diagnósticos
    implementados, com intercâmbio restrito FIS Mamdani/Sugeno e comparação numérica
-   externa. FCL e conformidade completa continuam pendentes. Veja o [escopo restante](interoperability.pt-BR.md).
+   externa. A importação inicial restrita FCL também está implementada; exportação FCL e conformidade completa continuam pendentes. Veja o [escopo restante](interoperability.pt-BR.md).
 
 ## Critério de conclusão de cada recurso
 

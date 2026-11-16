@@ -197,8 +197,9 @@ final class FuzzyDiagnostics {
     }
     var evaluations = 1;
     for (var i = 0; i < inputs.length; i++) {
-      if (evaluations > maxEvaluations ~/ samplesPerInput)
+      if (evaluations > maxEvaluations ~/ samplesPerInput) {
         throw ArgumentError('Cartesian grid exceeds maxEvaluations.');
+      }
       evaluations *= samplesPerInput;
     }
     final grid = <String, List<double>>{
@@ -224,26 +225,29 @@ final class FuzzyDiagnostics {
         try {
           var covered = false;
           for (final function in input.terms.values) {
-            if (checkedDegree(function.degree(x)) > activationThreshold)
+            if (checkedDegree(function.degree(x)) > activationThreshold) {
               covered = true;
+            }
           }
           if (!covered) gaps[input.name]!.add(x);
         } catch (_) {
           membershipFailures[input.name] = membershipFailures[input.name]! + 1;
         }
       }
-      if (gaps[input.name]!.isNotEmpty)
+      if (gaps[input.name]!.isNotEmpty) {
         issues.add(DiagnosticIssue._(
             DiagnosticCode.inputCoverageGap,
             DiagnosticSeverity.warning,
             'No input term exceeded the threshold at some sampled coordinates.',
             subject: input.name));
-      if (membershipFailures[input.name]! > 0)
+      }
+      if (membershipFailures[input.name]! > 0) {
         issues.add(DiagnosticIssue._(
             DiagnosticCode.inputMembershipFailure,
             DiagnosticSeverity.error,
             'Input membership evaluation failed at sampled coordinates.',
             subject: input.name));
+      }
     }
     final counts = {for (final r in rules) r.name: 0},
         maxima = {for (final r in rules) r.name: 0.0};
@@ -283,8 +287,9 @@ final class FuzzyDiagnostics {
         }
         if (!active) uncovered++;
         for (final entry in outputs.entries) {
-          if (entry.value == null)
+          if (entry.value == null) {
             nullCounts[entry.key] = nullCounts[entry.key]! + 1;
+          }
         }
       } catch (_) {
         failed++;
@@ -321,18 +326,20 @@ final class FuzzyDiagnostics {
       }
     }
     for (final entry in nullCounts.entries) {
-      if (entry.value > 0)
+      if (entry.value > 0) {
         issues.add(DiagnosticIssue._(
             DiagnosticCode.outputWithoutDecision,
             DiagnosticSeverity.warning,
             'Output was null on some successful sampled evaluations.',
             subject: entry.key));
+      }
     }
-    if (failed > 0)
+    if (failed > 0) {
       issues.add(DiagnosticIssue._(
           DiagnosticCode.evaluationFailure,
           DiagnosticSeverity.error,
           'Model evaluation failed on sampled input combinations.'));
+    }
     _structural(rules, issues);
     return FuzzyDiagnosticReport._(
         evaluations: evaluations,
@@ -416,12 +423,13 @@ void _structural(List<_RuleShape> rules, List<DiagnosticIssue> issues) {
           'Rules have the same structural antecedent, output, consequent and weight; duplicates may be intentional.',
           rules: names));
     }
-    if (consequentTypes.length > 1)
+    if (consequentTypes.length > 1) {
       issues.add(DiagnosticIssue._(
           DiagnosticCode.competingConsequents,
           DiagnosticSeverity.warning,
           'The same structural antecedent targets different consequents for one output; this is not proof of contradiction.',
           rules: group.where((r) => r.weight > 0).map((r) => r.name).toList(),
           subject: group.first.output));
+    }
   }
 }

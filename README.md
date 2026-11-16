@@ -147,3 +147,5 @@ Read the [release checklist](doc/PUBLISHING.md) before publishing. MIT licensed.
 
 [Tsukamoto and Larsen](doc/tsukamoto.en.md), [JSON v2](doc/model-v2.schema.json) and the [FIS/FCL profile proposal](doc/interoperability.en.md). The restricted Mamdani/Sugeno FIS profile is implemented and compared numerically
 with scikit-fuzzy/NumPy; FCL and full vendor conformance remain pending.
+
+[Experimental FCL import](doc/fcl.en.md) · [Pub quality checks](doc/pub-quality.md)

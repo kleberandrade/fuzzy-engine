@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
-import '../example/lib/scenarios.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:fuzzy_engine_example/scenarios.dart';
 
 void main() {
   test('ventilation surface covers endpoints and every sampled input pair', () {

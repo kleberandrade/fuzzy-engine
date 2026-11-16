@@ -104,9 +104,10 @@ final class FisExporter {
     final consequents = model.consequents.values.toList();
     for (final rule in engine.rules) {
       final index = consequents.indexOf(rule.consequent) + 1;
-      if (index == 0)
+      if (index == 0) {
         throw UnsupportedError(
             'Rule consequent is absent from the FIS catalog.');
+      }
       text.writeln(
           '${_condition(rule.when, engine.inputs)}, $index (${rule.weight}) : ${_connector(rule.when)}');
     }
@@ -114,16 +115,19 @@ final class FisExporter {
   }
 
   void _acknowledge(bool accepted) {
-    if (maxDepth < 1 || maxSourceLength < 1)
+    if (maxDepth < 1 || maxSourceLength < 1) {
       throw ArgumentError('Invalid FIS export limits.');
-    if (!accepted)
+    }
+    if (!accepted) {
       throw ArgumentError(
           'Acknowledge that FIS omits rule names, resolution and fallback policy.');
+    }
   }
 
   String _finish(StringBuffer text) {
-    if (text.length > maxSourceLength)
+    if (text.length > maxSourceLength) {
       throw UnsupportedError('FIS source limit exceeded.');
+    }
     return text.toString();
   }
 
@@ -140,8 +144,9 @@ final class FisExporter {
       throw UnsupportedError(
           'FIS input or rule count exceeds the supported profile.');
     }
-    if (operators.negation is! StandardNegation)
+    if (operators.negation is! StandardNegation) {
       throw UnsupportedError('FIS requires standard complement.');
+    }
     final or = switch (operators.disjunction) {
       Maximum() => 'max',
       ProbabilisticSum() => 'probor',
@@ -189,9 +194,10 @@ final class FisExporter {
     final indices = List<int>.filled(inputs.length, 0);
     for (final entry in flat.terms) {
       final i = inputs.indexWhere((input) => input.name == entry.$1.variable);
-      if (i < 0 || indices[i] != 0)
+      if (i < 0 || indices[i] != 0) {
         throw UnsupportedError(
             'FIS permits at most one term per input in a rule.');
+      }
       final term = inputs[i].terms.keys.toList().indexOf(entry.$1.term) + 1;
       if (term == 0) throw UnsupportedError('Unknown FIS term.');
       indices[i] = entry.$2 ? -term : term;
@@ -227,8 +233,9 @@ final class _Flatten implements ConditionVisitor<_FlatCondition> {
   _Flatten(this.limit, this.depth);
   final int limit, depth;
   _FlatCondition child(Condition value) {
-    if (depth >= limit)
+    if (depth >= limit) {
       throw UnsupportedError('FIS condition depth limit exceeded.');
+    }
     return value.accept(_Flatten(limit, depth + 1));
   }
 
@@ -255,8 +262,9 @@ final class _Flatten implements ConditionVisitor<_FlatCondition> {
       binary(left, right, 2);
   @override
   _FlatCondition visitNot(Condition condition) {
-    if (condition is! Term)
+    if (condition is! Term) {
       throw UnsupportedError('Only individual FIS terms can be complemented.');
+    }
     return _FlatCondition([(condition, true)], null);
   }
 

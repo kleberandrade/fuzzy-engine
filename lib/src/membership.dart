@@ -196,8 +196,9 @@ final class Bell implements MembershipFunction {
   /// [width] and [slope] must be finite and positive.
   Bell(this.center, this.width, this.slope) {
     _finite([center, width, slope]);
-    if (width <= 0 || slope <= 0)
+    if (width <= 0 || slope <= 0) {
       throw ArgumentError('Bell width and slope must be positive.');
+    }
   }
 
   /// Full-membership center.
@@ -349,8 +350,9 @@ final class MembershipPoint {
   /// Requires a finite coordinate and a degree between zero and one.
   MembershipPoint(this.x, this.membership) {
     _finite([x, membership]);
-    if (membership < 0 || membership > 1)
+    if (membership < 0 || membership > 1) {
       throw ArgumentError('Point degree must be between zero and one.');
+    }
   }
 
   /// Crisp coordinate.
@@ -371,8 +373,9 @@ final class DiscreteSet implements MembershipFunction {
           'At least two points with a finite span are required.');
     }
     for (var i = 1; i < points.length; i++) {
-      if (points[i - 1].x >= points[i].x)
+      if (points[i - 1].x >= points[i].x) {
         throw ArgumentError('Points must be strictly increasing.');
+      }
     }
   }
 

@@ -97,8 +97,9 @@ final class Term extends Condition {
   double evaluate(Map<String, Map<String, double>> values,
       {FuzzyOperators operators = const FuzzyOperators()}) {
     final degree = values[variable]?[term];
-    if (degree == null)
+    if (degree == null) {
       throw ArgumentError('Missing input term: $variable.$term');
+    }
     return checkedDegree(degree);
   }
 

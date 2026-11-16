@@ -236,11 +236,12 @@ void main() {
     expect(
         () => const FuzzyDiagnostics().analyze(complete(), maxEvaluations: 0),
         throwsArgumentError);
-    for (final threshold in [-.1, 1.0, double.nan])
+    for (final threshold in [-.1, 1.0, double.nan]) {
       expect(
           () => const FuzzyDiagnostics()
               .analyze(complete(), activationThreshold: threshold),
           throwsArgumentError);
+    }
   });
 }
 

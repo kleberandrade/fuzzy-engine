@@ -7,6 +7,24 @@ on:
 permissions:
   contents: read
 jobs:
+  pub-score:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub global activate pana 0.23.19
+      # pana may modify the analyzed package; keep the checkout untouched.
+      - run: cp -R "$GITHUB_WORKSPACE" "$RUNNER_TEMP/pub-score"
+      - run: dart pub global run pana --json --exit-code-threshold 0 --flutter-sdk "$FLUTTER_ROOT" "$RUNNER_TEMP/pub-score" > "$RUNNER_TEMP/pana-report.jsonl"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pub-score-report
+          path: ${{ runner.temp }}/pana-report.jsonl
+          retention-days: 14
   interoperability:
     runs-on: ubuntu-24.04
     steps:

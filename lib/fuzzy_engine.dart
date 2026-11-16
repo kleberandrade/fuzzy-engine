@@ -25,3 +25,4 @@ export 'src/diagnostics.dart';
 export 'src/tsukamoto.dart';
 export 'src/fis_importer.dart';
 export 'src/fis_exporter.dart';
+export 'src/fcl.dart';

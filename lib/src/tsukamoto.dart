@@ -127,8 +127,9 @@ final class TsukamotoResult {
 
   /// Reads a declared output, rejecting unknown names.
   double? value(String name) {
-    if (!outputs.containsKey(name))
+    if (!outputs.containsKey(name)) {
       throw ArgumentError('Unknown output: $name');
+    }
     return outputs[name];
   }
 }
@@ -162,8 +163,9 @@ final class TsukamotoEngine {
     final indexedInputs = indexFuzzyVariables(inputs);
     final indexedOutputs = <String, TsukamotoOutput>{};
     for (final output in outputs) {
-      if (indexedOutputs.containsKey(output.name))
+      if (indexedOutputs.containsKey(output.name)) {
         throw ArgumentError('Duplicate output: ${output.name}');
+      }
       indexedOutputs[output.name] = output;
       for (final entry in output.terms.entries) {
         try {
@@ -176,8 +178,9 @@ final class TsukamotoEngine {
     }
     final names = <String>{};
     for (final rule in rules) {
-      if (!names.add(rule.name))
+      if (!names.add(rule.name)) {
         throw ArgumentError('Duplicate rule: ${rule.name}');
+      }
       for (final reference in rule.when.references) {
         if (!(indexedInputs[reference.variable]
                 ?.terms
@@ -234,9 +237,10 @@ final class TsukamotoEngine {
       }
       if (i == 0 || i == validationSamples - 1) {
         final expected = function.isIncreasing ? alpha : 1 - alpha;
-        if ((degree - expected).abs() > inverseTolerance)
+        if ((degree - expected).abs() > inverseTolerance) {
           throw StateError(
               'Transition endpoints must cover degrees zero and one.');
+        }
       }
       final inverse = _inverse(function, alpha);
       if (previousInverse != null &&

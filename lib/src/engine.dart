@@ -45,8 +45,9 @@ final class FuzzyResult {
 
   /// Reads a declared output; throws for unknown names.
   double? value(String name) {
-    if (!outputs.containsKey(name))
+    if (!outputs.containsKey(name)) {
       throw ArgumentError('Unknown output: $name');
+    }
     return outputs[name];
   }
 }
@@ -73,8 +74,9 @@ final class FuzzyEngine {
         outs = indexFuzzyVariables(outputs);
     final names = <String>{};
     for (final rule in rules) {
-      if (!names.add(rule.name))
+      if (!names.add(rule.name)) {
         throw ArgumentError('Duplicate rule: ${rule.name}');
+      }
       for (final ref in rule.when.references) {
         if (!(ins[ref.variable]?.terms.containsKey(ref.term) ?? false)) {
           throw ArgumentError(

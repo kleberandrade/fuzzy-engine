@@ -83,3 +83,29 @@ mas falhou no dry-run de publicação. A convenção da pasta doc/ foi corrigida
 não se afirma que o CI novo passou antes de executá-lo. A rede do terminal e a
 autenticação Pub impedem concluir a publicação neste ambiente. A página pública
 retornou 404 na consulta via API; isso não garante reserva/disponibilidade do nome.
+
+## Core lints and initial FCL profile
+
+Official lints/core.yaml is enabled explicitly, with a development-only constraint
+compatible with minimum/stable SDK resolution. Missing control-flow blocks were
+fixed; the example model tests were moved to their own package to remove a
+relative lib import. No scoring diagnostic was suppressed. Pure Dart inference
+behavior remains covered by the numerical regression suite.
+
+Initial FCL import adds 32 tests including analytical references, nine equivalent
+recorded scikit-fuzzy cases, DEFAULT behavior, saturated tails and parser budgets.
+Direct external FCL-runtime validation and FCL export remain pending. The original
+FCL fixture is MIT project data. New guides explain the exact accepted grammar.
+
+See [Pub quality evidence and CI gate](pub-quality.md). The published package score
+is still 150/160 until a new version is analyzed. Local pana confirmed static
+analysis 50/50; its total was incomplete because SDK dartdoc rejected a tool flag.
+The CI uses the compatible standalone dartdoc path, not a scoring suppression.
+
+Final checks for this stage: 315 Dart/tool tests passed (including 32 FCL tests),
+126 existing live numerical comparisons passed, strict core analysis and Flutter
+example analysis passed, API documentation had zero warnings/errors, and the web
+build succeeded. Two existing ventilation model tests now live in the Flutter
+example package instead of importing its lib relatively from the core tests.
+Flutter test execution remains subject to the previously documented local socket
+restriction; no new remote CI success or published score is claimed.

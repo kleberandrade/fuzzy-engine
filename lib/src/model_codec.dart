@@ -33,8 +33,9 @@ final class FuzzyModelDocument {
     } else {
       throw ArgumentError('Expected a supported fuzzy engine.');
     }
-    if (name != null && name!.trim().isEmpty)
+    if (name != null && name!.trim().isEmpty) {
       throw ArgumentError('Model name must not be blank.');
+    }
     for (final pair in [(inputUnits, inputs), (outputUnits, outputs)]) {
       if (pair.$1.entries
           .any((e) => !pair.$2.contains(e.key) || e.value.trim().isEmpty)) {
@@ -74,8 +75,9 @@ final class FuzzyModelCodec {
         maxDepth < 1 ||
         maxNodes < 1 ||
         maxSourceLength < 1 ||
-        maxOutputSamples < 3)
+        maxOutputSamples < 3) {
       throw ArgumentError('Invalid codec version or resource limits.');
+    }
   }
 
   /// Export v1 for legacy Mamdani/Sugeno consumers, or v2 for all three families.
@@ -99,15 +101,17 @@ final class FuzzyModelCodec {
   /// Encodes an engine or FuzzyModelDocument to JSON text.
   String encode(Object model) {
     final text = jsonEncode(toJson(model));
-    if (text.length > maxSourceLength)
+    if (text.length > maxSourceLength) {
       throw const FormatException('Model exceeds source length limit.');
+    }
     return text;
   }
 
   /// Decodes JSON text and retains metadata.
   FuzzyModelDocument decode(String source) {
-    if (source.length > maxSourceLength)
+    if (source.length > maxSourceLength) {
       throw const FormatException('Model exceeds source length limit.');
+    }
     final raw = jsonDecode(source);
     _guard(raw);
     return fromJson(_object(raw, r'$'));
@@ -116,24 +120,27 @@ final class FuzzyModelCodec {
   /// Typed import; use decode when unit labels and descriptions must be retained.
   FuzzyEngine decodeMamdani(String source) {
     final model = decode(source).engine;
-    if (model is! FuzzyEngine)
+    if (model is! FuzzyEngine) {
       throw const FormatException('Expected a Mamdani model.');
+    }
     return model;
   }
 
   /// Typed import; use decode when unit labels and descriptions must be retained.
   SugenoEngine decodeSugeno(String source) {
     final model = decode(source).engine;
-    if (model is! SugenoEngine)
+    if (model is! SugenoEngine) {
       throw const FormatException('Expected a Sugeno model.');
+    }
     return model;
   }
 
   /// Typed v2 Tsukamoto import; use decode to retain metadata.
   TsukamotoEngine decodeTsukamoto(String source) {
     final model = decode(source).engine;
-    if (model is! TsukamotoEngine)
+    if (model is! TsukamotoEngine) {
       throw const FormatException('Expected a Tsukamoto model.');
+    }
     return model;
   }
 
@@ -200,8 +207,9 @@ final class FuzzyModelCodec {
         'settings': {'aggregation': engine.aggregation.name}
       });
     } else if (engine is TsukamotoEngine) {
-      if (exportVersion == 1)
+      if (exportVersion == 1) {
         throw UnsupportedError('Tsukamoto requires JSON schema v2.');
+      }
       operators = engine.operators;
       result.addAll({
         'inputs': engine.inputs.map(_variableJson).toList(),
@@ -233,8 +241,9 @@ final class FuzzyModelCodec {
     } else {
       throw ArgumentError('Unsupported engine.');
     }
-    if (operators.negation is! StandardNegation)
+    if (operators.negation is! StandardNegation) {
       throw UnsupportedError('Custom negation is not serializable.');
+    }
     result['operators'] = {
       'conjunction': _tNormName(operators.conjunction),
       'disjunction': _sNormName(operators.disjunction),
@@ -263,17 +272,20 @@ final class FuzzyModelCodec {
           r'$');
       if (source['schemaVersion'] is! num ||
           (source['schemaVersion'] != 1 &&
-              source['schemaVersion'] != schemaVersion))
+              source['schemaVersion'] != schemaVersion)) {
         throw const FormatException(r'$.schemaVersion: unsupported version.');
+      }
       final type = _string(source['engineType'], r'$.engineType');
       if ((type != 'mamdani' && type != 'sugeno' && type != 'tsukamoto') ||
-          (source['schemaVersion'] == 1 && type == 'tsukamoto'))
+          (source['schemaVersion'] == 1 && type == 'tsukamoto')) {
         throw const FormatException(r'$.engineType: unsupported engine.');
+      }
       final operators = _object(source['operators'], r'$.operators');
       _keys(operators, ['conjunction', 'disjunction', 'negation'],
           r'$.operators');
-      if (operators['negation'] != 'standard')
+      if (operators['negation'] != 'standard') {
         throw const FormatException(r'$.operators.negation: unsupported type.');
+      }
       final ops = FuzzyOperators(
           conjunction: _tNorm(operators['conjunction']),
           disjunction: _sNorm(operators['disjunction']));
@@ -385,14 +397,16 @@ final class FuzzyModelCodec {
 
   /// Exports a built-in crisp consequent; custom Dart callbacks are not exported.
   Map<String, Object?> consequentToJson(SugenoConsequent consequent) {
-    if (consequent is ConstantConsequent)
+    if (consequent is ConstantConsequent) {
       return {'type': 'constant', 'value': consequent.value};
-    if (consequent is LinearConsequent)
+    }
+    if (consequent is LinearConsequent) {
       return {
         'type': 'linear',
         'intercept': consequent.intercept,
         'coefficients': Map<String, double>.of(consequent.coefficients)
       };
+    }
     throw UnsupportedError('Custom Sugeno consequent is not serializable.');
   }
 
@@ -408,25 +422,30 @@ final class FuzzyModelCodec {
     var count = 0;
     while (stack.isNotEmpty) {
       final (current, depth) = stack.removeLast();
-      if (++count > maxNodes || depth > maxDepth)
+      if (++count > maxNodes || depth > maxDepth) {
         throw const FormatException('Model exceeds JSON node/depth limit.');
+      }
       if (current is Map) {
-        if (count + stack.length + current.length > maxNodes)
+        if (count + stack.length + current.length > maxNodes) {
           throw const FormatException('Model exceeds JSON node limit.');
+        }
         for (final entry in current.entries) {
-          if (entry.key is! String)
+          if (entry.key is! String) {
             throw const FormatException('JSON object keys must be strings.');
+          }
           stack.add((entry.value, depth + 1));
         }
       } else if (current is List) {
-        if (count + stack.length + current.length > maxNodes)
+        if (count + stack.length + current.length > maxNodes) {
           throw const FormatException('Model exceeds JSON node limit.');
+        }
         for (final element in current) {
           stack.add((element, depth + 1));
         }
       } else if (current is num) {
-        if (!current.isFinite)
+        if (!current.isFinite) {
           throw const FormatException('JSON numbers must be finite.');
+        }
       } else if (current != null && current is! String && current is! bool) {
         throw const FormatException('Unsupported JSON value.');
       }
@@ -435,8 +454,9 @@ final class FuzzyModelCodec {
 }
 
 Map<String, Object?> _object(Object? raw, String path) {
-  if (raw is! Map || raw.keys.any((key) => key is! String))
+  if (raw is! Map || raw.keys.any((key) => key is! String)) {
     throw FormatException('$path: expected object.');
+  }
   return Map<String, Object?>.from(raw);
 }
 
@@ -446,26 +466,30 @@ List<Object?> _list(Object? raw, String path) {
 }
 
 String _string(Object? raw, String path) {
-  if (raw is! String || raw.trim().isEmpty)
+  if (raw is! String || raw.trim().isEmpty) {
     throw FormatException('$path: expected nonempty string.');
+  }
   return raw;
 }
 
 String? _optionalString(Object? raw, String path) {
-  if (raw != null && raw is! String)
+  if (raw != null && raw is! String) {
     throw FormatException('$path: expected string or null.');
+  }
   return raw as String?;
 }
 
 double _number(Object? raw, String path) {
-  if (raw is! num || !raw.isFinite)
+  if (raw is! num || !raw.isFinite) {
     throw FormatException('$path: expected finite number.');
+  }
   return raw.toDouble();
 }
 
 void _keys(Map<String, Object?> map, List<String> keys, String path) {
-  if (map.length != keys.length || keys.any((key) => !map.containsKey(key)))
+  if (map.length != keys.length || keys.any((key) => !map.containsKey(key))) {
     throw FormatException('$path: missing or unknown fields.');
+  }
 }
 
 Map<String, String> _units(Object? raw) => _object(raw, 'units')
@@ -538,8 +562,9 @@ MembershipFunction _membership(Object? raw) {
   _keys(map, ['type', 'parameters'], 'membership');
   final type = _string(map['type'], 'membership.type');
   final parameters = _list(map['parameters'], 'membership.parameters');
-  if (type == 'discrete')
+  if (type == 'discrete') {
     return DiscreteSet([for (final rawPoint in parameters) _point(rawPoint)]);
+  }
   final lengths = {
     'triangle': 3,
     'trapezoid': 4,
@@ -552,9 +577,10 @@ MembershipFunction _membership(Object? raw) {
     'piShape': 4,
     'rectangle': 2
   };
-  if (!lengths.containsKey(type) || parameters.length != lengths[type])
+  if (!lengths.containsKey(type) || parameters.length != lengths[type]) {
     throw const FormatException(
         'Unknown membership type or wrong parameter count.');
+  }
   final v = parameters
       .map((value) => _number(value, 'membership.parameter'))
       .toList();
@@ -575,8 +601,9 @@ MembershipFunction _membership(Object? raw) {
 
 MembershipPoint _point(Object? raw) {
   final point = _list(raw, 'point');
-  if (point.length != 2)
+  if (point.length != 2) {
     throw const FormatException('Points require exactly x and membership.');
+  }
   return MembershipPoint(
       _number(point[0], 'point.x'), _number(point[1], 'point.membership'));
 }
@@ -610,12 +637,15 @@ SNorm _sNorm(Object? name) => switch (name) {
 Map<String, Object?> _defuzzifierJson(Defuzzifier value) {
   if (value is Centroid) return {'type': 'centroid'};
   if (value is Bisector) return {'type': 'bisector'};
-  if (value is SmallestOfMaximum)
+  if (value is SmallestOfMaximum) {
     return {'type': 'smallestOfMaximum', 'tolerance': value.tolerance};
-  if (value is LargestOfMaximum)
+  }
+  if (value is LargestOfMaximum) {
     return {'type': 'largestOfMaximum', 'tolerance': value.tolerance};
-  if (value is MeanOfMaximum)
+  }
+  if (value is MeanOfMaximum) {
     return {'type': 'meanOfMaximum', 'tolerance': value.tolerance};
+  }
   throw UnsupportedError('Custom defuzzifier is not serializable.');
 }
 
@@ -643,8 +673,9 @@ final class _ConditionWriter implements ConditionVisitor<Map<String, Object?>> {
   int _nodes = 0;
   int _depth = 0;
   Map<String, Object?> write(Condition condition) {
-    if (++_nodes > maxNodes || ++_depth > maxDepth)
+    if (++_nodes > maxNodes || ++_depth > maxDepth) {
       throw const FormatException('Condition exceeds depth limit.');
+    }
     try {
       return condition.accept(this);
     } finally {
@@ -751,9 +782,10 @@ TsukamotoOutput _tsukamotoOutput(Object? raw) {
   final variable = _variable(raw);
   final terms = <String, MonotonicMembershipFunction>{};
   for (final entry in variable.terms.entries) {
-    if (entry.value is! MonotonicMembershipFunction)
+    if (entry.value is! MonotonicMembershipFunction) {
       throw const FormatException(
           'Tsukamoto outputs require monotonic invertible terms.');
+    }
     terms[entry.key] = entry.value as MonotonicMembershipFunction;
   }
   return TsukamotoOutput(

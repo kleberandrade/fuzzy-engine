@@ -7,8 +7,9 @@
   final pattern =
       RegExp(r'^version: ([0-9]+)\.([0-9]+)\.([0-9]+)[ \t]*$', multiLine: true);
   final match = pattern.firstMatch(pubspec);
-  if (match == null)
+  if (match == null) {
     throw FormatException('Expected a stable version in pubspec.yaml.');
+  }
   var major = int.parse(match[1]!);
   var minor = int.parse(match[2]!);
   var patch = int.parse(match[3]!);

@@ -140,9 +140,10 @@ void main() {
     final codec = FuzzyModelCodec();
     final copy = codec.decodeMamdani(codec.encode(original));
     for (final name in shapes.keys) {
-      for (var i = 0; i <= 100; i++)
+      for (var i = 0; i <= 100; i++) {
         expect(copy.inputs.single.terms[name]!.degree(i / 10),
             shapes[name]!.degree(i / 10));
+      }
     }
   });
   for (final defuzzifier in <Defuzzifier>[

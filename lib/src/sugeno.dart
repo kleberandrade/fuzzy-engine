@@ -69,8 +69,9 @@ final class LinearConsequent implements SugenoConsequent {
             'Missing or nonfinite consequent input: ${entry.key}');
       }
       final term = entry.value * input;
-      if (!term.isFinite)
+      if (!term.isFinite) {
         throw StateError('Linear consequent product overflowed.');
+      }
       terms.add(term);
     }
     return sumFinite(terms);
@@ -81,8 +82,9 @@ final class LinearConsequent implements SugenoConsequent {
 final class SugenoOutput {
   /// Requires a nonempty name. Output units are chosen by the application.
   SugenoOutput(this.name) {
-    if (name.trim().isEmpty)
+    if (name.trim().isEmpty) {
       throw ArgumentError('Output name must not be empty.');
+    }
   }
 
   /// Name used by rules and result lookups.
@@ -169,8 +171,9 @@ final class SugenoResult {
 
   /// Reads a declared output; throws for unknown names.
   double? value(String name) {
-    if (!outputs.containsKey(name))
+    if (!outputs.containsKey(name)) {
       throw ArgumentError('Unknown output: $name');
+    }
     return outputs[name];
   }
 }
@@ -194,15 +197,18 @@ final class SugenoEngine {
     final indexed = indexFuzzyVariables(inputs);
     final outputNames = <String>{};
     for (final output in outputs) {
-      if (!outputNames.add(output.name))
+      if (!outputNames.add(output.name)) {
         throw ArgumentError('Duplicate output: ${output.name}');
+      }
     }
     final ruleNames = <String>{};
     for (final rule in rules) {
-      if (!ruleNames.add(rule.name))
+      if (!ruleNames.add(rule.name)) {
         throw ArgumentError('Duplicate rule: ${rule.name}');
-      if (!outputNames.contains(rule.output))
+      }
+      if (!outputNames.contains(rule.output)) {
         throw ArgumentError('Unknown output: ${rule.output}');
+      }
       for (final reference in rule.when.references) {
         if (!(indexed[reference.variable]?.terms.containsKey(reference.term) ??
             false)) {
@@ -211,8 +217,9 @@ final class SugenoEngine {
         }
       }
       for (final name in rule.consequent.references) {
-        if (!indexed.containsKey(name))
+        if (!indexed.containsKey(name)) {
           throw ArgumentError('Unknown consequent input: $name');
+        }
       }
     }
   }

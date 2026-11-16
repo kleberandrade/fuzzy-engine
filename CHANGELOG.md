@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Enable official core lints, fix all findings and gate full Pub points with pana in CI.
+- Add restricted experimental FCL import, explicit ranges/defaults, 32 tests and bilingual guides.
+
 - Add tag-triggered OIDC publishing gated by the full CI and version checks.
 - Add tested release bump tooling and persistent contributor versioning rules.
 

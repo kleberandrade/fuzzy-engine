@@ -220,8 +220,9 @@ final class FisImporter {
           final field = RegExp(r'^([A-Za-z][A-Za-z0-9]*)\s*=\s*(.+)$')
               .firstMatch(line.text);
           if (field == null) line.fail('Expected field assignment.');
-          if (section.fields.containsKey(field[1]))
+          if (section.fields.containsKey(field[1])) {
             line.fail('Duplicate field.');
+          }
           section.fields[field[1]!] = _Line(field[2]!, line.number);
         }
       }
@@ -296,8 +297,9 @@ final class FisImporter {
               .firstMatch(row.text);
       if (match == null) row.fail('Unsupported rule syntax.');
       final indices = match[1]!.trim().split(RegExp(r'\s+'));
-      if (indices.length != inputs.length)
+      if (indices.length != inputs.length) {
         row.fail('Input index count mismatch.');
+      }
       Condition? condition;
       for (var i = 0; i < indices.length; i++) {
         final index = int.tryParse(indices[i]);
@@ -315,8 +317,9 @@ final class FisImporter {
                 ? condition.and(next)
                 : condition.or(next);
       }
-      if (condition == null)
+      if (condition == null) {
         row.fail('All-ignored antecedents are unsupported.');
+      }
       final index = int.tryParse(match[2]!);
       if (index == null || index < 1 || index > outputTerms.length) {
         row.fail('Output index out of range.');
@@ -384,10 +387,12 @@ final class FisImporter {
       final line = section.get('MF$i');
       final match = RegExp(r"^'([^']+)'\s*:\s*'([^']+)'\s*,\s*(\[.*\])$")
           .firstMatch(line.text);
-      if (match == null || match[1]!.trim().isEmpty)
+      if (match == null || match[1]!.trim().isEmpty) {
         line.fail('Invalid Sugeno consequent.');
-      if (catalog.containsKey(match[1]))
+      }
+      if (catalog.containsKey(match[1])) {
         line.fail('Duplicate consequent name.');
+      }
       final params = _Line(match[3]!, line.number);
       switch (match[2]) {
         case 'constant':
@@ -461,8 +466,9 @@ String _uncomment(String text) {
 }
 
 void _expect(_Line line, String expected) {
-  if (line.quoted() != expected)
+  if (line.quoted() != expected) {
     line.fail('Unsupported method or engine type.');
+  }
 }
 
 TNorm _tnorm(_Line line) => switch (line.quoted()) {
@@ -479,8 +485,9 @@ final class _Section {
   _Line get(String name) => fields[name] ?? header.fail('Missing field $name.');
   void only(Set<String> allowed) {
     for (final entry in fields.entries) {
-      if (!allowed.contains(entry.key))
+      if (!allowed.contains(entry.key)) {
         entry.value.fail('Unknown field ${entry.key}.');
+      }
     }
   }
 }
@@ -493,31 +500,37 @@ final class _Line {
       throw FormatException('FIS line $number: $message');
   String quoted() {
     final match = RegExp(r"^'([^']+)'$").firstMatch(text.trim());
-    if (match == null || match[1]!.trim().isEmpty)
+    if (match == null || match[1]!.trim().isEmpty) {
       fail('Expected quoted nonempty string.');
+    }
     return match[1]!;
   }
 
   double numberValue() {
     if (!RegExp(r'^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$')
-        .hasMatch(text.trim())) fail('Expected finite decimal number.');
-    final value = double.tryParse(text.trim());
-    if (value == null || !value.isFinite)
+        .hasMatch(text.trim())) {
       fail('Expected finite decimal number.');
+    }
+    final value = double.tryParse(text.trim());
+    if (value == null || !value.isFinite) {
+      fail('Expected finite decimal number.');
+    }
     return value;
   }
 
   int count(int max) {
     final value = int.tryParse(text.trim());
-    if (value == null || value < 1 || value > max)
+    if (value == null || value < 1 || value > max) {
       fail('Count outside import limit.');
+    }
     return value;
   }
 
   List<double> vector(int count) {
     final value = text.trim();
-    if (!value.startsWith('[') || !value.endsWith(']'))
+    if (!value.startsWith('[') || !value.endsWith(']')) {
       fail('Expected numeric vector.');
+    }
     final parts =
         value.substring(1, value.length - 1).trim().split(RegExp(r'\s+'));
     if (parts.length != count) fail('Unexpected vector length.');

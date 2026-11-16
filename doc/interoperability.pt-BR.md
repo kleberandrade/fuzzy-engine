@@ -3,7 +3,7 @@
 [English](interoperability.en.md)
 
 **Estado: intercâmbio restrito FIS Mamdani/Sugeno e comparação numérica independente
-implementados.** Veja o [perfil aceito](fis.pt-BR.md). FCL, fixtures exportadas por
+implementados.** Veja o [perfil aceito](fis.pt-BR.md). A importação restrita FCL também está implementada ([perfil](fcl.pt-BR.md)). Exportação FCL, fixtures exportadas por
 fornecedores e conformidade completa continuam pendentes.
 Suportar Mamdani, Sugeno e Tsukamoto no motor e no JSON não significa compatibilidade
 de arquivos com MATLAB, IEC 61131-7 ou outras bibliotecas.

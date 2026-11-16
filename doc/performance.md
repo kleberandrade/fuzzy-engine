@@ -185,3 +185,11 @@ sensitive to warm-up/order, machine and SDK. They are not vendor comparisons.
 O benchmark agora separa importação e exportação Mamdani/Sugeno. As medições são
 ilustrativas, sem leitura de arquivo nem inferência no intervalo cronometrado.
 Não representam garantia de desempenho nem comparação com outras ferramentas.
+
+## Initial FCL import
+
+`dart run benchmark/fcl_benchmark.dart` measured 68.229 µs/import over 1000
+iterations after 50 warm-ups in one Dart 3.11.5 JIT run (checksum 2000 rules).
+File IO and inference were excluded. This is illustrative, not a guarantee.
+Medição ilustrativa de importação FCL; leitura de arquivo e inferência ficam fora
+do intervalo cronometrado. O valor depende de máquina, SDK e aquecimento.

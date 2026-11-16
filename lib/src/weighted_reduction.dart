@@ -48,7 +48,8 @@ double sumFinite(List<double> terms, {double? convexMin, double? convexMax}) {
   if (convexMin != null && convexMax != null && !result.isNaN) {
     result = result.clamp(convexMin, convexMax).toDouble();
   }
-  if (!result.isFinite)
+  if (!result.isFinite) {
     throw StateError('Sugeno arithmetic result is not finite.');
+  }
   return result;
 }

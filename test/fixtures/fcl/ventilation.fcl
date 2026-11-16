@@ -1,0 +1,33 @@
+(* Original analytical fixture, not exported by an external controller. *)
+FUNCTION_BLOCK ventilation
+VAR_INPUT
+ temperature : REAL;
+ humidity : REAL;
+END_VAR
+VAR_OUTPUT
+ fan : REAL;
+END_VAR
+FUZZIFY temperature
+ TERM low := (0,1) (1,0);
+ TERM high := (0,0) (1,1);
+END_FUZZIFY
+FUZZIFY humidity
+ TERM low := (0,1) (1,0);
+ TERM high := (0,0) (1,1);
+END_FUZZIFY
+DEFUZZIFY fan
+ TERM low := (0,1) (10,0);
+ TERM high := (0,0) (10,1);
+ METHOD : COG;
+ DEFAULT := -1;
+ RANGE := (0 .. 10);
+END_DEFUZZIFY
+RULEBLOCK ventilation_rules
+ AND : MIN;
+ OR : MAX;
+ ACT : MIN;
+ ACCU : MAX;
+ RULE 1 : IF temperature IS low AND humidity IS low THEN fan IS low WITH 0.8;
+ RULE 2 : IF temperature IS NOT low OR humidity IS high THEN fan IS high WITH 0.4;
+END_RULEBLOCK
+END_FUNCTION_BLOCK

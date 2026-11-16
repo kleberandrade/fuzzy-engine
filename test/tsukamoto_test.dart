@@ -75,15 +75,17 @@ void main() {
         final alpha = i / 1000, value = f.inverse(i / 1000);
         expect(value, inInclusiveRange(2, 8));
         expect(f.degree(value), closeTo(alpha, 1e-12));
-        if (previous != null)
+        if (previous != null) {
           expect(
               f.isIncreasing ? value >= previous : value <= previous, isTrue);
+        }
         previous = value;
       }
       expect(f.inverse(0), f.isIncreasing ? 2 : 8);
       expect(f.inverse(1), f.isIncreasing ? 8 : 2);
-      for (final bad in [-.1, 1.1, double.nan, double.infinity])
+      for (final bad in [-.1, 1.1, double.nan, double.infinity]) {
         expect(() => f.inverse(bad), throwsArgumentError);
+      }
     });
   }
   test('smooth inverses match independently derived quadratic roots', () {
@@ -247,7 +249,7 @@ void main() {
                   term: 'high')
             ]),
         throwsArgumentError);
-    for (final n in [1, 1002])
+    for (final n in [1, 1002]) {
       expect(
           () => TsukamotoEngine(
               inputs: e.inputs,
@@ -255,7 +257,8 @@ void main() {
               rules: e.rules,
               validationSamples: n),
           throwsArgumentError);
-    for (final t in [-1.0, double.nan, .01])
+    }
+    for (final t in [-1.0, double.nan, .01]) {
       expect(
           () => TsukamotoEngine(
               inputs: e.inputs,
@@ -263,6 +266,7 @@ void main() {
               rules: e.rules,
               inverseTolerance: t),
           throwsArgumentError);
+    }
   });
   test('results and model collections remain immutable across evaluations', () {
     final e = model();
@@ -294,9 +298,10 @@ void main() {
     expect(
         codec.toJson(restored)['settings'], codec.toJson(original)['settings']);
     expect(codec.decode(source).outputUnits, {'y': '%'});
-    for (var i = 0; i <= 20; i++)
+    for (var i = 0; i <= 20; i++) {
       expect(restored.evaluate({'x': i / 20}).outputs,
           original.evaluate({'x': i / 20}).outputs);
+    }
     expect(() => FuzzyModelCodec(exportVersion: 1).encode(original),
         throwsUnsupportedError);
     expect(() => codec.decodeSugeno(source), throwsFormatException);
