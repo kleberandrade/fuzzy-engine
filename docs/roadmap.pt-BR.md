@@ -4,29 +4,30 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 122 testes passando,
+A etapa de pipeline extensível está implementada localmente, com 144 testes passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
 A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
 cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
 Intercâmbio versionado, unidades e diagnósticos estruturais/por amostragem limitada
-estão implementados. Controladores avançados e interoperabilidade são a próxima etapa.
+estão implementados. Tsukamoto e o atalho Larsen estão implementados. Os perfis FIS/FCL estão definidos
+como proposta, mas parsers, exportadores e conformidade externa continuam pendentes.
 
 ## Escopo atual
 
-A versão em desenvolvimento inclui motores Mamdani e Sugeno tipo 1. Ainda não é um framework completo
+A versão em desenvolvimento inclui motores Mamdani, Sugeno e Tsukamoto tipo 1. Ainda não é um framework completo
 de lógica fuzzy. Há inferência com múltiplas entradas/saídas, mas cada cenário
 Flutter usa uma entrada. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
 representar recursos já entregues nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
 | --- | --- | --- |
-| Inferência | Mamdani, implicação produto e Sugeno de ordem zero/um | Tsukamoto e motores híbridos |
+| Inferência | Mamdani/Larsen, Sugeno de ordem zero/um e Tsukamoto monotônico | Motores híbridos |
 | AND / OR / NOT | Normas e negação configuráveis; AND mínimo/produto/limitado e OR máximo/probabilístico/limitado; Very/Somewhat | Outros modificadores |
 | Implicação / agregação | Configuráveis; mínimo/produto/limitado e máximo/probabilístico/limitado | Estratégias por bloco de regras/saída |
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
 | Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
-| Configuração | Objetos Dart, JSON v1 estrito, metadados e catálogo explícito | FCL/FIS e migrações |
+| Configuração | Objetos Dart, JSON v1/v2, metadados e catálogo explícito | FCL/FIS e migrações |
 | Explicação | Rastreamento de entradas/saídas, cobertura amostrada e análise estrutural | Provas de cobertura contínua e resolução semântica de conflitos |
 | Ferramentas | Demos Flutter, modelos de console, benchmarks e fixtures JSON | Superfícies interativas e bases externas de conformidade |
 
@@ -45,9 +46,10 @@ representar recursos já entregues nem compromisso com datas de lançamento.
    unidades, fixtures de referência e testes de ida e volta, grades limitadas de
    cobertura/ativação e achados de duplicatas/concorrência. Sem executar expressões;
    os achados amostrados não provam cobertura ou contradição matemáticas.
-5. **Controladores avançados e integrações.** Larsen e Tsukamoto monotônico com
-   validação da inversa; interoperabilidade FCL/FIS após definir um subconjunto
-   suportado e casos de conformidade.
+5. **Controladores avançados — motor implementado, interoperabilidade pendente.**
+   Atalho Larsen, Tsukamoto monotônico, validação de inversas, JSON v2 e diagnósticos
+   implementados. Os perfis FIS/FCL são propostas; parsers, exportadores e fixtures
+   externas de conformidade ainda não existem. Veja o [escopo restante](interoperability.pt-BR.md).
 
 ## Critério de conclusão de cada recurso
 

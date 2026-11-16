@@ -126,3 +126,27 @@ Medição JIT local ilustrativa: encode 52,155, decode 69,925 e diagnóstico 128
 Não são garantias. A grade cartesiana multiplica o custo de avaliação do motor;
 o relatório não retém todo o histórico de combinações, apenas contadores, grades
 de entrada e exemplos limitados de falha.
+
+## Tsukamoto benchmark
+
+```sh
+dart run benchmark/tsukamoto_benchmark.dart 1000
+```
+
+One input, one SShape output term, 33 validation probes and 1/10/100 identical
+active rules. A local Dart 3.11.5 JIT run measured 9.348 / 11.593 / 14.125 µs per
+evaluation. All checksums were 61270.16653792661. Constructor measurements were
+3517 / 95 / 180 µs, demonstrating warm-up/order effects rather than a meaningful
+cross-scenario ranking. Constructor probing is outside timed inference loops.
+This is not a comparison with numerically equivalent Mamdani or Sugeno models.
+
+Construction validates every monotonic term in O(terms × validationSamples),
+plus model/reference validation. Evaluation cost is approximately O(input terms +
+condition nodes + active inverse calls + rules + outputs), assuming O(1) built-in
+inverses. Custom functions may cost more. No output integration grid is allocated.
+Inverse consistency checks add a forward membership evaluation per active rule.
+
+Medições JIT ilustrativas, sem garantia de desempenho. A construção valida todas
+as funções, enquanto o tempo de inferência inclui inversão e verificação direta
+por regra ativa. Não há grade de integração de saída. Os cenários não são modelos
+numericamente equivalentes aos benchmarks Mamdani/Sugeno.

@@ -220,7 +220,7 @@ void main() {
         () => codec.decodeMamdani(
             codec.encode(sugeno(SugenoAggregation.weightedAverage))),
         throwsFormatException);
-    for (final version in [null, 0, 2, 1.1, '1', true]) {
+    for (final version in [null, 0, 3, 1.1, '1', true]) {
       final raw = editable(mamdani())..['schemaVersion'] = version;
       expect(() => codec.decode(jsonEncode(raw)), throwsFormatException);
     }

@@ -6,6 +6,30 @@ abstract interface class MembershipFunction {
   double degree(double x);
 }
 
+/// Monotonic transition with finite inverse values for every degree from 0 to 1.
+/// Domain endpoints delimit the transition; saturating tails may lie outside it.
+abstract interface class MonotonicMembershipFunction
+    implements MembershipFunction {
+  /// Finite lower transition coordinate.
+  double get domainMin;
+
+  /// Finite upper transition coordinate.
+  double get domainMax;
+
+  /// Whether degrees increase with the crisp coordinate.
+  bool get isIncreasing;
+
+  /// Generalized inverse within the transition domain; endpoints must be finite.
+  double inverse(double membership);
+}
+
+void _inverseDegree(double degree) {
+  if (!degree.isFinite || degree < 0 || degree > 1) {
+    throw ArgumentError(
+        'Inverse degree must be finite and between zero and one.');
+  }
+}
+
 void _finite(Iterable<double> values) {
   if (values.any((v) => !v.isFinite)) {
     throw ArgumentError('Parameters must be finite.');
@@ -99,7 +123,7 @@ void _orderedEdge(double a, double b) {
 
 /// Saturating linear membership from zero at [start] to one at [end].
 /// Descending ramps use start > end; tails keep their endpoint degrees.
-final class Ramp implements MembershipFunction {
+final class Ramp implements MonotonicMembershipFunction {
   /// Requires distinct finite endpoints with a finite span.
   Ramp(this.start, this.end) {
     _finite([start, end]);
@@ -107,6 +131,20 @@ final class Ramp implements MembershipFunction {
       throw ArgumentError(
           'Ramp endpoints must be distinct with a finite span.');
     }
+  }
+
+  @override
+  double get domainMin => math.min(start, end);
+  @override
+  double get domainMax => math.max(start, end);
+  @override
+  bool get isIncreasing => end > start;
+  @override
+  double inverse(double membership) {
+    _inverseDegree(membership);
+    if (membership == 0) return start;
+    if (membership == 1) return end;
+    return start + (end - start) * membership;
   }
 
   /// Zero-membership endpoint.
@@ -191,10 +229,27 @@ final class Bell implements MembershipFunction {
 }
 
 /// Smooth quadratic transition from zero at a to one at b.
-final class SShape implements MembershipFunction {
+final class SShape implements MonotonicMembershipFunction {
   /// Requires a < b with finite span.
   SShape(this.a, this.b) {
     _orderedEdge(a, b);
+  }
+
+  @override
+  double get domainMin => a;
+  @override
+  double get domainMax => b;
+  @override
+  bool get isIncreasing => true;
+  @override
+  double inverse(double membership) {
+    _inverseDegree(membership);
+    if (membership == 0) return a;
+    if (membership == 1) return b;
+    final t = membership <= .5
+        ? math.sqrt(membership / 2)
+        : 1 - math.sqrt((1 - membership) / 2);
+    return a + (b - a) * t;
   }
 
   /// Start of the transition.
@@ -213,9 +268,21 @@ final class SShape implements MembershipFunction {
 }
 
 /// Smooth quadratic transition from one at a to zero at b.
-final class ZShape implements MembershipFunction {
+final class ZShape implements MonotonicMembershipFunction {
   /// Requires a < b with finite span.
   ZShape(this.a, this.b) : _rising = SShape(a, b);
+
+  @override
+  double get domainMin => a;
+  @override
+  double get domainMax => b;
+  @override
+  bool get isIncreasing => false;
+  @override
+  double inverse(double membership) {
+    _inverseDegree(membership);
+    return _rising.inverse(1 - membership);
+  }
 
   /// Start of the transition.
   final double a;

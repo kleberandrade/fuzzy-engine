@@ -87,6 +87,26 @@ final class FuzzyEngine {
     }
   }
 
+  /// Larsen preset: product implication, with all other defaults unchanged.
+  /// This is the same configurable pipeline, not a new output model.
+  factory FuzzyEngine.larsen(
+          {required List<FuzzyVariable> inputs,
+          required List<FuzzyVariable> outputs,
+          required List<FuzzyRule> rules,
+          int intervals = 1000,
+          FuzzyOperators operators = const FuzzyOperators(),
+          SNorm aggregation = const Maximum(),
+          Defuzzifier defuzzifier = const Centroid()}) =>
+      FuzzyEngine(
+          inputs: inputs,
+          outputs: outputs,
+          rules: rules,
+          intervals: intervals,
+          operators: operators,
+          implication: const AlgebraicProduct(),
+          aggregation: aggregation,
+          defuzzifier: defuzzifier);
+
   /// Input configuration.
   final List<FuzzyVariable> inputs;
 

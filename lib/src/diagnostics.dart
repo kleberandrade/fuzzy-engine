@@ -5,6 +5,7 @@ import 'model.dart';
 import 'model_codec.dart';
 import 'operators.dart';
 import 'sugeno.dart';
+import 'tsukamoto.dart';
 
 /// Diagnostic severity; a finding is not an automatic model modification.
 enum DiagnosticSeverity { info, warning, error }
@@ -142,7 +143,7 @@ final class FuzzyDiagnosticReport {
       };
 }
 
-/// Bounded grid inspection and conservative structural checks for either engine.
+/// Bounded grid inspection and conservative structural checks for supported engines.
 final class FuzzyDiagnostics {
   /// Creates a stateless diagnostic runner. Calling analyze executes the model.
   const FuzzyDiagnostics();
@@ -184,8 +185,15 @@ final class FuzzyDiagnostics {
           _RuleShape(r.name, r.when, r.output, r.weight,
               _tryConsequent(codec, r.consequent))
       ];
+    } else if (engine is TsukamotoEngine) {
+      inputs = engine.inputs;
+      outputNames = engine.outputs.map((o) => o.name).toList();
+      rules = [
+        for (final r in engine.rules)
+          _RuleShape(r.name, r.when, r.output, r.weight, {'term': r.term})
+      ];
     } else {
-      throw ArgumentError('Expected a Mamdani or Sugeno model.');
+      throw ArgumentError('Expected a supported fuzzy model.');
     }
     var evaluations = 1;
     for (var i = 0; i < inputs.length; i++) {
@@ -252,8 +260,14 @@ final class FuzzyDiagnostics {
           activations = [
             for (final r in result.rules) (r.rule.name, r.strength)
           ];
+        } else if (engine is SugenoEngine) {
+          final result = engine.evaluate(point);
+          outputs = result.outputs;
+          activations = [
+            for (final r in result.rules) (r.rule.name, r.strength)
+          ];
         } else {
-          final result = (engine as SugenoEngine).evaluate(point);
+          final result = (engine as TsukamotoEngine).evaluate(point);
           outputs = result.outputs;
           activations = [
             for (final r in result.rules) (r.rule.name, r.strength)

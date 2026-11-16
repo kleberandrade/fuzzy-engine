@@ -6,6 +6,7 @@ import 'operators.dart';
 import 'defuzzification.dart';
 import 'hedges.dart';
 import 'sugeno.dart';
+import 'tsukamoto.dart';
 
 /// Model plus optional descriptive labels. Units are metadata, not conversions.
 final class FuzzyModelDocument {
@@ -26,8 +27,11 @@ final class FuzzyModelDocument {
     } else if (model is SugenoEngine) {
       inputs = model.inputs.map((v) => v.name).toList();
       outputs = model.outputs.map((v) => v.name).toList();
+    } else if (model is TsukamotoEngine) {
+      inputs = model.inputs.map((v) => v.name).toList();
+      outputs = model.outputs.map((v) => v.name).toList();
     } else {
-      throw ArgumentError('Expected a Mamdani or Sugeno engine.');
+      throw ArgumentError('Expected a supported fuzzy engine.');
     }
     if (name != null && name!.trim().isEmpty)
       throw ArgumentError('Model name must not be blank.');
@@ -40,7 +44,7 @@ final class FuzzyModelDocument {
     }
   }
 
-  /// FuzzyEngine or SugenoEngine; custom engine types are not supported.
+  /// Mamdani, Sugeno or Tsukamoto engine; custom engine types are not supported.
   final Object engine;
 
   /// Optional descriptive model name.
@@ -56,21 +60,26 @@ final class FuzzyModelDocument {
   final Map<String, String> outputUnits;
 }
 
-/// Strict, versioned JSON interchange for built-in Mamdani and Sugeno models.
+/// Strict JSON interchange: imports v1/v2, exports v2 by default.
 /// Unknown versions, keys and component types are rejected. No code is evaluated.
 final class FuzzyModelCodec {
   /// Limits apply to both imports and exports. String length uses UTF-16 units.
   FuzzyModelCodec(
-      {this.maxDepth = 64,
+      {this.exportVersion = schemaVersion,
+      this.maxDepth = 64,
       this.maxNodes = 10000,
       this.maxSourceLength = 1000000,
       this.maxOutputSamples = 1000000}) {
-    if (maxDepth < 1 ||
+    if ((exportVersion != 1 && exportVersion != schemaVersion) ||
+        maxDepth < 1 ||
         maxNodes < 1 ||
         maxSourceLength < 1 ||
         maxOutputSamples < 3)
-      throw ArgumentError('Codec limits must be positive.');
+      throw ArgumentError('Invalid codec version or resource limits.');
   }
+
+  /// Export v1 for legacy Mamdani/Sugeno consumers, or v2 for all three families.
+  final int exportVersion;
 
   /// Maximum nested JSON/condition depth.
   final int maxDepth;
@@ -85,7 +94,7 @@ final class FuzzyModelCodec {
   final int maxOutputSamples;
 
   /// Current interchange schema version.
-  static const schemaVersion = 1;
+  static const schemaVersion = 2;
 
   /// Encodes an engine or FuzzyModelDocument to JSON text.
   String encode(Object model) {
@@ -120,14 +129,26 @@ final class FuzzyModelCodec {
     return model;
   }
 
+  /// Typed v2 Tsukamoto import; use decode to retain metadata.
+  TsukamotoEngine decodeTsukamoto(String source) {
+    final model = decode(source).engine;
+    if (model is! TsukamotoEngine)
+      throw const FormatException('Expected a Tsukamoto model.');
+    return model;
+  }
+
   /// Exports a fresh JSON-compatible map. Custom components throw UnsupportedError.
   Map<String, Object?> toJson(Object model) {
     final document =
         model is FuzzyModelDocument ? model : FuzzyModelDocument(engine: model);
     final engine = document.engine;
     final result = <String, Object?>{
-      'schemaVersion': schemaVersion,
-      'engineType': engine is FuzzyEngine ? 'mamdani' : 'sugeno',
+      'schemaVersion': exportVersion,
+      'engineType': engine is FuzzyEngine
+          ? 'mamdani'
+          : engine is SugenoEngine
+              ? 'sugeno'
+              : 'tsukamoto',
       'metadata': {
         'name': document.name,
         'description': document.description,
@@ -178,6 +199,37 @@ final class FuzzyModelCodec {
         ],
         'settings': {'aggregation': engine.aggregation.name}
       });
+    } else if (engine is TsukamotoEngine) {
+      if (exportVersion == 1)
+        throw UnsupportedError('Tsukamoto requires JSON schema v2.');
+      operators = engine.operators;
+      result.addAll({
+        'inputs': engine.inputs.map(_variableJson).toList(),
+        'outputs': [
+          for (final output in engine.outputs)
+            {
+              'name': output.name,
+              'min': output.min,
+              'max': output.max,
+              'terms': output.terms.map(
+                  (name, function) => MapEntry(name, _membershipJson(function)))
+            }
+        ],
+        'rules': [
+          for (final rule in engine.rules)
+            {
+              'name': rule.name,
+              'when': conditionToJson(rule.when),
+              'output': rule.output,
+              'term': rule.term,
+              'weight': rule.weight
+            }
+        ],
+        'settings': {
+          'validationSamples': engine.validationSamples,
+          'inverseTolerance': engine.inverseTolerance
+        }
+      });
     } else {
       throw ArgumentError('Unsupported engine.');
     }
@@ -210,10 +262,12 @@ final class FuzzyModelCodec {
           ],
           r'$');
       if (source['schemaVersion'] is! num ||
-          source['schemaVersion'] != schemaVersion)
+          (source['schemaVersion'] != 1 &&
+              source['schemaVersion'] != schemaVersion))
         throw const FormatException(r'$.schemaVersion: unsupported version.');
       final type = _string(source['engineType'], r'$.engineType');
-      if (type != 'mamdani' && type != 'sugeno')
+      if ((type != 'mamdani' && type != 'sugeno' && type != 'tsukamoto') ||
+          (source['schemaVersion'] == 1 && type == 'tsukamoto'))
         throw const FormatException(r'$.engineType: unsupported engine.');
       final operators = _object(source['operators'], r'$.operators');
       _keys(operators, ['conjunction', 'disjunction', 'negation'],
@@ -257,7 +311,7 @@ final class FuzzyModelCodec {
             aggregation: _sNorm(settings['aggregation']),
             defuzzifier: _defuzzifier(settings['defuzzifier']),
             rules: [for (final r in ruleMaps) _mamdaniRule(r)]);
-      } else {
+      } else if (type == 'sugeno') {
         _keys(settings, ['aggregation'], r'$.settings');
         final method = switch (settings['aggregation']) {
           'weightedAverage' => SugenoAggregation.weightedAverage,
@@ -276,6 +330,28 @@ final class FuzzyModelCodec {
             rules: [
               for (final r in ruleMaps) _sugenoRule(r)
             ]);
+      } else {
+        _keys(
+            settings, ['validationSamples', 'inverseTolerance'], r'$.settings');
+        final probes = settings['validationSamples'];
+        if (probes is! num ||
+            !probes.isFinite ||
+            probes < 2 ||
+            probes > 1001 ||
+            probes != probes.truncateToDouble()) {
+          throw const FormatException(
+              'Tsukamoto validationSamples must be an integer from 2 to 1001.');
+        }
+        engine = TsukamotoEngine(
+            inputs: inputs,
+            operators: ops,
+            outputs: _list(source['outputs'], r'$.outputs')
+                .map(_tsukamotoOutput)
+                .toList(),
+            rules: [for (final raw in ruleMaps) _tsukamotoRule(raw)],
+            validationSamples: probes.toInt(),
+            inverseTolerance:
+                _number(settings['inverseTolerance'], 'inverseTolerance'));
       }
       final metadata = _object(source['metadata'], r'$.metadata');
       _keys(metadata, ['name', 'description', 'inputUnits', 'outputUnits'],
@@ -669,4 +745,27 @@ SugenoRule _sugenoRule(Map<String, Object?> r) {
       output: _string(r['output'], 'rule.output'),
       consequent: consequent,
       weight: _number(r['weight'], 'rule.weight'));
+}
+
+TsukamotoOutput _tsukamotoOutput(Object? raw) {
+  final variable = _variable(raw);
+  final terms = <String, MonotonicMembershipFunction>{};
+  for (final entry in variable.terms.entries) {
+    if (entry.value is! MonotonicMembershipFunction)
+      throw const FormatException(
+          'Tsukamoto outputs require monotonic invertible terms.');
+    terms[entry.key] = entry.value as MonotonicMembershipFunction;
+  }
+  return TsukamotoOutput(
+      name: variable.name, min: variable.min, max: variable.max, terms: terms);
+}
+
+TsukamotoRule _tsukamotoRule(Map<String, Object?> raw) {
+  final rule = _mamdaniRule(raw);
+  return TsukamotoRule(
+      name: rule.name,
+      when: rule.when,
+      output: rule.output,
+      term: rule.term,
+      weight: rule.weight);
 }

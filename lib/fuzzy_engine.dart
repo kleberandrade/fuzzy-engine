@@ -22,3 +22,4 @@ export 'src/hedges.dart';
 export 'src/sugeno.dart';
 export 'src/model_codec.dart';
 export 'src/diagnostics.dart';
+export 'src/tsukamoto.dart';

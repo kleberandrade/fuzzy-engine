@@ -1,7 +1,7 @@
-import 'dart:math' as math;
 import 'inference_support.dart';
 import 'model.dart';
 import 'operators.dart';
+import 'weighted_reduction.dart';
 
 /// Distinct Sugeno reduction methods; neither samples a fuzzy output set.
 enum SugenoAggregation {
@@ -73,7 +73,7 @@ final class LinearConsequent implements SugenoConsequent {
         throw StateError('Linear consequent product overflowed.');
       terms.add(term);
     }
-    return _finiteSum(terms);
+    return sumFinite(terms);
   }
 }
 
@@ -256,68 +256,18 @@ final class SugenoEngine {
     for (final output in outputs) {
       final active = grouped[output.name]!;
       totalWeights[output.name] =
-          _finiteSum(active.map((a) => a.strength).toList());
+          sumFinite(active.map((a) => a.strength).toList());
       if (active.isEmpty) {
         results[output.name] = null;
       } else if (aggregation == SugenoAggregation.weightedSum) {
         results[output.name] =
-            _finiteSum(active.map((a) => a.weightedContribution!).toList());
+            sumFinite(active.map((a) => a.weightedContribution!).toList());
       } else {
-        // Normalize weights before products, keeping tiny common weights useful.
-        final peakWeight = active.map((a) => a.strength).reduce(math.max);
-        final scaledWeights = [for (final a in active) a.strength / peakWeight];
-        final denominator = _finiteSum(scaledWeights);
-        final terms = [
-          for (var i = 0; i < active.length; i++)
-            scaledWeights[i] * active[i].consequentValue! / denominator
-        ];
-        final low = active.map((a) => a.consequentValue!).reduce(math.min);
-        final high = active.map((a) => a.consequentValue!).reduce(math.max);
-        results[output.name] =
-            _finiteSum(terms, convexMin: low, convexMax: high);
+        results[output.name] = weightedAverage(
+            active.map((a) => a.strength).toList(),
+            active.map((a) => a.consequentValue!).toList());
       }
     }
     return SugenoResult._(results, memberships, activations, totalWeights);
   }
-}
-
-// Compensated summation, with a scaled fallback if intermediate sums overflow.
-// Averages are restricted only to their mathematical active-consequent hull,
-// guarding rounding at extreme magnitudes; no application output bounds exist.
-double _finiteSum(List<double> terms, {double? convexMin, double? convexMax}) {
-  if (terms.isEmpty) return 0;
-  double total = 0, correction = 0;
-  for (final term in terms) {
-    final next = total + term;
-    if (!next.isFinite) {
-      total = double.nan;
-      break;
-    }
-    correction += total.abs() >= term.abs()
-        ? (total - next) + term
-        : (term - next) + total;
-    total = next;
-  }
-  double result = total + correction;
-  if (!result.isFinite) {
-    final scale = terms.map((term) => term.abs()).reduce(math.max);
-    if (scale == 0) return 0;
-    total = 0;
-    correction = 0;
-    for (final term in terms) {
-      final normalized = term / scale;
-      final next = total + normalized;
-      correction += total.abs() >= normalized.abs()
-          ? (total - next) + normalized
-          : (normalized - next) + total;
-      total = next;
-    }
-    result = (total + correction) * scale;
-  }
-  if (convexMin != null && convexMax != null && !result.isNaN) {
-    result = result.clamp(convexMin, convexMax).toDouble();
-  }
-  if (!result.isFinite)
-    throw StateError('Sugeno arithmetic result is not finite.');
-  return result;
 }

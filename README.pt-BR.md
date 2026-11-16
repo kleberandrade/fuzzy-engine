@@ -1,6 +1,6 @@
 # fuzzy_engine
 
-Motores de lógica fuzzy Mamdani e Sugeno para Dart e Flutter, explicáveis e sem dependências de execução.
+Motores de lógica fuzzy Mamdani, Sugeno e Tsukamoto para Dart e Flutter, explicáveis e sem dependências de execução.
 
 [English](README.md) · [Guia conceitual](docs/guide.pt-BR.md) · [Exemplo Flutter](example/README.md)
 
@@ -11,7 +11,7 @@ disponibilidade no pub.dev não foi confirmada. Use uma dependência local por e
 
 Consulte os [diagramas de classes](docs/architecture.pt-BR.md) e a
 [matriz de recursos e evolução](docs/roadmap.pt-BR.md). Esta versão entrega
-motores Mamdani e Sugeno tipo 1, ainda não um framework completo de lógica fuzzy.
+motores Mamdani, Sugeno e Tsukamoto tipo 1, ainda não um framework completo de lógica fuzzy.
 
 ## O que é lógica fuzzy?
 
@@ -77,6 +77,8 @@ void main() {
 
 ## Recursos
 
+- Tsukamoto com inversas monotônicas analíticas e atalho Larsen explícito.
+
 - Intercâmbio JSON versionado, metadados de unidades e diagnóstico por amostragem limitada.
 
 - Sugeno de ordem zero/um, média ponderada normalizada e soma ponderada explícita.
@@ -140,3 +142,5 @@ Consulte o [checklist de publicação](docs/PUBLISHING.md). Licença MIT.
 [Guia Sugeno e exemplo executável](docs/sugeno.pt-BR.md). Use `SugenoEngine` para conclusões constantes/lineares; o `FuzzyEngine` existente mantém os padrões Mamdani.
 
 [Intercâmbio JSON e diagnósticos](docs/model-tools.pt-BR.md), com esquema versionado e exemplo executável.
+
+[Tsukamoto e Larsen](docs/tsukamoto.pt-BR.md), [JSON v2](docs/model-v2.schema.json) e [proposta FIS/FCL](docs/interoperability.pt-BR.md). A importação/exportação desses formatos externos não está implementada.

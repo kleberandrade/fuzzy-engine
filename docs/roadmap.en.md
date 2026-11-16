@@ -4,29 +4,30 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 122 passing tests, public
+The extensible pipeline stage is implemented locally with 144 passing tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
 five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
 Versioned model interchange, unit labels and bounded sampling/structural diagnostics
-are implemented. Advanced controllers and interoperability are the next stage.
+are implemented. Tsukamoto and an explicit Larsen preset are implemented. FIS/FCL profiles are
+designed, but their parsers/exporters and external conformance fixtures remain pending.
 
 ## Current scope
 
-The development version includes type-1 Mamdani and Sugeno engines. It is not a complete fuzzy logic
+The development version includes type-1 Mamdani, Sugeno and Tsukamoto engines. It is not a complete fuzzy logic
 framework. Multi-input/output inference exists, but the Flutter scenarios each
 use one input. Implemented items are marked below. Remaining roadmap entries are proposals,
 not shipped functionality or release-date commitments.
 
 | Area | Implemented | Missing / proposed |
 | --- | --- | --- |
-| Inference | Mamdani defaults, product implication, Sugeno zero/first order | Tsukamoto and hybrid engines |
+| Inference | Mamdani/Larsen, Sugeno zero/first order, monotonic Tsukamoto | Hybrid engines |
 | AND / OR / NOT | Configurable norms and negation; min/product/bounded AND, max/probabilistic/bounded OR; Very/Somewhat modifiers | Additional hedges |
 | Implication / aggregation | Configurable; min/product/bounded implication and max/probabilistic/bounded aggregation | Per-rule-block/per-output strategies |
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
 | Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
-| Configuration | Dart objects, strict JSON v1, metadata and explicit component catalog | FCL/FIS import/export and migrations |
+| Configuration | Dart objects, JSON v1/v2, metadata and explicit component catalog | FCL/FIS import/export and migrations |
 | Explanations | Input/output traces, bounded coverage/activation scans and structural findings | Continuous coverage proofs and semantic conflict resolution |
 | Tooling | Flutter demos, console models, component benchmarks and JSON fixtures | Interactive multi-input surfaces and external conformance datasets |
 
@@ -45,9 +46,10 @@ not shipped functionality or release-date commitments.
    schema v1, units metadata, round-trip/reference fixtures, bounded coverage and
    activation scans, duplicate/competing-rule findings. No expression execution;
    sampled findings are not mathematical coverage/conflict proofs.
-5. **Advanced controllers and integrations.** Larsen and monotonic Tsukamoto with
-   inverse membership validation; FCL/FIS interoperability only after specifying
-   a supported subset and conformance fixtures.
+5. **Advanced controllers — runtime implemented, interoperability pending.**
+   Larsen preset, monotonic Tsukamoto, inverse validation, JSON v2 and diagnostics
+   are implemented. FIS/FCL profiles are proposed; parsers, exporters and external
+   conformance fixtures are not implemented. See [remaining scope](interoperability.en.md).
 
 ## Definition of done for each feature
 

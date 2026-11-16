@@ -2,7 +2,7 @@
 
 [English](sugeno.en.md) · [Diagramas de classes](architecture.pt-BR.md)
 
-## Duas famílias de motores
+## Comparando Mamdani e Sugeno
 
 | Aspecto | FuzzyEngine (padrões Mamdani) | SugenoEngine |
 | --- | --- | --- |
@@ -143,3 +143,5 @@ ativações 0,75 e 0,125, com total 0,875.
 Os valores ilustram uma pontuação abstrata de ventilação, não comandos calibrados.
 Veja os [benchmarks](performance.md): os cenários Sugeno e Mamdani não representam
 controladores numericamente equivalentes nem devem ser tratados como intercambiáveis.
+
+O terceiro motor, [Tsukamoto](tsukamoto.pt-BR.md), usa conclusões monotônicas invertidas.

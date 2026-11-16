@@ -2,9 +2,19 @@
 
 [English](model-tools.en.md) · [JSON Schema v1](model-v1.schema.json) · [Diagramas](architecture.pt-BR.md)
 
+## Atualização para v2
+
+A exportação padrão agora emite v2 e suporta Tsukamoto como terceira família.
+A importação aceita v1 e v2. Use FuzzyModelCodec(exportVersion: 1) para exportar
+Mamdani/Sugeno ao formato antigo; Tsukamoto não pode ser rebaixado. O envelope e
+os identificadores anteriores mantêm o significado. A v2 acrescenta engineType=tsukamoto,
+saídas monotônicas limitadas, validationSamples e inverseTolerance. Veja o
+[esquema v2](model-v2.schema.json) e o [guia Tsukamoto](tsukamoto.pt-BR.md).
+A descrição de v1 abaixo continua como perfil legado, não como exportação padrão.
+
 ## Importação e exportação
 
-FuzzyModelCodec suporta FuzzyEngine e SugenoEngine. Passe o motor ao encode ou
+FuzzyModelCodec suporta FuzzyEngine, SugenoEngine e TsukamotoEngine. Passe o motor ao encode ou
 use FuzzyModelDocument para preservar nome, descrição e unidades. O núcleo usa
 somente dart:convert; não acessa arquivos, rede nem serviços externos. Ler/gravar
 arquivos é responsabilidade da aplicação.
@@ -95,7 +105,7 @@ O parser Dart trata sintaxe e nomes de propriedades duplicados; este codec não 
 um protocolo de canonicalização/assinatura. Se sua aplicação proíbe chaves JSON
 duplicadas, rejeite-as antes. O JSON Schema descreve a estrutura; os construtores
 e o codec verificam também ordenação de parâmetros, referências, unidades e
-limites configurados. Não há migração automática entre versões.
+limites configurados. Nenhum arquivo de origem é regravado automaticamente. Reexportar com o codec padrão produz v2; selecione exportVersion: 1 para preservar o envelope legado.
 
 ## Diagnóstico por amostragem
 

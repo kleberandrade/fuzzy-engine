@@ -1,6 +1,6 @@
 # fuzzy_engine
 
-Explainable, dependency-free Mamdani and Sugeno fuzzy inference for Dart and Flutter.
+Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter.
 
 [Português](README.pt-BR.md) · [Concepts and design](docs/guide.en.md) · [Flutter demo](example/README.md)
 
@@ -11,7 +11,7 @@ registry availability has not been confirmed. Use a local path today.
 
 See the [class diagrams](docs/architecture.en.md) and the
 [implemented-versus-planned feature matrix](docs/roadmap.en.md). This release
-provides type-1 Mamdani and Sugeno engines, not a complete fuzzy logic framework.
+provides type-1 Mamdani, Sugeno and Tsukamoto engines, not a complete fuzzy logic framework.
 
 ## What is fuzzy logic?
 
@@ -76,6 +76,8 @@ void main() {
 
 ## Features
 
+- Tsukamoto with analytical monotonic inverses; explicit Larsen preset.
+
 - Versioned JSON model interchange, unit metadata and bounded sampling diagnostics.
 
 - Sugeno zero/first-order consequents, normalized weighted average and explicit weighted sum.
@@ -138,3 +140,5 @@ Read the [release checklist](docs/PUBLISHING.md) before publishing. MIT licensed
 [Sugeno guide and executable example](docs/sugeno.en.md). Use `SugenoEngine` for crisp constant/linear consequents; the existing `FuzzyEngine` keeps its Mamdani defaults.
 
 [JSON model interchange and diagnostics](docs/model-tools.en.md), with a checked-in schema and runnable example.
+
+[Tsukamoto and Larsen](docs/tsukamoto.en.md), [JSON v2](docs/model-v2.schema.json) and the [FIS/FCL profile proposal](docs/interoperability.en.md). External format import/export is not implemented.

@@ -2,9 +2,19 @@
 
 [Português](model-tools.pt-BR.md) · [JSON Schema v1](model-v1.schema.json) · [Class diagrams](architecture.en.md)
 
+## Version 2 update
+
+The default exporter now emits v2 and supports Tsukamoto as a third family.
+Imports accept both v1 and v2. Use FuzzyModelCodec(exportVersion: 1) for legacy
+Mamdani/Sugeno exports; Tsukamoto cannot be downgraded. The envelope and all earlier
+component identifiers retain their meanings. v2 adds engineType=tsukamoto, bounded
+monotonic outputs, validationSamples and inverseTolerance. See the [v2 schema](model-v2.schema.json)
+and [Tsukamoto guide](tsukamoto.en.md). The v1 description below remains the legacy
+profile, not the current default export version.
+
 ## Import and export
 
-`FuzzyModelCodec` supports both FuzzyEngine and SugenoEngine. Pass an engine directly
+`FuzzyModelCodec` supports FuzzyEngine, SugenoEngine and TsukamotoEngine. Pass an engine directly
 to encode, or wrap it in FuzzyModelDocument to retain a name, description and unit
 labels. The core uses only dart:convert; it does not access files, networks or
 external configuration services. File reading/writing belongs to the application.
@@ -96,11 +106,11 @@ Dart's JSON parser handles syntax and duplicate property names; the codec is not
 a canonicalization/signature protocol. Reject duplicate-key input upstream if your
 application requires that policy. The JSON Schema describes structure; runtime
 validation additionally checks parameter order, references, units and configured
-resource limits. No automatic schema migration is performed.
+resource limits. No source file is rewritten automatically. Re-encoding with the default codec emits v2; select exportVersion: 1 to preserve the legacy envelope.
 
 ## Sampling diagnostics
 
-FuzzyDiagnostics analyzes either engine or a document and never changes its rules.
+FuzzyDiagnostics analyzes any of the three engines or a document and never changes its rules.
 It samples the full Cartesian product of uniform input grids, including endpoints.
 With k inputs and n samples per input, there are n^k evaluations; the default is
 11 samples per input with a cap of 10000 evaluations. A grid exceeding the cap is

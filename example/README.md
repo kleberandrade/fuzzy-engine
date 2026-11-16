@@ -74,3 +74,13 @@ dart run example/model_tools_example.dart
 From the package root. Demonstrates model/metadata round-trip and deliberately
 imperfect rules. Exemplo de console, a partir da raiz, com intercâmbio do modelo,
 unidades e regras deliberadamente duplicadas/concorrentes para explicar os achados.
+
+## Tsukamoto
+
+```sh
+dart run example/tsukamoto_example.dart
+```
+
+Shows weighted inverse values, JSON v2 round-trip and sampling diagnostics.
+Exibe valores inversos ponderados, ida e volta JSON v2 e diagnósticos amostrados.
+This is a Dart console example; the Flutter lab UI still uses Mamdani.

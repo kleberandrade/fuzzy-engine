@@ -363,9 +363,11 @@ classDiagram
     }
     class FuzzyEngine
     class SugenoEngine
+    class TsukamotoEngine
     FuzzyModelCodec ..> FuzzyModelDocument : imports and exports
     FuzzyModelDocument --> FuzzyEngine : one engine family
     FuzzyModelDocument --> SugenoEngine : one engine family
+    FuzzyModelDocument --> TsukamotoEngine : one engine family
 ```
 
 ```mermaid
@@ -408,3 +410,63 @@ classDiagram
 ```
 
 [Model interchange and sampling contracts](model-tools.en.md). ConditionVisitor adds typed inspection without exposing private condition-node implementations.
+
+## Tsukamoto
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    class MonotonicMembershipFunction {
+        <<interface>>
+        +double domainMin
+        +double domainMax
+        +bool isIncreasing
+        +inverse(degree) double
+    }
+    class Ramp
+    class SShape
+    class ZShape
+    MembershipFunction <|.. MonotonicMembershipFunction
+    MonotonicMembershipFunction <|.. Ramp
+    MonotonicMembershipFunction <|.. SShape
+    MonotonicMembershipFunction <|.. ZShape
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class TsukamotoEngine {
+        +int validationSamples
+        +double inverseTolerance
+        +evaluate(values) TsukamotoResult
+    }
+    class FuzzyVariable
+    class TsukamotoOutput {
+        +String name
+        +double min
+        +double max
+        +Map terms
+    }
+    class TsukamotoRule
+    TsukamotoEngine o-- FuzzyVariable : inputs
+    TsukamotoEngine o-- TsukamotoOutput : outputs
+    TsukamotoEngine o-- TsukamotoRule : rules
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class TsukamotoResult
+    class TsukamotoActivation {
+        +double antecedent
+        +double strength
+        +double inverseValue
+        +double weightedContribution
+    }
+    class TsukamotoRule
+    TsukamotoResult *-- TsukamotoActivation : rules
+    TsukamotoActivation --> TsukamotoRule : rule
+```
+
+[Tsukamoto contracts](tsukamoto.en.md): inactive inverse/contribution values are nullable. The three engines share internal input validation and stable weighted arithmetic where applicable. JSON v2 adds the third family; v1 remains readable.

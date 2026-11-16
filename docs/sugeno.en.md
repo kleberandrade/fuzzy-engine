@@ -2,7 +2,7 @@
 
 [Português](sugeno.pt-BR.md) · [Class diagrams](architecture.en.md)
 
-## Two engine families
+## Comparing Mamdani and Sugeno
 
 | Topic | FuzzyEngine (Mamdani defaults) | SugenoEngine |
 | --- | --- | --- |
@@ -144,3 +144,5 @@ strengths are 0.75 and 0.125 (total 0.875).
 Values illustrate an abstract fan-control score, not calibrated actuator commands.
 See [benchmarks](performance.md); Sugeno and Mamdani benchmark scenarios are not
 numerically equivalent controllers and should not be ranked as interchangeable.
+
+A third engine, [Tsukamoto](tsukamoto.en.md), uses monotonic inverse consequents.

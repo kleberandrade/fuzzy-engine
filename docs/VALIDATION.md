@@ -6,7 +6,7 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 122 passed, including interchange, reference fixtures, diagnostics and numerical compatibility |
+| Core tests | 144 passed, including monotonic inverses, Tsukamoto decisions, v1/v2 interchange and compatibility |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
@@ -19,7 +19,7 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 122 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 144 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
 de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
@@ -92,3 +92,17 @@ The runnable model-tools example and benchmark execute. Static analysis passes
 for the core and Flutter example; the web build succeeds and API docs generate
 without warnings. Remote/minimum-SDK checks
 remain pending for these changes.
+
+## Advanced controller stage
+
+22 additional tests cover analytical ramp/S/Z inverses, finite endpoints, invalid
+inverse degrees and custom functions, weighted Tsukamoto arithmetic, zero activation,
+operator/hedge propagation, multiple outputs, runtime inverse checks missed by
+constructor probes, immutable traces, extreme finite output scales, a Larsen
+analytical reference and JSON v1/v2 compatibility. An independent Tsukamoto v2
+fixture matches 325/14. All 122 previous tests remain passing (144 total).
+The runnable example and benchmark execute. Core/Flutter static analysis passes,
+the Flutter web build succeeds and API docs generate without warnings.
+FIS/FCL compatibility is not tested
+or claimed: profiles are design documents, with no importer/exporter yet.
+Remote CI/minimum SDK checks remain pending for these changes.

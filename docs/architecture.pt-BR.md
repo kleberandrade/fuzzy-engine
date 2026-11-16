@@ -363,9 +363,11 @@ classDiagram
     }
     class FuzzyEngine
     class SugenoEngine
+    class TsukamotoEngine
     FuzzyModelCodec ..> FuzzyModelDocument : imports and exports
     FuzzyModelDocument --> FuzzyEngine : one engine family
     FuzzyModelDocument --> SugenoEngine : one engine family
+    FuzzyModelDocument --> TsukamotoEngine : one engine family
 ```
 
 ```mermaid
@@ -408,3 +410,63 @@ classDiagram
 ```
 
 [Contratos de intercâmbio e amostragem](model-tools.pt-BR.md). ConditionVisitor permite inspeção tipada sem expor as classes privadas das condições.
+
+## Tsukamoto
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    class MonotonicMembershipFunction {
+        <<interface>>
+        +double domainMin
+        +double domainMax
+        +bool isIncreasing
+        +inverse(degree) double
+    }
+    class Ramp
+    class SShape
+    class ZShape
+    MembershipFunction <|.. MonotonicMembershipFunction
+    MonotonicMembershipFunction <|.. Ramp
+    MonotonicMembershipFunction <|.. SShape
+    MonotonicMembershipFunction <|.. ZShape
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class TsukamotoEngine {
+        +int validationSamples
+        +double inverseTolerance
+        +evaluate(values) TsukamotoResult
+    }
+    class FuzzyVariable
+    class TsukamotoOutput {
+        +String name
+        +double min
+        +double max
+        +Map terms
+    }
+    class TsukamotoRule
+    TsukamotoEngine o-- FuzzyVariable : inputs
+    TsukamotoEngine o-- TsukamotoOutput : outputs
+    TsukamotoEngine o-- TsukamotoRule : rules
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class TsukamotoResult
+    class TsukamotoActivation {
+        +double antecedent
+        +double strength
+        +double inverseValue
+        +double weightedContribution
+    }
+    class TsukamotoRule
+    TsukamotoResult *-- TsukamotoActivation : rules
+    TsukamotoActivation --> TsukamotoRule : rule
+```
+
+[Contratos Tsukamoto](tsukamoto.pt-BR.md): inversas/contribuições inativas são anuláveis. Os motores compartilham internamente validação de entrada e aritmética ponderada quando aplicável. JSON v2 inclui a terceira família; v1 continua legível.

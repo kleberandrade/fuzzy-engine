@@ -1,5 +1,13 @@
 ## Unreleased
 
+- Add monotonic Tsukamoto inference with analytical Ramp/SShape/ZShape inverses.
+- Validate inverse domains, endpoints, monotonic probes and active-rule consistency.
+- Add the explicit FuzzyEngine.larsen product-implication preset.
+- Export JSON v2 for all three engine families; retain v1 import and legacy export.
+- Extend sampling diagnostics and immutable explanations to Tsukamoto.
+- Share stable weighted arithmetic with Sugeno; all previous numerical tests pass.
+- Add 22 tests, a reference fixture, example, benchmark and interoperability scope.
+
 - Add strict versioned JSON codec and schema for built-in Mamdani/Sugeno models.
 - Preserve names, descriptions and input/output unit metadata in model documents.
 - Add typed ConditionVisitor inspection and bounded sampling/structural diagnostics.

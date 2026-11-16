@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "engineType": "tsukamoto",
+  "metadata": {
+    "name": "Tsukamoto reference",
+    "description": null,
+    "inputUnits": {
+      "x": "fraction"
+    },
+    "outputUnits": {
+      "y": "%"
+    }
+  },
+  "operators": {
+    "conjunction": "minimum",
+    "disjunction": "maximum",
+    "negation": "standard"
+  },
+  "inputs": [
+    {
+      "name": "x",
+      "min": 0,
+      "max": 1,
+      "terms": {
+        "low": {
+          "type": "ramp",
+          "parameters": [
+            1,
+            0
+          ]
+        },
+        "high": {
+          "type": "ramp",
+          "parameters": [
+            0,
+            1
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "y",
+      "min": 0,
+      "max": 100,
+      "terms": {
+        "low": {
+          "type": "ramp",
+          "parameters": [
+            100,
+            0
+          ]
+        },
+        "high": {
+          "type": "ramp",
+          "parameters": [
+            0,
+            100
+          ]
+        }
+      }
+    }
+  ],
+  "rules": [
+    {
+      "name": "low",
+      "when": {
+        "type": "term",
+        "variable": "x",
+        "term": "low"
+      },
+      "output": "y",
+      "term": "low",
+      "weight": 1
+    },
+    {
+      "name": "high",
+      "when": {
+        "type": "term",
+        "variable": "x",
+        "term": "high"
+      },
+      "output": "y",
+      "term": "high",
+      "weight": 0.5
+    }
+  ],
+  "settings": {
+    "validationSamples": 33,
+    "inverseTolerance": 1e-09
+  }
+}
