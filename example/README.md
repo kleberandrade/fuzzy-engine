@@ -39,3 +39,16 @@ inverts low/high consequents: dry soil increases irrigation. Outputs are percent
 of an abstract intensity, not minutes, hardware commands or probability.
 São limites ilustrativos. No modelo do solo, menor umidade aumenta a irrigação.
 As saídas são percentuais de intensidade abstrata, não minutos nem comandos físicos.
+
+## Toolbox / Funções e métodos
+
+Run from the package root / Execute a partir da raiz:
+
+```sh
+dart run example/toolbox_example.dart
+```
+
+Two-input educational irrigation with smooth membership curves, a Somewhat hedge
+and five defuzzification methods. This is a Dart console example, separate from
+the Flutter lab UI. Modelo didático com duas entradas, curvas suaves, modificador
+Somewhat e cinco métodos de defuzzificação; exemplo de console Dart.

@@ -6,7 +6,7 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 32 passed, including configurable strategies, multi-input inference and analytic references |
+| Core tests | 68 passed, including membership/defuzzifier toolbox, modifiers and analytic references |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
@@ -19,7 +19,7 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 32 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 68 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
 de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
@@ -57,3 +57,13 @@ extension results are validated. Flutter analysis and the web build passed with
 the new pipeline; API docs generated with no warnings. A reproducible benchmark compares the previous
 commit with the new default pipeline; see performance.md. Remote CI, minimum SDK
 and latest Flutter validation remain pending for this change.
+
+## Mamdani toolbox stage
+
+68 local tests pass, including 36 new checks for membership boundaries, numerical
+stability, invalid parameters, grid bounds, ordered interpolation, hedges, maxima
+tolerance/disconnected peaks, zero area and exact piecewise-linear bisector
+references. The two-input irrigation example executes all five defuzzifiers. Static analysis
+passed for the core and Flutter example; the web build succeeded and API docs
+generated without warnings.
+Remote CI, minimum Dart and latest Flutter checks remain pending for this stage.

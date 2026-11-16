@@ -201,3 +201,77 @@ próprio de consequente e não foi implementado nesta etapa.
 Código: [motor](../lib/src/engine.dart), [modelo](../lib/src/model.dart),
 [pertinência](../lib/src/membership.dart), [operadores](../lib/src/operators.dart),
 [defuzzificação](../lib/src/defuzzification.dart).
+
+## Additional membership classes / Classes adicionais de pertinência
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    MembershipFunction <|.. Ramp
+    MembershipFunction <|.. Sigmoid
+    MembershipFunction <|.. Bell
+    MembershipFunction <|.. Rectangle
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    MembershipFunction <|.. SShape
+    MembershipFunction <|.. ZShape
+    MembershipFunction <|.. PiShape
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    class DiscreteSet
+    class MembershipPoint {
+        +double x
+        +double membership
+    }
+    MembershipFunction <|.. DiscreteSet
+    DiscreteSet "1" o-- "2..*" MembershipPoint : points
+```
+
+## Defuzzifier implementations / Implementações de defuzzificação
+
+```mermaid
+classDiagram
+    direction TB
+    class Defuzzifier
+    Defuzzifier <|.. Centroid
+    Defuzzifier <|.. Bisector
+    Defuzzifier <|.. SmallestOfMaximum
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class Defuzzifier
+    Defuzzifier <|.. LargestOfMaximum
+    Defuzzifier <|.. MeanOfMaximum
+```
+
+## Linguistic modifiers / Modificadores linguísticos
+
+```mermaid
+classDiagram
+    direction TB
+    class Condition
+    class _Hedged
+    class FuzzyHedge {
+        <<interface>>
+        +transform(degree) double
+    }
+    class Very
+    class Somewhat
+    Condition <|-- _Hedged
+    _Hedged --> FuzzyHedge : modifier
+    FuzzyHedge <|.. Very
+    FuzzyHedge <|.. Somewhat
+```
+
+_MaximumDefuzzifier é uma base privada omitida na visão geral; os três métodos de máximos implementam Defuzzifier por ela. _Hedged é privada e criada por Condition.hedge. Veja os [contratos](toolbox.pt-BR.md).

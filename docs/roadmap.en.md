@@ -4,24 +4,25 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 32 passing tests, public
+The extensible pipeline stage is implemented locally with 68 passing tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
-Additional built-in norms and aggregated output curves are also available.
+The Mamdani toolbox stage is also implemented: eleven membership functions,
+five defuzzifiers and Very/Somewhat modifiers. Sugeno is the next stage.
 
 ## Current scope
 
 Version 0.1.0 is an initial type-1 Mamdani engine. It is not a complete fuzzy logic
 framework. Multi-input/output inference exists, but the Flutter scenarios each
-use one input. The following roadmap is a proposal, not implemented functionality
-or a release-date commitment.
+use one input. Implemented items are marked below. Remaining roadmap entries are proposals,
+not shipped functionality or release-date commitments.
 
 | Area | Implemented | Missing / proposed |
 | --- | --- | --- |
 | Inference | Mamdani defaults, configurable product implication | Sugeno zero/first order, Tsukamoto |
-| AND / OR / NOT | Configurable norms and negation; min/product/bounded AND, max/probabilistic/bounded OR | Hedges |
+| AND / OR / NOT | Configurable norms and negation; min/product/bounded AND, max/probabilistic/bounded OR; Very/Somewhat modifiers | Additional hedges |
 | Implication / aggregation | Configurable; min/product/bounded implication and max/probabilistic/bounded aggregation | Per-rule-block/per-output strategies |
-| Defuzzification | Centroid and custom Defuzzifier interface | Built-in bisector, smallest/largest/mean of maxima |
-| Membership | Triangle, trapezoid, Gaussian, custom interface | Ramp, sigmoid, bell, S/Z/Pi shapes, discrete sets |
+| Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
+| Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
 | Configuration | Dart objects with validation | Versioned JSON schema, portable import/export, parser |
 | Explanations | Input memberships, rule activations, immutable aggregated curves | Coverage/dead-rule diagnostics |
@@ -32,9 +33,9 @@ or a release-date commitment.
 1. **Extensible inference pipeline — implemented, awaiting remote CI.** Public
    operators, implication, aggregation and defuzzification interfaces preserve
    defaults. Independent numerical tests cover the selectable strategies.
-2. **Broader type-1 Mamdani toolbox.** Add product/probabilistic/bounded operators,
-   common membership shapes, linguistic hedges and additional integral defuzzifiers.
-   Define endpoint, plateau, tolerance and zero-area behavior for every algorithm.
+2. **Broader type-1 Mamdani toolbox — implemented, awaiting remote CI.** Common
+   membership shapes, Very/Somewhat modifiers, bisector and maxima defuzzifiers are
+   included. Endpoint, plateau, tolerance and zero-area contracts are documented.
 3. **Sugeno.** Use constant and linear consequents with normalized weighted average;
    keep weighted sum distinct. Test analytical results and zero-total-weight behavior.
 4. **Model portability and diagnostics.** Versioned JSON with round-trip tests;

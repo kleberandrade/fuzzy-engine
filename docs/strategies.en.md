@@ -39,7 +39,7 @@ curve inspection and an application-defined maximum selector.
 | operators.negation | FuzzyNegation | StandardNegation | Custom implementations |
 | implication | TNorm | Minimum | AlgebraicProduct, BoundedDifference |
 | aggregation | SNorm | Maximum | ProbabilisticSum, BoundedSum |
-| defuzzifier | Defuzzifier | Centroid | Custom implementations |
+| defuzzifier | Defuzzifier | Centroid | Bisector, SmallestOfMaximum, LargestOfMaximum, MeanOfMaximum, custom |
 
 Product implication scales the consequent instead of clipping it; this is
 Larsen-style implication. It does not create Sugeno consequents. All choices
@@ -91,3 +91,5 @@ it is a custom example, not a new built-in defuzzifier or an interpolated maximu
 Retaining output curves costs O(outputs × intervals) memory. The engine remains
 synchronous. See [benchmark notes](performance.md) before choosing grid sizes for
 large models or frame-by-frame UI evaluations.
+
+[See all membership functions, hedges and defuzzifiers](toolbox.en.md). The custom RightmostMaximum example now has the same exact-grid selection semantics as the built-in LargestOfMaximum(tolerance: 0).

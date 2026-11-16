@@ -18,3 +18,4 @@ export 'src/operators.dart'
         StandardNegation,
         FuzzyOperators;
 export 'src/defuzzification.dart';
+export 'src/hedges.dart';

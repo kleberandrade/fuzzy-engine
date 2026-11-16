@@ -49,3 +49,28 @@ benchmark and consider isolates for expensive UI evaluations.
 Guardar as amostras acrescenta O(saídas × intervalos) de memória por resultado.
 Não houve medição de pico de memória nem do coletor de lixo. Ajuste a resolução
 ao modelo e considere isolates para avaliações custosas na interface.
+
+## Toolbox benchmark / Benchmark dos componentes
+
+```sh
+dart run benchmark/toolbox_benchmark.dart 100000
+```
+
+Measures each of the eleven shapes over a deterministic input cycle, and all five
+defuzzifiers over the same 1001-point falling ramp. Defaults: 100000 membership
+calls and 1000 defuzzifier calls after warm-up. These are JIT microbenchmarks,
+not end-to-end timings; discrete sets use only three points here.
+
+One local run on the same environment measured centroid 0.810, bisector 4.669,
+smallest maximum 3.960, largest maximum 4.039 and mean maximum 4.044 µs/call.
+Membership calls ranged from 0.028 to 0.051 µs. These noisy measurements do not
+establish general performance rankings. Bisector and maxima add linear scans;
+DiscreteSet searches O(log(points)). Other membership functions are O(1).
+The Gaussian extreme-value guard adds a branch; no performance guarantee is made.
+
+Mede as onze funções em um ciclo determinístico e os cinco métodos na mesma
+curva de 1001 pontos. Valores padrão: 100000 chamadas de pertinência e 1000 de
+defuzzificação, após aquecimento. São microbenchmarks JIT, com apenas três pontos
+no conjunto discreto. As medições locais não estabelecem uma classificação geral
+de desempenho. Bissetor e máximos têm varreduras lineares; DiscreteSet busca em
+O(log(pontos)). As outras funções de pertinência têm custo O(1).

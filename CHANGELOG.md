@@ -1,5 +1,11 @@
 ## Unreleased
 
+- Add Ramp, Sigmoid, Bell, SShape, ZShape, PiShape, Rectangle and DiscreteSet.
+- Add Bisector, SmallestOfMaximum, LargestOfMaximum and MeanOfMaximum.
+- Add linguistic Very/Somewhat modifiers and the FuzzyHedge extension interface.
+- Stabilize Gaussian/Sigmoid differences and Bell evaluation at extreme finite inputs.
+- Add 36 tests, a two-input irrigation example and component benchmarks.
+
 - Add configurable TNorm, SNorm, FuzzyNegation and Defuzzifier extension points.
 - Add product/bounded conjunction and probabilistic/bounded disjunction strategies.
 - Expose immutable aggregated SampledFuzzySet curves through result.outputSets.

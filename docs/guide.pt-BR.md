@@ -52,3 +52,5 @@ centroide; não é um multiplicador direto do valor final.
 Os exemplos didáticos usam uma entrada cada. Adicione umidade na climatização,
 temperatura na irrigação ou erros recentes no jogo com novas variáveis e condições
 compostas. Sugeno, serialização e aprendizado automático não fazem parte da v0.1.0.
+
+[Referência completa](toolbox.pt-BR.md): onze funções de pertinência, modificadores linguísticos e cinco defuzzificadores.

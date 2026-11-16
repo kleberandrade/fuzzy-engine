@@ -1,5 +1,6 @@
 import 'operators.dart';
 import 'membership.dart';
+import 'hedges.dart';
 
 /// Finite universe of discourse.
 final class FuzzyVariable {
@@ -52,6 +53,9 @@ sealed class Condition {
   /// Disjunction.
   Condition or(Condition other) => _Binary(this, other, false);
 
+  /// Applies a linguistic modifier after evaluating this complete condition.
+  Condition hedge(FuzzyHedge modifier) => _Hedged(this, modifier);
+
   /// Complement.
   Condition not() => _Not(this);
 }
@@ -102,6 +106,19 @@ final class _Not extends Condition {
   double evaluate(Map<String, Map<String, double>> values,
           {FuzzyOperators operators = const FuzzyOperators()}) =>
       operators.not(child.evaluate(values, operators: operators));
+  @override
+  Iterable<Term> get references => child.references;
+}
+
+final class _Hedged extends Condition {
+  const _Hedged(this.child, this.modifier);
+  final Condition child;
+  final FuzzyHedge modifier;
+  @override
+  double evaluate(Map<String, Map<String, double>> values,
+          {FuzzyOperators operators = const FuzzyOperators()}) =>
+      checkedDegree(
+          modifier.transform(child.evaluate(values, operators: operators)));
   @override
   Iterable<Term> get references => child.references;
 }

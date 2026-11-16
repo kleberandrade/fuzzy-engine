@@ -76,7 +76,8 @@ void main() {
 
 ## Features
 
-- Triangle, trapezoid and Gaussian functions, plus custom membership functions.
+- Eleven membership functions, including smooth S/Z/Pi curves and interpolated discrete sets.
+- Five defuzzifiers: centroid, bisector and three maxima methods; Very/Somewhat hedges.
 - Configurable AND/OR/NOT, implication and aggregation; min/max/complement defaults.
 - Weighted rules, extensible defuzzification and the default numerical centroid.
 - Multiple inputs and outputs; immutable results, sampled output curves and rule diagnostics.
@@ -127,3 +128,5 @@ flutter pub publish --dry-run
 ```
 
 Read the [release checklist](docs/PUBLISHING.md) before publishing. MIT licensed.
+
+[Toolbox guide and two-input irrigation example](docs/toolbox.en.md).

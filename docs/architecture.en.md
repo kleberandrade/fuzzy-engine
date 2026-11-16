@@ -201,3 +201,77 @@ separate consequent model and is not implemented by these changes.
 Source: [engine](../lib/src/engine.dart), [model](../lib/src/model.dart),
 [membership](../lib/src/membership.dart), [operators](../lib/src/operators.dart),
 [defuzzification](../lib/src/defuzzification.dart).
+
+## Additional membership classes / Classes adicionais de pertinência
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    MembershipFunction <|.. Ramp
+    MembershipFunction <|.. Sigmoid
+    MembershipFunction <|.. Bell
+    MembershipFunction <|.. Rectangle
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    MembershipFunction <|.. SShape
+    MembershipFunction <|.. ZShape
+    MembershipFunction <|.. PiShape
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class MembershipFunction
+    class DiscreteSet
+    class MembershipPoint {
+        +double x
+        +double membership
+    }
+    MembershipFunction <|.. DiscreteSet
+    DiscreteSet "1" o-- "2..*" MembershipPoint : points
+```
+
+## Defuzzifier implementations / Implementações de defuzzificação
+
+```mermaid
+classDiagram
+    direction TB
+    class Defuzzifier
+    Defuzzifier <|.. Centroid
+    Defuzzifier <|.. Bisector
+    Defuzzifier <|.. SmallestOfMaximum
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class Defuzzifier
+    Defuzzifier <|.. LargestOfMaximum
+    Defuzzifier <|.. MeanOfMaximum
+```
+
+## Linguistic modifiers / Modificadores linguísticos
+
+```mermaid
+classDiagram
+    direction TB
+    class Condition
+    class _Hedged
+    class FuzzyHedge {
+        <<interface>>
+        +transform(degree) double
+    }
+    class Very
+    class Somewhat
+    Condition <|-- _Hedged
+    _Hedged --> FuzzyHedge : modifier
+    FuzzyHedge <|.. Very
+    FuzzyHedge <|.. Somewhat
+```
+
+_MaximumDefuzzifier is a private implementation base, omitted from the overview; the three maxima strategies implement Defuzzifier through it. _Hedged is private and created by Condition.hedge. See [behavior contracts](toolbox.en.md).

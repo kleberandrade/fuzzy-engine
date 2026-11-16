@@ -77,7 +77,8 @@ void main() {
 
 ## Recursos
 
-- Funções triangular, trapezoidal e gaussiana, além de funções personalizadas.
+- Onze funções de pertinência, incluindo curvas S/Z/Pi e conjuntos discretos interpolados.
+- Cinco defuzzificadores: centroide, bissetor e três métodos de máximos; modificadores Very/Somewhat.
 - AND/OR/NOT, implicação e agregação configuráveis, preservando os padrões mínimo/máximo/complemento.
 - Regras com peso, defuzzificação extensível e centroide numérico como padrão.
 - Múltiplas entradas e saídas, resultados imutáveis, curvas agregadas e diagnóstico de cada regra.
@@ -129,3 +130,5 @@ flutter pub publish --dry-run
 ```
 
 Consulte o [checklist de publicação](docs/PUBLISHING.md). Licença MIT.
+
+[Guia das funções e exemplo de irrigação com duas entradas](docs/toolbox.pt-BR.md).

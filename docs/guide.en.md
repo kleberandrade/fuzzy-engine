@@ -53,3 +53,5 @@ The educational models intentionally use one input each. Add humidity to climate
 temperature to irrigation, or recent errors to game difficulty using another
 input variable and composed conditions. Sugeno inference, serialization and
 automatic rule learning are outside version 0.1.0.
+
+[Full toolbox reference](toolbox.en.md): eleven membership functions, linguistic modifiers and five defuzzifiers.

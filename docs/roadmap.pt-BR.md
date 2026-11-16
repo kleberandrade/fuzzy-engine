@@ -4,24 +4,25 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 32 testes passando,
+A etapa de pipeline extensível está implementada localmente, com 68 testes passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
-Também estão disponíveis normas adicionais e curvas agregadas de saída.
+A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
+cinco defuzzificadores e modificadores Very/Somewhat. Sugeno é a próxima etapa.
 
 ## Escopo atual
 
 A versão 0.1.0 é um motor Mamdani tipo 1 inicial. Ainda não é um framework completo
 de lógica fuzzy. Há inferência com múltiplas entradas/saídas, mas cada cenário
-Flutter usa uma entrada. O plano abaixo é uma proposta: não representa recursos
-já implementados nem compromisso com datas de lançamento.
+Flutter usa uma entrada. Os itens concluídos estão marcados abaixo. Os demais são propostas, sem
+representar recursos já entregues nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
 | --- | --- | --- |
 | Inferência | Padrões Mamdani e implicação produto configurável | Sugeno de ordem zero/um e Tsukamoto |
-| AND / OR / NOT | Normas e negação configuráveis; AND mínimo/produto/limitado e OR máximo/probabilístico/limitado | Modificadores linguísticos |
+| AND / OR / NOT | Normas e negação configuráveis; AND mínimo/produto/limitado e OR máximo/probabilístico/limitado; Very/Somewhat | Outros modificadores |
 | Implicação / agregação | Configuráveis; mínimo/produto/limitado e máximo/probabilístico/limitado | Estratégias por bloco de regras/saída |
-| Defuzzificação | Centroide e interface Defuzzifier extensível | Bissetor e métodos de máximos incluídos no núcleo |
-| Pertinência | Triangular, trapezoidal, gaussiana e interface extensível | Rampa, sigmoide, sino, curvas S/Z/Pi e conjuntos discretos |
+| Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
+| Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
 | Configuração | Objetos Dart validados | Esquema JSON versionado, importação/exportação e parser |
 | Explicação | Pertinências, ativações e curvas agregadas imutáveis | Cobertura e regras inativas |
@@ -32,9 +33,9 @@ já implementados nem compromisso com datas de lançamento.
 1. **Pipeline extensível — implementado, aguardando CI remoto.** Interfaces
    públicas para operadores, implicação, agregação e defuzzificação preservam os
    padrões. Testes numéricos independentes cobrem as estratégias selecionáveis.
-2. **Ampliar Mamdani tipo 1.** Incluir operadores produto/probabilísticos/limitados,
-   funções de pertinência comuns, modificadores linguísticos e defuzzificadores
-   adicionais. Definir extremos, platôs, tolerância e área zero em cada algoritmo.
+2. **Ampliar Mamdani tipo 1 — implementado, aguardando CI remoto.** Novas funções
+   de pertinência, Very/Somewhat, bissetor e métodos de máximos incluídos. Extremos,
+   platôs, tolerância e área zero têm contratos documentados.
 3. **Sugeno.** Conclusões constantes e lineares com média ponderada normalizada;
    manter soma ponderada como método distinto. Testar resultados analíticos e peso
    total zero.

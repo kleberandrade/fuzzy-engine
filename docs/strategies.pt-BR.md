@@ -40,7 +40,7 @@ um seletor de máximos implementado pela aplicação.
 | operators.negation | FuzzyNegation | StandardNegation | Implementações próprias |
 | implication | TNorm | Minimum | AlgebraicProduct, BoundedDifference |
 | aggregation | SNorm | Maximum | ProbabilisticSum, BoundedSum |
-| defuzzifier | Defuzzifier | Centroid | Implementações próprias |
+| defuzzifier | Defuzzifier | Centroid | Bisector, SmallestOfMaximum, LargestOfMaximum, MeanOfMaximum e extensões |
 
 A implicação produto escala a função de saída em vez de recortá-la, no estilo
 Larsen. Isso não cria conclusões Sugeno. As escolhas são globais no motor, ainda
@@ -90,3 +90,5 @@ amostras; não é um novo defuzzificador incluído no núcleo nem interpola o pi
 Guardar as curvas custa O(saídas × intervalos) de memória. O motor continua
 síncrono. Veja as [medições de desempenho](performance.md) antes de escolher
 resoluções para modelos grandes ou avaliações a cada quadro da interface.
+
+[Veja todas as funções de pertinência, modificadores e defuzzificadores](toolbox.pt-BR.md). O exemplo personalizado RightmostMaximum agora tem a mesma seleção por igualdade exata na grade que LargestOfMaximum(tolerance: 0).
