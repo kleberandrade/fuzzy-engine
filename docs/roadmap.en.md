@@ -4,11 +4,12 @@
 
 ## Progress
 
-The extensible pipeline stage is implemented locally with 92 passing tests, public
+The extensible pipeline stage is implemented locally with 122 passing tests, public
 strategy contracts and a runnable example. New remote CI validation is pending.
 The Mamdani toolbox stage is also implemented: eleven membership functions,
 five defuzzifiers and Very/Somewhat modifiers. Sugeno with constant/linear consequents and both reductions is also implemented.
-Model portability and diagnostics are the next stage.
+Versioned model interchange, unit labels and bounded sampling/structural diagnostics
+are implemented. Advanced controllers and interoperability are the next stage.
 
 ## Current scope
 
@@ -25,9 +26,9 @@ not shipped functionality or release-date commitments.
 | Defuzzification | Centroid, Bisector, three maxima methods and custom Defuzzifier | Per-output defuzzification |
 | Membership | Eleven functions including Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle and DiscreteSet | Additional specialized shapes |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
-| Configuration | Dart objects with validation | Versioned JSON schema, portable import/export, parser |
-| Explanations | Input memberships, rule activations, immutable aggregated curves | Coverage/dead-rule diagnostics |
-| Tooling | Three single-input demos, tests, bilingual guides | Multi-input surfaces, benchmarks, reference datasets |
+| Configuration | Dart objects, strict JSON v1, metadata and explicit component catalog | FCL/FIS import/export and migrations |
+| Explanations | Input/output traces, bounded coverage/activation scans and structural findings | Continuous coverage proofs and semantic conflict resolution |
+| Tooling | Flutter demos, console models, component benchmarks and JSON fixtures | Interactive multi-input surfaces and external conformance datasets |
 
 ## Proposed sequence
 
@@ -40,9 +41,10 @@ not shipped functionality or release-date commitments.
 3. **Sugeno — implemented, awaiting remote CI.** Constant/linear consequents,
    normalized weighted average, explicit weighted sum and immutable explanations.
    Analytical, zero-strength and extreme-arithmetic tests are included.
-4. **Model portability and diagnostics.** Versioned JSON with round-trip tests;
-   diagnostics for coverage, inactive/contradictory rules, output curves and units.
-   Do not evaluate arbitrary Dart expressions from configuration files.
+4. **Model portability and diagnostics — implemented, awaiting remote CI.** JSON
+   schema v1, units metadata, round-trip/reference fixtures, bounded coverage and
+   activation scans, duplicate/competing-rule findings. No expression execution;
+   sampled findings are not mathematical coverage/conflict proofs.
 5. **Advanced controllers and integrations.** Larsen and monotonic Tsukamoto with
    inverse membership validation; FCL/FIS interoperability only after specifying
    a supported subset and conformance fixtures.

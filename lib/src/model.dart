@@ -35,10 +35,31 @@ final class FuzzyVariable {
   final Map<String, MembershipFunction> terms;
 }
 
+/// Typed inspection of condition trees without exposing private node classes.
+abstract interface class ConditionVisitor<T> {
+  /// Visits an input term reference.
+  T visitTerm(Term term);
+
+  /// Visits a conjunction.
+  T visitAnd(Condition left, Condition right);
+
+  /// Visits a disjunction.
+  T visitOr(Condition left, Condition right);
+
+  /// Visits a complement.
+  T visitNot(Condition child);
+
+  /// Visits a linguistic modifier.
+  T visitHedge(Condition child, FuzzyHedge modifier);
+}
+
 /// A composable antecedent evaluated with configurable fuzzy operators.
 sealed class Condition {
   /// Base constructor.
   const Condition();
+
+  /// Dispatches this node to a typed visitor.
+  T accept<T>(ConditionVisitor<T> visitor);
 
   /// Degree for already fuzzified input values.
   double evaluate(Map<String, Map<String, double>> values,
@@ -71,6 +92,8 @@ final class Term extends Condition {
   /// Term name.
   final String term;
   @override
+  T accept<T>(ConditionVisitor<T> visitor) => visitor.visitTerm(this);
+  @override
   double evaluate(Map<String, Map<String, double>> values,
       {FuzzyOperators operators = const FuzzyOperators()}) {
     final degree = values[variable]?[term];
@@ -88,6 +111,9 @@ final class _Binary extends Condition {
   final Condition left, right;
   final bool isAnd;
   @override
+  T accept<T>(ConditionVisitor<T> visitor) =>
+      isAnd ? visitor.visitAnd(left, right) : visitor.visitOr(left, right);
+  @override
   double evaluate(Map<String, Map<String, double>> values,
       {FuzzyOperators operators = const FuzzyOperators()}) {
     final a = left.evaluate(values, operators: operators);
@@ -103,6 +129,8 @@ final class _Not extends Condition {
   const _Not(this.child);
   final Condition child;
   @override
+  T accept<T>(ConditionVisitor<T> visitor) => visitor.visitNot(child);
+  @override
   double evaluate(Map<String, Map<String, double>> values,
           {FuzzyOperators operators = const FuzzyOperators()}) =>
       operators.not(child.evaluate(values, operators: operators));
@@ -114,6 +142,9 @@ final class _Hedged extends Condition {
   const _Hedged(this.child, this.modifier);
   final Condition child;
   final FuzzyHedge modifier;
+  @override
+  T accept<T>(ConditionVisitor<T> visitor) =>
+      visitor.visitHedge(child, modifier);
   @override
   double evaluate(Map<String, Map<String, double>> values,
           {FuzzyOperators operators = const FuzzyOperators()}) =>

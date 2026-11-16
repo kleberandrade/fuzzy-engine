@@ -1,0 +1,815 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fuzzy_engine model v1",
+  "description": "Structural interchange schema. Runtime validation also checks parameter ordering, reference integrity, units and resource limits.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/mamdani"
+    },
+    {
+      "$ref": "#/$defs/sugeno"
+    }
+  ],
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "inputUnits",
+        "outputUnits"
+      ],
+      "properties": {
+        "name": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "inputUnits": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "outputUnits": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        }
+      }
+    },
+    "membership": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "triangle"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "trapezoid"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "gaussian"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "ramp"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "sigmoid"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "bell"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "sShape"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "zShape"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "piShape"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "rectangle"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "parameters"
+          ],
+          "properties": {
+            "type": {
+              "const": "discrete"
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "minItems": 2
+            }
+          }
+        }
+      ]
+    },
+    "variable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "min",
+        "max",
+        "terms"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "terms": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/membership"
+          },
+          "minProperties": 1
+        }
+      }
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "variable",
+            "term"
+          ],
+          "properties": {
+            "type": {
+              "const": "term"
+            },
+            "variable": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "term": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "type": {
+              "const": "and"
+            },
+            "left": {
+              "$ref": "#/$defs/condition"
+            },
+            "right": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "left",
+            "right"
+          ],
+          "properties": {
+            "type": {
+              "const": "or"
+            },
+            "left": {
+              "$ref": "#/$defs/condition"
+            },
+            "right": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "operand"
+          ],
+          "properties": {
+            "type": {
+              "const": "not"
+            },
+            "operand": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "modifier",
+            "operand"
+          ],
+          "properties": {
+            "type": {
+              "const": "hedge"
+            },
+            "modifier": {
+              "enum": [
+                "very",
+                "somewhat"
+              ]
+            },
+            "operand": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        }
+      ]
+    },
+    "tNorm": {
+      "enum": [
+        "minimum",
+        "algebraicProduct",
+        "boundedDifference"
+      ]
+    },
+    "sNorm": {
+      "enum": [
+        "maximum",
+        "probabilisticSum",
+        "boundedSum"
+      ]
+    },
+    "operators": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conjunction",
+        "disjunction",
+        "negation"
+      ],
+      "properties": {
+        "conjunction": {
+          "$ref": "#/$defs/tNorm"
+        },
+        "disjunction": {
+          "$ref": "#/$defs/sNorm"
+        },
+        "negation": {
+          "const": "standard"
+        }
+      }
+    },
+    "defuzzifier": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "centroid"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "bisector"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "tolerance"
+          ],
+          "properties": {
+            "type": {
+              "const": "smallestOfMaximum"
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "tolerance"
+          ],
+          "properties": {
+            "type": {
+              "const": "largestOfMaximum"
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "tolerance"
+          ],
+          "properties": {
+            "type": {
+              "const": "meanOfMaximum"
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        }
+      ]
+    },
+    "consequent": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "value"
+          ],
+          "properties": {
+            "type": {
+              "const": "constant"
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "intercept",
+            "coefficients"
+          ],
+          "properties": {
+            "type": {
+              "const": "linear"
+            },
+            "intercept": {
+              "type": "number"
+            },
+            "coefficients": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "additionalProperties": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "mamdani": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "engineType",
+        "metadata",
+        "inputs",
+        "outputs",
+        "rules",
+        "operators",
+        "settings"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1,
+          "type": "integer"
+        },
+        "engineType": {
+          "const": "mamdani"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/variable"
+          },
+          "minItems": 1
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/variable"
+          },
+          "minItems": 1
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "when",
+              "output",
+              "term",
+              "weight"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "when": {
+                "$ref": "#/$defs/condition"
+              },
+              "output": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "term": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "operators": {
+          "$ref": "#/$defs/operators"
+        },
+        "settings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "intervals",
+            "implication",
+            "aggregation",
+            "defuzzifier"
+          ],
+          "properties": {
+            "intervals": {
+              "type": "integer",
+              "minimum": 2
+            },
+            "implication": {
+              "$ref": "#/$defs/tNorm"
+            },
+            "aggregation": {
+              "$ref": "#/$defs/sNorm"
+            },
+            "defuzzifier": {
+              "$ref": "#/$defs/defuzzifier"
+            }
+          }
+        }
+      }
+    },
+    "sugeno": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "engineType",
+        "metadata",
+        "inputs",
+        "outputs",
+        "rules",
+        "operators",
+        "settings"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1,
+          "type": "integer"
+        },
+        "engineType": {
+          "const": "sugeno"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/variable"
+          },
+          "minItems": 1
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "\\S"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "when",
+              "output",
+              "consequent",
+              "weight"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "when": {
+                "$ref": "#/$defs/condition"
+              },
+              "output": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "consequent": {
+                "$ref": "#/$defs/consequent"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "operators": {
+          "$ref": "#/$defs/operators"
+        },
+        "settings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "aggregation"
+          ],
+          "properties": {
+            "aggregation": {
+              "enum": [
+                "weightedAverage",
+                "weightedSum"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,11 @@
 ## Unreleased
 
+- Add strict versioned JSON codec and schema for built-in Mamdani/Sugeno models.
+- Preserve names, descriptions and input/output unit metadata in model documents.
+- Add typed ConditionVisitor inspection and bounded sampling/structural diagnostics.
+- Reject unsupported/custom JSON components and apply source/node/depth/sample budgets.
+- Add 30 tests, independent reference fixtures, an example and a microbenchmark.
+
 - Add SugenoEngine with constant, linear and custom crisp consequents.
 - Add distinct weighted-average/weighted-sum reductions and immutable explanations.
 - Share input validation and fuzzification with the existing Mamdani engine.

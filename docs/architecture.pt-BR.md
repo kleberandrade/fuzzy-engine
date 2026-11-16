@@ -344,3 +344,67 @@ classDiagram
 ```
 
 SugenoAggregation seleciona weightedAverage ou weightedSum. Os diagramas omitem nulabilidade: valores de saída e conclusões/contribuições inativas podem ser null. Os motores compartilham validação e fuzzificação das entradas internamente, mantendo modelos próprios de conclusão e redução. [Comportamento Sugeno](sugeno.pt-BR.md).
+
+## Model interchange and diagnostics / Intercâmbio e diagnóstico
+
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyModelCodec {
+        +encode(model) String
+        +decode(source) FuzzyModelDocument
+        +decodeMamdani(source) FuzzyEngine
+        +decodeSugeno(source) SugenoEngine
+    }
+    class FuzzyModelDocument {
+        +Object engine
+        +Map inputUnits
+        +Map outputUnits
+    }
+    class FuzzyEngine
+    class SugenoEngine
+    FuzzyModelCodec ..> FuzzyModelDocument : imports and exports
+    FuzzyModelDocument --> FuzzyEngine : one engine family
+    FuzzyModelDocument --> SugenoEngine : one engine family
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class Condition
+    class ConditionVisitor {
+        <<interface>>
+        +visitTerm(term)
+        +visitAnd(left, right)
+        +visitOr(left, right)
+        +visitNot(child)
+        +visitHedge(child, modifier)
+    }
+    class FuzzyModelCodec
+    Condition ..> ConditionVisitor : accept
+    FuzzyModelCodec ..> ConditionVisitor : typed tree inspection
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyDiagnostics {
+        +analyze(model) FuzzyDiagnosticReport
+    }
+    class FuzzyDiagnosticReport {
+        +int evaluations
+        +int failedEvaluations
+        +Map ruleActivationCounts
+        +Map nullOutputCounts
+        +toJson() Map
+    }
+    class DiagnosticIssue {
+        +DiagnosticCode code
+        +DiagnosticSeverity severity
+        +List rules
+    }
+    FuzzyDiagnostics ..> FuzzyDiagnosticReport : creates
+    FuzzyDiagnosticReport "1" *-- "0..*" DiagnosticIssue : issues
+```
+
+[Contratos de intercâmbio e amostragem](model-tools.pt-BR.md). ConditionVisitor permite inspeção tipada sem expor as classes privadas das condições.

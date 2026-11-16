@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "engineType": "mamdani",
+  "metadata": {
+    "name": "Reference fixture",
+    "description": null,
+    "inputUnits": {},
+    "outputUnits": {}
+  },
+  "operators": {
+    "conjunction": "minimum",
+    "disjunction": "maximum",
+    "negation": "standard"
+  },
+  "inputs": [
+    {
+      "name": "x",
+      "min": 0,
+      "max": 1,
+      "terms": {
+        "on": {
+          "type": "rectangle",
+          "parameters": [
+            0,
+            1
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "y",
+      "min": 0,
+      "max": 10,
+      "terms": {
+        "falling": {
+          "type": "ramp",
+          "parameters": [
+            10,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "rules": [
+    {
+      "name": "r",
+      "when": {
+        "type": "term",
+        "variable": "x",
+        "term": "on"
+      },
+      "output": "y",
+      "term": "falling",
+      "weight": 1
+    }
+  ],
+  "settings": {
+    "intervals": 1000,
+    "implication": "minimum",
+    "aggregation": "maximum",
+    "defuzzifier": {
+      "type": "centroid"
+    }
+  }
+}

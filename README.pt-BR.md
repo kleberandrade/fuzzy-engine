@@ -77,6 +77,8 @@ void main() {
 
 ## Recursos
 
+- Intercâmbio JSON versionado, metadados de unidades e diagnóstico por amostragem limitada.
+
 - Sugeno de ordem zero/um, média ponderada normalizada e soma ponderada explícita.
 
 - Onze funções de pertinência, incluindo curvas S/Z/Pi e conjuntos discretos interpolados.
@@ -136,3 +138,5 @@ Consulte o [checklist de publicação](docs/PUBLISHING.md). Licença MIT.
 [Guia das funções e exemplo de irrigação com duas entradas](docs/toolbox.pt-BR.md).
 
 [Guia Sugeno e exemplo executável](docs/sugeno.pt-BR.md). Use `SugenoEngine` para conclusões constantes/lineares; o `FuzzyEngine` existente mantém os padrões Mamdani.
+
+[Intercâmbio JSON e diagnósticos](docs/model-tools.pt-BR.md), com esquema versionado e exemplo executável.

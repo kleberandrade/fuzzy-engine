@@ -52,6 +52,7 @@ can affect both area and centroid; it is not a multiplier on the crisp output.
 The educational models intentionally use one input each. Add humidity to climate,
 temperature to irrigation, or recent errors to game difficulty using another
 input variable and composed conditions. Sugeno is available through the separate [SugenoEngine](sugeno.en.md).
-Serialization and automatic rule learning remain outside the current scope.
+JSON interchange and sampling diagnostics are available through the [model tools](model-tools.en.md).
+Automatic rule learning remains outside the current scope.
 
 [Full toolbox reference](toolbox.en.md): eleven membership functions, linguistic modifiers and five defuzzifiers.

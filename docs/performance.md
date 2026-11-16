@@ -105,3 +105,24 @@ Duas entradas, uma saída crisp, AND produto, conclusões lineares e 1/10/100 re
 Os tempos acima são uma execução JIT local ilustrativa, sem promessa de desempenho.
 Não há grade de integração. O benchmark Mamdani tem outra semântica de saída e não
 é um controlador equivalente. Não foram medidos pico de memória nem quadros de UI.
+
+## Model tools / Ferramentas de modelos
+
+```sh
+dart run benchmark/model_tools_benchmark.dart 200
+```
+
+One local Dart 3.11.5 JIT run: a 1234-code-unit, four-rule Mamdani document with
+100 integration intervals measured encode 52.155, decode 69.925 and diagnose
+128.105 µs/call (200 calls after 20 warm-ups). The diagnostic scenario executes
+five actual grid evaluations. These are informational measurements, not guarantees.
+JSON traversal is bounded by codec limits; diagnostic cost grows as the full
+Cartesian grid times engine evaluation cost, plus membership and structural scans.
+Report storage includes per-rule counters, input-grid coordinates and bounded
+failure examples; the full Cartesian result history is not retained.
+
+Medição JIT local ilustrativa: encode 52,155, decode 69,925 e diagnóstico 128,105
+µs/chamada para o cenário acima. O diagnóstico executa cinco avaliações reais.
+Não são garantias. A grade cartesiana multiplica o custo de avaliação do motor;
+o relatório não retém todo o histórico de combinações, apenas contadores, grades
+de entrada e exemplos limitados de falha.

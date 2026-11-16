@@ -76,6 +76,8 @@ void main() {
 
 ## Features
 
+- Versioned JSON model interchange, unit metadata and bounded sampling diagnostics.
+
 - Sugeno zero/first-order consequents, normalized weighted average and explicit weighted sum.
 
 - Eleven membership functions, including smooth S/Z/Pi curves and interpolated discrete sets.
@@ -134,3 +136,5 @@ Read the [release checklist](docs/PUBLISHING.md) before publishing. MIT licensed
 [Toolbox guide and two-input irrigation example](docs/toolbox.en.md).
 
 [Sugeno guide and executable example](docs/sugeno.en.md). Use `SugenoEngine` for crisp constant/linear consequents; the existing `FuzzyEngine` keeps its Mamdani defaults.
+
+[JSON model interchange and diagnostics](docs/model-tools.en.md), with a checked-in schema and runnable example.

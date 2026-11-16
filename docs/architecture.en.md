@@ -344,3 +344,67 @@ classDiagram
 ```
 
 SugenoAggregation selects weightedAverage or weightedSum. Diagram return types omit nullability: result values, inactive consequent values and contributions are nullable. The engines share input validation/fuzzification internally, without sharing their consequent or reduction models. [Sugeno behavior](sugeno.en.md).
+
+## Model interchange and diagnostics / Intercâmbio e diagnóstico
+
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyModelCodec {
+        +encode(model) String
+        +decode(source) FuzzyModelDocument
+        +decodeMamdani(source) FuzzyEngine
+        +decodeSugeno(source) SugenoEngine
+    }
+    class FuzzyModelDocument {
+        +Object engine
+        +Map inputUnits
+        +Map outputUnits
+    }
+    class FuzzyEngine
+    class SugenoEngine
+    FuzzyModelCodec ..> FuzzyModelDocument : imports and exports
+    FuzzyModelDocument --> FuzzyEngine : one engine family
+    FuzzyModelDocument --> SugenoEngine : one engine family
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class Condition
+    class ConditionVisitor {
+        <<interface>>
+        +visitTerm(term)
+        +visitAnd(left, right)
+        +visitOr(left, right)
+        +visitNot(child)
+        +visitHedge(child, modifier)
+    }
+    class FuzzyModelCodec
+    Condition ..> ConditionVisitor : accept
+    FuzzyModelCodec ..> ConditionVisitor : typed tree inspection
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyDiagnostics {
+        +analyze(model) FuzzyDiagnosticReport
+    }
+    class FuzzyDiagnosticReport {
+        +int evaluations
+        +int failedEvaluations
+        +Map ruleActivationCounts
+        +Map nullOutputCounts
+        +toJson() Map
+    }
+    class DiagnosticIssue {
+        +DiagnosticCode code
+        +DiagnosticSeverity severity
+        +List rules
+    }
+    FuzzyDiagnostics ..> FuzzyDiagnosticReport : creates
+    FuzzyDiagnosticReport "1" *-- "0..*" DiagnosticIssue : issues
+```
+
+[Model interchange and sampling contracts](model-tools.en.md). ConditionVisitor adds typed inspection without exposing private condition-node implementations.

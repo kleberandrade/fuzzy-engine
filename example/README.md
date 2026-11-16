@@ -64,3 +64,13 @@ dart run example/sugeno_example.dart
 Compares constant/linear consequents and normalized weighted average versus raw
 weighted sum. Console example; the Flutter lab remains Mamdani. Compara conclusões
 constantes/lineares, média normalizada e soma ponderada; exemplo de console.
+
+## Model JSON and diagnostics / JSON e diagnósticos
+
+```sh
+dart run example/model_tools_example.dart
+```
+
+From the package root. Demonstrates model/metadata round-trip and deliberately
+imperfect rules. Exemplo de console, a partir da raiz, com intercâmbio do modelo,
+unidades e regras deliberadamente duplicadas/concorrentes para explicar os achados.

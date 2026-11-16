@@ -4,11 +4,12 @@
 
 ## Progresso
 
-A etapa de pipeline extensível está implementada localmente, com 92 testes passando,
+A etapa de pipeline extensível está implementada localmente, com 122 testes passando,
 contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
 A etapa de ampliação Mamdani também está implementada: onze funções de pertinência,
 cinco defuzzificadores e modificadores Very/Somewhat. Sugeno com conclusões constantes/lineares e as duas reduções também está implementado.
-Portabilidade de modelos e diagnóstico são a próxima etapa.
+Intercâmbio versionado, unidades e diagnósticos estruturais/por amostragem limitada
+estão implementados. Controladores avançados e interoperabilidade são a próxima etapa.
 
 ## Escopo atual
 
@@ -25,9 +26,9 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 | Defuzzificação | Centroide, bissetor, três métodos de máximos e interface extensível | Defuzzificação por saída |
 | Pertinência | Onze funções, incluindo Ramp, Sigmoid, Bell, S/Z/Pi, Rectangle e DiscreteSet | Outras funções especializadas |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
-| Configuração | Objetos Dart validados | Esquema JSON versionado, importação/exportação e parser |
-| Explicação | Pertinências, ativações e curvas agregadas imutáveis | Cobertura e regras inativas |
-| Ferramentas | Três demos de uma entrada, testes e guias bilíngues | Superfícies de múltiplas entradas, benchmarks e bases de referência |
+| Configuração | Objetos Dart, JSON v1 estrito, metadados e catálogo explícito | FCL/FIS e migrações |
+| Explicação | Rastreamento de entradas/saídas, cobertura amostrada e análise estrutural | Provas de cobertura contínua e resolução semântica de conflitos |
+| Ferramentas | Demos Flutter, modelos de console, benchmarks e fixtures JSON | Superfícies interativas e bases externas de conformidade |
 
 ## Sequência proposta
 
@@ -40,9 +41,10 @@ representar recursos já entregues nem compromisso com datas de lançamento.
 3. **Sugeno — implementado, aguardando CI remoto.** Conclusões constantes/lineares,
    média ponderada normalizada, soma ponderada explícita e explicações imutáveis.
    Testes analíticos, de ativação zero e aritmética extrema incluídos.
-4. **Portabilidade e diagnóstico.** JSON versionado com testes de ida e volta;
-   diagnóstico de cobertura, regras inativas/contraditórias, curvas e unidades.
-   A configuração não deve executar expressões Dart arbitrárias.
+4. **Portabilidade e diagnóstico — implementado, aguardando CI remoto.** JSON v1,
+   unidades, fixtures de referência e testes de ida e volta, grades limitadas de
+   cobertura/ativação e achados de duplicatas/concorrência. Sem executar expressões;
+   os achados amostrados não provam cobertura ou contradição matemáticas.
 5. **Controladores avançados e integrações.** Larsen e Tsukamoto monotônico com
    validação da inversa; interoperabilidade FCL/FIS após definir um subconjunto
    suportado e casos de conformidade.

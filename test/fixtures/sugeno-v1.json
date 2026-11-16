@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "engineType": "sugeno",
+  "metadata": {
+    "name": "Reference fixture",
+    "description": null,
+    "inputUnits": {
+      "temperature": "°C"
+    },
+    "outputUnits": {
+      "fan": "%"
+    }
+  },
+  "operators": {
+    "conjunction": "minimum",
+    "disjunction": "maximum",
+    "negation": "standard"
+  },
+  "inputs": [
+    {
+      "name": "temperature",
+      "min": 0,
+      "max": 40,
+      "terms": {
+        "cold": {
+          "type": "ramp",
+          "parameters": [
+            40,
+            0
+          ]
+        },
+        "hot": {
+          "type": "ramp",
+          "parameters": [
+            0,
+            40
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "fan"
+    }
+  ],
+  "settings": {
+    "aggregation": "weightedAverage"
+  },
+  "rules": [
+    {
+      "name": "cold",
+      "when": {
+        "type": "term",
+        "variable": "temperature",
+        "term": "cold"
+      },
+      "output": "fan",
+      "weight": 1,
+      "consequent": {
+        "type": "constant",
+        "value": 20
+      }
+    },
+    {
+      "name": "hot",
+      "when": {
+        "type": "term",
+        "variable": "temperature",
+        "term": "hot"
+      },
+      "output": "fan",
+      "weight": 0.5,
+      "consequent": {
+        "type": "constant",
+        "value": 80
+      }
+    }
+  ]
+}
