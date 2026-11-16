@@ -77,9 +77,9 @@ void main() {
 ## Features
 
 - Triangle, trapezoid and Gaussian functions, plus custom membership functions.
-- Composable min AND, max OR and complement NOT.
-- Weighted rules, min implication, max aggregation, numerical centroid.
-- Multiple inputs and outputs; immutable result maps and rule diagnostics.
+- Configurable AND/OR/NOT, implication and aggregation; min/max/complement defaults.
+- Weighted rules, extensible defuzzification and the default numerical centroid.
+- Multiple inputs and outputs; immutable results, sampled output curves and rule diagnostics.
 - Eager validation of names, ranges, references and weights.
 
 ```dart
@@ -90,6 +90,9 @@ final condition = const Term('temperature', 'hot')
 
 Both input variables and terms must exist in the engine configuration.
 Set `weight: 0.8` on a rule to multiply its antecedent activation by 0.8.
+
+See [configurable strategies](docs/strategies.en.md) and run
+`dart run example/strategies_example.dart` for a complete custom pipeline.
 
 ## Behavior and limitations
 
@@ -105,7 +108,8 @@ Output functions are restricted to their declared output universe. Endpoint
 shoulders are inclusive; outside support triangles/trapezoids return zero.
 The engine is synchronous. Cost is approximately O(inputs × terms + rules +
 outputs × intervals × relevant rules); large models should be benchmarked and
-may need an isolate in UI applications. No learning or automatic tuning occurs.
+may need an isolate in UI applications. Retaining output curves uses
+O(outputs × intervals) memory. No learning or automatic tuning occurs.
 
 ## Examples and development
 

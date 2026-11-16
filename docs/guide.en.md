@@ -1,5 +1,7 @@
 # From measurements to decisions
 
+The pipeline below describes the default operators. See [configurable strategies](strategies.en.md) for alternatives.
+
 ## The inference pipeline
 
 1. Define each universe: a finite interval with meaningful units.

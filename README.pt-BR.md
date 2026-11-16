@@ -78,9 +78,9 @@ void main() {
 ## Recursos
 
 - Funções triangular, trapezoidal e gaussiana, além de funções personalizadas.
-- Condições combináveis com AND mínimo, OR máximo e NOT complemento.
-- Regras com peso, implicação mínimo, agregação máximo e centroide numérico.
-- Múltiplas entradas e saídas, resultados imutáveis e diagnóstico de cada regra.
+- AND/OR/NOT, implicação e agregação configuráveis, preservando os padrões mínimo/máximo/complemento.
+- Regras com peso, defuzzificação extensível e centroide numérico como padrão.
+- Múltiplas entradas e saídas, resultados imutáveis, curvas agregadas e diagnóstico de cada regra.
 - Validação antecipada de nomes, intervalos, referências e pesos.
 
 ```dart
@@ -91,6 +91,9 @@ final condition = const Term('temperature', 'hot')
 
 As variáveis e os termos referenciados precisam existir na configuração.
 Uma regra com `weight: 0.8` multiplica sua ativação por 0,8.
+
+Veja as [estratégias configuráveis](docs/strategies.pt-BR.md) e execute
+`dart run example/strategies_example.dart` para um pipeline personalizado completo.
 
 ## Comportamento e limites
 
@@ -107,7 +110,8 @@ podem exigir mais amostras. As saídas são integradas apenas em seu universo de
 Triângulos e trapézios admitem ombros com extremos repetidos; fora do suporte,
 retornam zero. O cálculo é síncrono e tem custo aproximado de O(entradas × termos +
 regras + saídas × intervalos × regras relevantes). Meça modelos grandes e considere
-um isolate em interfaces. Não há treinamento nem calibração automática.
+um isolate em interfaces. Guardar as curvas de saída custa
+O(saídas × intervalos) de memória. Não há treinamento nem calibração automática.
 
 ## Exemplos e desenvolvimento
 

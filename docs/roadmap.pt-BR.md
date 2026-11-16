@@ -2,6 +2,12 @@
 
 [English](roadmap.en.md) · [Arquitetura implementada](architecture.pt-BR.md)
 
+## Progresso
+
+A etapa de pipeline extensível está implementada localmente, com 32 testes passando,
+contratos públicos e exemplo executável. A nova validação remota do CI está pendente.
+Também estão disponíveis normas adicionais e curvas agregadas de saída.
+
 ## Escopo atual
 
 A versão 0.1.0 é um motor Mamdani tipo 1 inicial. Ainda não é um framework completo
@@ -11,21 +17,21 @@ já implementados nem compromisso com datas de lançamento.
 
 | Área | Implementado | Ausente / proposto |
 | --- | --- | --- |
-| Inferência | Mamdani e pesos nas ativações | Sugeno de ordem zero/um, Larsen e Tsukamoto |
-| AND / OR / NOT | Mínimo / máximo / complemento, expressões compostas | T-normas e s-normas configuráveis, modificadores linguísticos |
-| Implicação / agregação | Recorte mínimo / união máximo | Implicação produto, somas probabilística e limitada |
-| Defuzzificação | Centroide por integração numérica | Bissetor e menor/maior/média dos máximos |
+| Inferência | Padrões Mamdani e implicação produto configurável | Sugeno de ordem zero/um e Tsukamoto |
+| AND / OR / NOT | Normas e negação configuráveis; AND mínimo/produto/limitado e OR máximo/probabilístico/limitado | Modificadores linguísticos |
+| Implicação / agregação | Configuráveis; mínimo/produto/limitado e máximo/probabilístico/limitado | Estratégias por bloco de regras/saída |
+| Defuzzificação | Centroide e interface Defuzzifier extensível | Bissetor e métodos de máximos incluídos no núcleo |
 | Pertinência | Triangular, trapezoidal, gaussiana e interface extensível | Rampa, sigmoide, sino, curvas S/Z/Pi e conjuntos discretos |
 | Base de regras | Uma conclusão por regra com peso e nome | Blocos, múltiplas conclusões e políticas de ativação |
 | Configuração | Objetos Dart validados | Esquema JSON versionado, importação/exportação e parser |
-| Explicação | Pertinências de entrada e ativações | Curvas agregadas de saída, cobertura e regras inativas |
+| Explicação | Pertinências, ativações e curvas agregadas imutáveis | Cobertura e regras inativas |
 | Ferramentas | Três demos de uma entrada, testes e guias bilíngues | Superfícies de múltiplas entradas, benchmarks e bases de referência |
 
 ## Sequência proposta
 
-1. **Pipeline extensível.** Criar interfaces explícitas para operadores, implicação,
-   agregação e defuzzificação, preservando os padrões atuais. Validar cada estratégia
-   com referências numéricas independentes.
+1. **Pipeline extensível — implementado, aguardando CI remoto.** Interfaces
+   públicas para operadores, implicação, agregação e defuzzificação preservam os
+   padrões. Testes numéricos independentes cobrem as estratégias selecionáveis.
 2. **Ampliar Mamdani tipo 1.** Incluir operadores produto/probabilísticos/limitados,
    funções de pertinência comuns, modificadores linguísticos e defuzzificadores
    adicionais. Definir extremos, platôs, tolerância e área zero em cada algoritmo.

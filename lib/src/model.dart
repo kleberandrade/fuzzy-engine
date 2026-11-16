@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+import 'operators.dart';
 import 'membership.dart';
 
 /// Finite universe of discourse.
@@ -34,13 +34,14 @@ final class FuzzyVariable {
   final Map<String, MembershipFunction> terms;
 }
 
-/// A composable antecedent using min AND, max OR and complement NOT.
+/// A composable antecedent evaluated with configurable fuzzy operators.
 sealed class Condition {
   /// Base constructor.
   const Condition();
 
   /// Degree for already fuzzified input values.
-  double evaluate(Map<String, Map<String, double>> values);
+  double evaluate(Map<String, Map<String, double>> values,
+      {FuzzyOperators operators = const FuzzyOperators()});
 
   /// All term references, used for eager configuration validation.
   Iterable<Term> get references;
@@ -66,8 +67,14 @@ final class Term extends Condition {
   /// Term name.
   final String term;
   @override
-  double evaluate(Map<String, Map<String, double>> values) =>
-      values[variable]![term]!;
+  double evaluate(Map<String, Map<String, double>> values,
+      {FuzzyOperators operators = const FuzzyOperators()}) {
+    final degree = values[variable]?[term];
+    if (degree == null)
+      throw ArgumentError('Missing input term: $variable.$term');
+    return checkedDegree(degree);
+  }
+
   @override
   Iterable<Term> get references => [this];
 }
@@ -77,9 +84,13 @@ final class _Binary extends Condition {
   final Condition left, right;
   final bool isAnd;
   @override
-  double evaluate(Map<String, Map<String, double>> values) => isAnd
-      ? math.min(left.evaluate(values), right.evaluate(values))
-      : math.max(left.evaluate(values), right.evaluate(values));
+  double evaluate(Map<String, Map<String, double>> values,
+      {FuzzyOperators operators = const FuzzyOperators()}) {
+    final a = left.evaluate(values, operators: operators);
+    final b = right.evaluate(values, operators: operators);
+    return isAnd ? operators.and(a, b) : operators.or(a, b);
+  }
+
   @override
   Iterable<Term> get references => [...left.references, ...right.references];
 }
@@ -88,8 +99,9 @@ final class _Not extends Condition {
   const _Not(this.child);
   final Condition child;
   @override
-  double evaluate(Map<String, Map<String, double>> values) =>
-      1 - child.evaluate(values);
+  double evaluate(Map<String, Map<String, double>> values,
+          {FuzzyOperators operators = const FuzzyOperators()}) =>
+      operators.not(child.evaluate(values, operators: operators));
   @override
   Iterable<Term> get references => child.references;
 }

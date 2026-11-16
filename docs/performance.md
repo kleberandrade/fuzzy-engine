@@ -1,0 +1,51 @@
+# Pipeline benchmark / Medições do pipeline
+
+Run from the package root / Execute a partir da raiz:
+
+```sh
+dart run benchmark/inference_benchmark.dart 200
+```
+
+The optional number is a positive evaluation count per scenario. Each scenario
+has one input, one output, 1000 integration intervals, 50 warm-up evaluations and
+1, 10 or 100 active rules. The benchmark includes inference, sample allocation and
+defuzzification, and reports a checksum to catch changes in the computed output.
+It uses default operators. It is not a Flutter frame-time or end-to-end benchmark.
+
+O número opcional é a quantidade de avaliações por cenário. Cada cenário tem uma
+entrada, uma saída, 1000 intervalos, 50 avaliações de aquecimento e 1, 10 ou 100
+regras ativas. A medição inclui inferência, alocação de amostras e defuzzificação.
+O checksum ajuda a detectar alterações nos resultados. Não mede quadros Flutter.
+
+## Initial local comparison / Comparação local inicial
+
+Single illustrative runs on macOS arm64, Dart 3.11.5 JIT, 2026-11-16. The baseline
+is the default engine at commit 734843d; the new pipeline uses default strategies.
+Both returned checksum **12871.800000000077** for all three scenarios.
+
+| Active rules / Regras | Baseline µs/evaluation | Configurable pipeline µs/evaluation |
+| --- | ---: | ---: |
+| 1 | 37.215 | 47.880 |
+| 10 | 252.370 | 276.875 |
+| 100 | 2415.835 | 2554.180 |
+
+The new pipeline adds strategy dispatch, range checks and retained output curves.
+This run shows an overhead rather than a speed improvement. A second baseline
+run varied to 35.115 / 260.205 / 2474.755 µs, so these are observations, not a stable
+regression threshold. Use repeated isolated runs and release/AOT builds on target
+hardware before making performance commitments.
+
+O pipeline adiciona chamadas de estratégia, validações e curvas retidas no
+resultado. A medição mostrou custo adicional. Outra execução da base variou para
+35,115 / 260,205 / 2474,755 µs; os valores não são um limite estável de regressão.
+Repita as medições em isolamento e em compilação release/AOT no dispositivo-alvo.
+
+Both versions have evaluation cost approximately O(inputs × terms + rules +
+outputs × intervals × relevant rules). Retaining all output samples adds
+O(outputs × intervals) memory per result. This benchmark does not measure peak
+memory or garbage-collection behavior. Keep grid sizes appropriate for the model;
+benchmark and consider isolates for expensive UI evaluations.
+
+Guardar as amostras acrescenta O(saídas × intervalos) de memória por resultado.
+Não houve medição de pico de memória nem do coletor de lixo. Ajuste a resolução
+ao modelo e considere isolates para avaliações custosas na interface.

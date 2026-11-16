@@ -1,3 +1,12 @@
+## Unreleased
+
+- Add configurable TNorm, SNorm, FuzzyNegation and Defuzzifier extension points.
+- Add product/bounded conjunction and probabilistic/bounded disjunction strategies.
+- Expose immutable aggregated SampledFuzzySet curves through result.outputSets.
+- Preserve default min/max/complement/centroid inference and rule weighting.
+- Add analytical strategy tests, an executable example and a microbenchmark.
+- Update bilingual guides, class diagrams and roadmap progress.
+
 ## 0.1.0
 
 - Initial Mamdani engine with min implication, max aggregation and numerical centroid.

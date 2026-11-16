@@ -1,4 +1,5 @@
-import 'dart:math' as math;
+import 'operators.dart';
+import 'defuzzification.dart';
 import 'model.dart';
 
 /// Rule activation before and after applying its weight.
@@ -12,24 +13,31 @@ final class RuleActivation {
   /// Unweighted degree.
   final double antecedent;
 
-  /// Weighted degree used to clip the consequent.
+  /// Weighted degree passed to the implication strategy.
   final double strength;
 }
 
 /// Immutable inference result. Null output means zero aggregated area.
 final class FuzzyResult {
-  FuzzyResult._(Map<String, double?> outputs,
-      Map<String, Map<String, double>> memberships, List<RuleActivation> rules)
+  FuzzyResult._(
+      Map<String, double?> outputs,
+      Map<String, Map<String, double>> memberships,
+      List<RuleActivation> rules,
+      Map<String, SampledFuzzySet> outputSets)
       : outputs = Map.unmodifiable(outputs),
         memberships = Map.unmodifiable(memberships
             .map((k, v) => MapEntry(k, Map<String, double>.unmodifiable(v)))),
-        rules = List.unmodifiable(rules);
+        rules = List.unmodifiable(rules),
+        outputSets = Map.unmodifiable(outputSets);
 
   /// Crisp outputs; absent activation is represented by null, never NaN.
   final Map<String, double?> outputs;
 
   /// Input degrees for explaining the inference.
   final Map<String, Map<String, double>> memberships;
+
+  /// Aggregated sampled output curves used for defuzzification.
+  final Map<String, SampledFuzzySet> outputSets;
 
   /// Every rule, including inactive ones, in declaration order.
   final List<RuleActivation> rules;
@@ -42,14 +50,18 @@ final class FuzzyResult {
   }
 }
 
-/// Mamdani min implication, max aggregation and numerical centroid.
+/// Configurable type-1 fuzzy inference with Mamdani defaults.
 final class FuzzyEngine {
   /// [intervals] controls trapezoidal integration resolution, not sample count.
   FuzzyEngine(
       {required List<FuzzyVariable> inputs,
       required List<FuzzyVariable> outputs,
       required List<FuzzyRule> rules,
-      this.intervals = 1000})
+      this.intervals = 1000,
+      this.operators = const FuzzyOperators(),
+      this.implication = const Minimum(),
+      this.aggregation = const Maximum(),
+      this.defuzzifier = const Centroid()})
       : inputs = List.unmodifiable(inputs),
         outputs = List.unmodifiable(outputs),
         rules = List.unmodifiable(rules) {
@@ -82,6 +94,18 @@ final class FuzzyEngine {
   /// Rules in declaration order.
   final List<FuzzyRule> rules;
 
+  /// Antecedent AND, OR and NOT strategies.
+  final FuzzyOperators operators;
+
+  /// Combines weighted rule activation with each consequent membership.
+  final TNorm implication;
+
+  /// Combines implied consequents at each output sample, starting from zero.
+  final SNorm aggregation;
+
+  /// Converts each aggregated sampled output to a crisp value.
+  final Defuzzifier defuzzifier;
+
   /// Number of equally spaced integration intervals.
   final int intervals;
 
@@ -93,14 +117,6 @@ final class FuzzyEngine {
       map[v.name] = v;
     }
     return map;
-  }
-
-  double _degree(double value) {
-    if (!value.isFinite || value < 0 || value > 1) {
-      throw StateError(
-          'Membership functions must return finite degrees in [0, 1].');
-    }
-    return value;
   }
 
   /// Evaluates an exact set of finite inputs inside their declared ranges.
@@ -117,37 +133,46 @@ final class FuzzyEngine {
         throw ArgumentError('Input ${v.name} must be in [${v.min}, ${v.max}].');
       }
       memberships[v.name] =
-          v.terms.map((k, f) => MapEntry(k, _degree(f.degree(x))));
+          v.terms.map((k, f) => MapEntry(k, checkedDegree(f.degree(x))));
     }
     final activations = rules.map((r) {
-      final degree = r.when.evaluate(memberships);
+      final degree = r.when.evaluate(memberships, operators: operators);
       return RuleActivation(r, degree, degree * r.weight);
     }).toList();
     final crisp = <String, double?>{};
+    final outputSets = <String, SampledFuzzySet>{};
     for (final output in outputs) {
       final relevant = activations
           .where((a) => a.rule.output == output.name && a.strength > 0)
           .toList();
-      double area = 0, moment = 0;
-      // Integrate on normalized coordinates to avoid large-domain moments.
+      final degrees = <double>[];
       for (var i = 0; i <= intervals; i++) {
-        final t = i / intervals;
-        final x = output.min + (output.max - output.min) * t;
+        final x = output.min + (output.max - output.min) * (i / intervals);
         double y = 0;
-        for (final a in relevant) {
-          y = math.max(
-              y,
-              math.min(
-                  a.strength, _degree(output.terms[a.rule.term]!.degree(x))));
+        for (final activation in relevant) {
+          final membership =
+              checkedDegree(output.terms[activation.rule.term]!.degree(x));
+          final implied = checkedDegree(
+              implication.combine(activation.strength, membership));
+          y = checkedDegree(aggregation.combine(y, implied));
         }
-        final weight = (i == 0 || i == intervals) ? 0.5 : 1.0;
-        area += weight * y;
-        moment += weight * y * t;
+        degrees.add(y);
       }
-      crisp[output.name] = area == 0
-          ? null
-          : output.min + (output.max - output.min) * (moment / area);
+      final sampled =
+          SampledFuzzySet(min: output.min, max: output.max, degrees: degrees);
+      outputSets[output.name] = sampled;
+      // Zero sampled area always means no decision, independent of strategy.
+      final value = sampled.hasArea ? defuzzifier.defuzzify(sampled) : null;
+      if (sampled.hasArea &&
+          (value == null ||
+              !value.isFinite ||
+              value < output.min ||
+              value > output.max)) {
+        throw StateError(
+            'Defuzzifier must return a finite value inside the output universe for positive area.');
+      }
+      crisp[output.name] = value;
     }
-    return FuzzyResult._(crisp, memberships, activations);
+    return FuzzyResult._(crisp, memberships, activations, outputSets);
   }
 }

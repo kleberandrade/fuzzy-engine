@@ -6,7 +6,7 @@ Development validation on 2026-11-16 with Dart 3.11.5 and the installed Flutter 
 | --- | --- |
 | Dart formatting | Passed |
 | Core static analysis | Passed, no issues |
-| Core tests | 20 passed, including multi-input inference and analytic centroid references |
+| Core tests | 32 passed, including configurable strategies, multi-input inference and analytic references |
 | Flutter example static analysis | Passed, no issues |
 | Flutter web build | Passed (JS build and Wasm compatibility dry run) |
 | API documentation | Generated, zero warnings and errors |
@@ -19,7 +19,7 @@ uses Material icons and its declared Material font was bundled successfully.
 No manual browser visual inspection was performed. Minimum supported Dart 3.3.0
 has not been tested locally. Re-run CI and the release checklist before publishing.
 
-Os 20 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
+Os 32 testes do núcleo passaram. A análise estática passou no núcleo e no exemplo,
 e a compilação web terminou com sucesso. A documentação foi gerada sem avisos.
 O teste de interface está incluído, mas sua execução foi bloqueada pela permissão
 de abertura de porta local. A simulação de publicação foi bloqueada pelo acesso
@@ -47,3 +47,13 @@ not be reported as passed until that run completes.
 The public package URL https://pub.dev/packages/fuzzy_engine returned 404 during
 review. No published package was found at that exact URL; this does not reserve
 the name or guarantee that the publication service will accept it.
+
+## Configurable pipeline stage
+
+All 20 pre-existing tests and 12 new strategy tests pass locally. Numeric checks
+cover weighted min clipping, product implication, probabilistic aggregation,
+nested custom antecedent operators and custom defuzzification. Output curves and
+extension results are validated. Flutter analysis and the web build passed with
+the new pipeline; API docs generated with no warnings. A reproducible benchmark compares the previous
+commit with the new default pipeline; see performance.md. Remote CI, minimum SDK
+and latest Flutter validation remain pending for this change.

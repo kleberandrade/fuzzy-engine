@@ -2,6 +2,12 @@
 
 [Português](roadmap.pt-BR.md) · [Implemented architecture](architecture.en.md)
 
+## Progress
+
+The extensible pipeline stage is implemented locally with 32 passing tests, public
+strategy contracts and a runnable example. New remote CI validation is pending.
+Additional built-in norms and aggregated output curves are also available.
+
 ## Current scope
 
 Version 0.1.0 is an initial type-1 Mamdani engine. It is not a complete fuzzy logic
@@ -11,21 +17,21 @@ or a release-date commitment.
 
 | Area | Implemented | Missing / proposed |
 | --- | --- | --- |
-| Inference | Mamdani, weighted antecedents | Sugeno zero/first order, Larsen, Tsukamoto |
-| AND / OR / NOT | Min / max / complement, nested expressions | Configurable t-norms, s-norms, hedges |
-| Implication / aggregation | Min clipping / max union | Product implication, probabilistic and bounded sums |
-| Defuzzification | Numerically integrated centroid | Bisector, smallest/largest/mean of maxima |
+| Inference | Mamdani defaults, configurable product implication | Sugeno zero/first order, Tsukamoto |
+| AND / OR / NOT | Configurable norms and negation; min/product/bounded AND, max/probabilistic/bounded OR | Hedges |
+| Implication / aggregation | Configurable; min/product/bounded implication and max/probabilistic/bounded aggregation | Per-rule-block/per-output strategies |
+| Defuzzification | Centroid and custom Defuzzifier interface | Built-in bisector, smallest/largest/mean of maxima |
 | Membership | Triangle, trapezoid, Gaussian, custom interface | Ramp, sigmoid, bell, S/Z/Pi shapes, discrete sets |
 | Rule base | One named consequent per weighted rule | Rule blocks, multiple consequents, activation policies |
 | Configuration | Dart objects with validation | Versioned JSON schema, portable import/export, parser |
-| Explanations | Input memberships and rule activations | Aggregated output curves, coverage/dead-rule diagnostics |
+| Explanations | Input memberships, rule activations, immutable aggregated curves | Coverage/dead-rule diagnostics |
 | Tooling | Three single-input demos, tests, bilingual guides | Multi-input surfaces, benchmarks, reference datasets |
 
 ## Proposed sequence
 
-1. **Extensible inference pipeline.** Introduce explicit operator, implication,
-   aggregation and defuzzification interfaces while preserving current defaults.
-   Cover each strategy with independent numeric reference tests.
+1. **Extensible inference pipeline — implemented, awaiting remote CI.** Public
+   operators, implication, aggregation and defuzzification interfaces preserve
+   defaults. Independent numerical tests cover the selectable strategies.
 2. **Broader type-1 Mamdani toolbox.** Add product/probabilistic/bounded operators,
    common membership shapes, linguistic hedges and additional integral defuzzifiers.
    Define endpoint, plateau, tolerance and zero-area behavior for every algorithm.

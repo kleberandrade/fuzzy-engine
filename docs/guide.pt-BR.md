@@ -1,5 +1,7 @@
 # Das medições às decisões
 
+As etapas abaixo descrevem os operadores padrão. Consulte as [estratégias configuráveis](strategies.pt-BR.md) para alternativas.
+
 ## Etapas da inferência
 
 1. Defina o universo de cada variável: intervalo finito e unidade de medida.

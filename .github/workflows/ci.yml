@@ -17,7 +17,7 @@ jobs:
       # The core is pure Dart; the example has its own Flutter job.
       - run: dart pub get --no-example
       - if: matrix.sdk == 'stable'
-        run: dart format --output=none --set-exit-if-changed lib test example
+        run: dart format --output=none --set-exit-if-changed lib test example benchmark
       - run: dart analyze --fatal-infos
       - run: dart test
       - if: matrix.sdk == 'stable'

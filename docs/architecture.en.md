@@ -17,6 +17,10 @@ classDiagram
         +List~FuzzyVariable~ outputs
         +List~FuzzyRule~ rules
         +int intervals
+        +FuzzyOperators operators
+        +TNorm implication
+        +SNorm aggregation
+        +Defuzzifier defuzzifier
         +evaluate(values) FuzzyResult
     }
     class FuzzyVariable {
@@ -36,6 +40,7 @@ classDiagram
         +Map outputs
         +Map memberships
         +List~RuleActivation~ rules
+        +Map outputSets
         +value(name) double
     }
     class RuleActivation {
@@ -129,17 +134,70 @@ classDiagram
 
 `Term` is public. `_Binary` and `_Not` are private implementation classes returned
 by `and`, `or` and `not`; callers never instantiate them directly. `references`
-collects input term references for eager validation. The built-in operations are
-fixed: min AND, max OR, complement NOT. `Condition` is sealed; implementing a new
+collects input term references for eager validation. The default operations are
+min AND, max OR, complement NOT; evaluation propagates the selected FuzzyOperators
+through every nested expression. `Condition` is sealed; implementing a new
 condition outside this library is not currently supported.
 
-## Extension boundaries
+## Inference strategies
 
-Implementing `MembershipFunction` is the current custom extension point.
-Inference, implication, aggregation and defuzzification strategies are hardcoded
-in `FuzzyEngine`; there is no public strategy interface yet. Adding Sugeno should
-introduce a distinct consequent model rather than treating crisp functions as
-Mamdani membership sets. See the roadmap for the proposed sequencing.
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyEngine
+    class FuzzyOperators
+    class TNorm {
+        <<interface>>
+        +combine(a, b) double
+    }
+    class SNorm {
+        <<interface>>
+        +combine(a, b) double
+    }
+    class FuzzyNegation {
+        <<interface>>
+        +complement(value) double
+    }
+    FuzzyEngine --> FuzzyOperators : operators
+    FuzzyEngine --> TNorm : implication
+    FuzzyEngine --> SNorm : aggregation
+    FuzzyOperators --> TNorm : conjunction
+    FuzzyOperators --> SNorm : disjunction
+    FuzzyOperators --> FuzzyNegation : negation
+```
+
+```mermaid
+classDiagram
+    direction TB
+    class FuzzyEngine
+    class Defuzzifier {
+        <<interface>>
+        +defuzzify(output) double
+    }
+    class Centroid
+    class SampledFuzzySet {
+        +double min
+        +double max
+        +List degrees
+        +int intervals
+        +bool hasArea
+        +xAt(index) double
+    }
+    class FuzzyResult
+    Defuzzifier <|.. Centroid
+    FuzzyEngine --> Defuzzifier : strategy
+    Defuzzifier ..> SampledFuzzySet : reads
+    FuzzyEngine ..> SampledFuzzySet : creates
+    FuzzyResult o-- SampledFuzzySet : outputSets
+```
+
+Implement `MembershipFunction`, `TNorm`, `SNorm`, `FuzzyNegation` or `Defuzzifier`
+to customize the pipeline. `FuzzyEngine` applies selected strategies engine-wide.
+`FuzzyResult.outputSets` exposes immutable aggregated samples. `Defuzzifier` returns
+**double?**; nullability is omitted in the diagram for renderer portability.
+See [strategy contracts and examples](strategies.en.md). Sugeno still needs a
+separate consequent model and is not implemented by these changes.
 
 Source: [engine](../lib/src/engine.dart), [model](../lib/src/model.dart),
-[membership](../lib/src/membership.dart).
+[membership](../lib/src/membership.dart), [operators](../lib/src/operators.dart),
+[defuzzification](../lib/src/defuzzification.dart).
