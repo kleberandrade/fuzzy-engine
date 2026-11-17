@@ -1,5 +1,9 @@
 # fuzzy_engine
 
+[![Language: Dart](https://img.shields.io/badge/Language-Dart-0175C2)](https://github.com/kleberandrade/fuzzy-engine/blob/main/pubspec.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-555555)](https://github.com/kleberandrade/fuzzy-engine/blob/main/LICENSE)
+[![CI](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/ci.yml)
+
 Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter.
 
 [Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md)
