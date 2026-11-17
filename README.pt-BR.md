@@ -1,5 +1,12 @@
 # fuzzy_engine
 
+**[Abrir o Fuzzy Lab online](https://kleberandrade.github.io/fuzzy-engine/)** ·
+[Guia de cenários e limitações (EN)](doc/lab-guide.md)
+
+Compare Mamdani, Sugeno e Tsukamoto, explore curvas e regras, altere a
+defuzzificação Mamdani e importe/exporte configurações JSON validadas.
+A interface permite alternar português e inglês; os cenários anteriores continuam disponíveis.
+
 [Importação/exportação experimental FIS Mamdani/Sugeno](doc/fis.pt-BR.md), com
 política explícita para saída sem decisão e comparação numérica independente.
 O exemplo Flutter também oferece uma superfície com duas entradas.

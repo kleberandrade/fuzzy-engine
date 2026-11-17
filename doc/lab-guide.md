@@ -1,5 +1,7 @@
 # Fuzzy Lab: scenarios and limits
 
+[Open the verified online lab](https://kleberandrade.github.io/fuzzy-engine/).
+
 The Flutter UI runs the same pure Dart inference engines as the console examples.
 Start at the home screen. **English / Português** changes interface language;
 variable and term identifiers remain stable so they match JSON and source code.
@@ -23,6 +25,8 @@ This is a screenshot of the running implementation, not a conceptual illustratio
   independent fan and heater demand. Switch the selected surface to inspect
   either output. Eighteen rules cover a cached 21 × 21 grid; the marker and numeric
   decisions use exact slider inputs. The model performs an explicit FIS round-trip.
+
+![Real phone-width capture: the preserved climate surface and independent fan/heater outputs](screenshots/climate-mobile.jpg)
 
 Input curves show membership μ from zero to one; the vertical marker is the crisp
 input. Numeric degrees and activation percentages explain the same information

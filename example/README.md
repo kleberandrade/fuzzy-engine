@@ -1,5 +1,7 @@
 # Flutter Fuzzy Lab / Laboratório Fuzzy
 
+**[Open online / Abrir online](https://kleberandrade.github.io/fuzzy-engine/)**
+
 [Scenario guide and limitations](../doc/lab-guide.md) ·
 [Validation and real captures](../doc/lab-validation.md)
 

@@ -6,6 +6,12 @@
 
 Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter.
 
+**[Open the interactive Fuzzy Lab](https://kleberandrade.github.io/fuzzy-engine/)** —
+compare inference families, inspect curves and rules, try defuzzifiers and exchange
+validated JSON configurations. No installation needed.
+
+![Running Fuzzy Lab: membership curves and three supported inference families](doc/screenshots/inference-desktop.jpg)
+
 [Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md) · [Lab scenarios and limits](doc/lab-guide.md)
 
 **Published:** [fuzzy_engine](https://pub.dev/packages/fuzzy_engine).

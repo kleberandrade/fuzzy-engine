@@ -15,7 +15,7 @@ were edited. The existing MIT license and authorship were preserved.
 
 - Pure Dart tests: 450 passed; tool tests: 4 passed; Dart analysis: no issues.
 - Flutter tests: 17 passed, including the existing surface/scenario tests, codec
-  round-trips for all three families, no-decision semantics, five-method selection,
+  round-trips for all three families, no-decision semantics, method selection,
   invalid/valid import, cancel, restore, reset and overflow recovery.
 - Flutter analysis: no issues. Dart formatting and `git diff --check` passed.
 - Flutter Web release build: passed with `/fuzzy-engine/` base href and
@@ -30,6 +30,8 @@ were edited. The existing MIT license and authorship were preserved.
 - Chrome: inspected actual Web build at desktop size and 390 × 844. Tested
   language switch, keyboard slider adjustment (50 → 40), JSON rejection and
   cancellation, midpoint reset (40 → 50), stacked cards and scrolling to rules.
+  The preserved climate surface was inspected at phone width, including keyboard
+  input (20 → 24 °C) and switching to the heating surface.
   Real captures are in [screenshots](screenshots/).
 - Accessibility: numeric memberships supplement colors, output and activation
   values are textual, sliders/buttons expose semantics; widget test uses 150%
@@ -76,7 +78,14 @@ Tsukamoto output (37.5 instead of 25) was corrected from the ramp inverses.
    screen behavior. Documented scenarios, exact semantics, limits and five exercises.
 9. Prepared GitHub Pages artifact/deployment in the existing CI, with correct
    base path and all CI jobs required before deployment. Pages was initially disabled.
-10. Reviewed changes and recorded the resulting commit/deployment verification below.
+10. Reviewed changes and sent semantic commits to main. The final extraction of
+    the painter left an unused home-page import; Flutter analysis detected it and
+    commit `e721253` removed it. Repeated analysis, 17 tests and Web build passed.
+11. Enabled GitHub Actions as the Pages source. Updated About to name all three
+    families, selected the GitHub-provided Pages URL, and verified eight relevant topics.
+12. Observed successful full CI and Pages deployment, opened the public app and
+    reproduced demand 40 outputs (44.95 / 44.00 / 40.00). Saved its real screenshot,
+    then added the verified online links to the English/Portuguese READMEs.
 
 No related Medium URL or editable lesson was supplied or linked by this project;
 no Medium page was modified or claimed published. The concrete teaching revision
@@ -84,5 +93,24 @@ is [the scenario guide](lab-guide.md), ending in exactly five practical exercise
 
 ## Remote verification
 
-Pending verification after the reviewed commits are pushed. A Pages URL is not
-reported as live until deployment and the running public application are observed.
+- Implemented source: `a9f2041`; workflow/guide: `da3bdc8`; final import cleanup:
+  `e72125344ecb2d2362cbfd2d0e46c045483550ef`.
+- The initial CI for `da3bdc8` failed its Flutter analysis because of the unused
+  import. Its Pages run was correctly skipped: no failed artifact was published.
+- [Full CI #19](https://github.com/kleberandrade/fuzzy-engine/actions/runs/44169463100)
+  passed all six jobs for `e721253`, including Dart 3.3.4/stable, Flutter 3.50.0,
+  FIS/FCL runtime comparisons and the package quality check.
+- [Pages deploy #2](https://github.com/kleberandrade/fuzzy-engine/actions/runs/44169828935)
+  downloaded that successful run's artifact and completed successfully.
+- Public application verified in Chrome:
+  [Fuzzy Lab](https://kleberandrade.github.io/fuzzy-engine/). The language switch,
+  workbench navigation and keyboard slider were exercised on the public build.
+  Demand 40 yielded Mamdani 44.95, Sugeno 44.00 and Tsukamoto 40.00.
+- About was verified with eight topics: dart, dart-package, flutter,
+  fuzzy-inference, fuzzy-logic, mamdani, sugeno, tsukamoto. The existing Dart/MIT
+  badge claims match the manifest/license; the CI badge links to the verified workflow.
+- [Pages source evidence](screenshots/pages-source.jpg),
+  [About evidence](screenshots/github-about.jpg),
+  [public UI capture](screenshots/inference-desktop.jpg).
+- The follow-up documentation commit adds the now-verified links and evidence;
+  it does not alter the tested Dart/Flutter implementation.
