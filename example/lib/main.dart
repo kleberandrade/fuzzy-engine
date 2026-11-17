@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'scenarios.dart';
 import 'surface_page.dart';
+import 'workbench_page.dart';
+import 'membership_plot.dart';
 
 void main() => runApp(const FuzzyApp());
 
@@ -69,6 +71,19 @@ class _LabState extends State<Lab> {
                             builder: (_) =>
                                 SurfacePage(portuguese: portuguese))),
                   ),
+                  const SizedBox(height: 12),
+                  FilledButton.icon(
+                    key: const ValueKey('open-workbench'),
+                    icon: const Icon(Icons.science_outlined),
+                    label: Text(portuguese
+                        ? 'Comparar inferências e configurar JSON'
+                        : 'Compare inference and configure JSON'),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                            builder: (_) =>
+                                WorkbenchPage(portuguese: portuguese))),
+                  ),
+                  const SizedBox(height: 16),
                   Wrap(
                       spacing: 12,
                       children: List.generate(
@@ -86,13 +101,21 @@ class _LabState extends State<Lab> {
                       value: value,
                       min: input.min,
                       max: input.max,
+                      label: value.toStringAsFixed(1),
+                      semanticFormatterCallback: (v) =>
+                          '${input.name} ${v.toStringAsFixed(1)}',
                       onChanged: (v) => setState(() => value = v)),
                   SizedBox(
                       height: 180,
                       child:
                           CustomPaint(painter: MembershipPlot(input, value))),
                   const SizedBox(height: 12),
-                  const Text('low • medium • high'),
+                  Wrap(spacing: 16, children: [
+                    for (final term in input.terms.entries)
+                      Text(
+                          '${term.key}: μ=${term.value.degree(value).toStringAsFixed(2)}')
+                  ]),
+                  Text('${input.min} → ${input.max} · μ: 0 → 1'),
                   const SizedBox(height: 24),
                   Card(
                       child: Padding(
@@ -114,45 +137,4 @@ class _LabState extends State<Lab> {
                       : 'Educational models. Degrees are not probabilities. Calibrate ranges and rules for your domain.'),
                 ]))));
   }
-}
-
-class MembershipPlot extends CustomPainter {
-  MembershipPlot(this.variable, this.value);
-  final FuzzyVariable variable;
-  final double value;
-  @override
-  void paint(Canvas canvas, Size size) {
-    const colors = [Colors.blue, Colors.orange, Colors.red];
-    var index = 0;
-    for (final f in variable.terms.values) {
-      final path = Path();
-      for (var i = 0; i <= 200; i++) {
-        final x = variable.min + (variable.max - variable.min) * i / 200;
-        final y = size.height * (1 - f.degree(x));
-        if (i == 0) {
-          path.moveTo(0, y);
-        } else {
-          path.lineTo(size.width * i / 200, y);
-        }
-      }
-      canvas.drawPath(
-          path,
-          Paint()
-            ..color = colors[index++ % colors.length]
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 3);
-    }
-    final x =
-        (value - variable.min) / (variable.max - variable.min) * size.width;
-    canvas.drawLine(
-        Offset(x, 0),
-        Offset(x, size.height),
-        Paint()
-          ..color = Colors.grey
-          ..strokeWidth = 2);
-  }
-
-  @override
-  bool shouldRepaint(covariant MembershipPlot oldDelegate) =>
-      oldDelegate.value != value || oldDelegate.variable != variable;
 }

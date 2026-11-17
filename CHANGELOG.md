@@ -1,5 +1,14 @@
 ## Unreleased
 
+- Complete the Flutter lab with Mamdani/Sugeno/Tsukamoto comparison, five Mamdani
+  defuzzifiers, membership/output curves, rule explanations, reset and validated
+  JSON import/export; preserve the original scenarios and climate surface.
+- Validate the lab on narrow screens, document scenarios and limits, and deploy
+  its static Web build through GitHub Pages only after all CI checks succeed.
+- Completa o laboratório Flutter com comparação de três inferências, cinco
+  defuzzificadores Mamdani, curvas, regras, reinício e JSON validado; preserva
+  os cenários existentes. Publicação Web condicionada à aprovação de toda a CI.
+
 ## 0.3.0
 
 ### English
