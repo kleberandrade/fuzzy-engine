@@ -1,5 +1,58 @@
 # Flutter laboratory validation and action log
 
+## Navigation, branding, language and learning revision · November 17, 2026
+
+Implemented the additional requested scope without changing the core API:
+responsive Laboratory/Learn/Examples/Documentation/GitHub navigation, original
+peak/convergence mark and favicon, circular Brazil/United Kingdom flag buttons,
+full EN/PT-BR interface/help/feedback/learning translations and browser preference
+storage. Technical model identifiers and user-authored text remain data.
+
+The experiment owns a persistent inner navigator while Learn and Examples switch
+views around it. Opening a preset adds a new independent workbench page; returning
+restores the previous route/draft. Browser storage keys are namespaced for this
+project and contain language/theme only. Actual Chrome checks confirmed English
+and light theme after reload, the document language attribute changing to en, and
+an input value of 30 surviving Learn/language/Laboratory navigation. Reload itself
+resets models, as documented.
+
+Learn is authored from the existing guide, toolbox, strategy, Sugeno, Tsukamoto
+and model-interchange documents. It provides six concept sections, interpreted
+formulas, six executable presets and exactly five practical exercises. Tests
+verify guide paths in both languages, the displayed core version against the root
+pubspec, the real preset outputs, the no-decision example and the favicon/mark
+asset match. A source-guide button was opened and verified at toolbox.en.md on
+GitHub; the content is integrated Flutter UI, with no GitHub iframe.
+
+Validation uses the same isolated Flutter 3.50.0 / Dart 3.14.0 toolchain. The pure
+Dart code remains untouched: 450 core tests, 4 tool tests and analysis passed.
+The new UI suite covers section/state preservation, mobile menu navigation,
+keyboard activation of Learn, language/theme preference restoration, draft and
+JSON-error translation without losing fields, locale-specific documentation
+links, real example loading, formula semantics and 48-pixel flag touch targets.
+All 36 Flutter tests passed, Flutter analysis reported no issues, and the Web
+release build passed with /fuzzy-engine/ and bundled web resources. The Wasm
+compatibility dry run passed; a standalone Wasm deployment is not claimed. Only the Flutter SDK localization module
+was added to the app; it resolves intl 0.20.3 through SDK constraints. No hosted
+package, runtime flag/image download, cross-engine dependency or core Flutter
+coupling was added.
+
+Action log: inspected instructions, clean status and remote; wrote navigation
+behavior tests before the feature; separated persistent app settings from model
+state; built the shell below the root navigator so menus have an overlay while
+experiment routes survive section changes; added educational content from real
+sources and core-backed presets; authored vector branding and flag renderers;
+localized forms and validation feedback; added semantic formula labels; verified
+browser persistence, links and responsive layouts; adjusted older tests to use
+locale-independent Back widgets and direct language buttons; reviewed the diff,
+secret patterns and docs; retained the existing gated Pages workflow. Heavy UI
+validation and Web build run sequentially. Previously passing core evidence is
+reused after the final flag-only rendering adjustment.
+
+Fresh captures document [desktop Learn](screenshots/learn-desktop.jpg),
+[mobile Learn](screenshots/learn-mobile.jpg) and the current visual curve/rule
+editors with the persistent navbar.
+
 ## Visual editor and dark theme revision · November 17, 2026
 
 Added a visual draft editor without changing the pure Dart API. The home scenarios

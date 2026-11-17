@@ -7,7 +7,10 @@ Compare Mamdani, Sugeno e Tsukamoto, explore curvas e regras, altere a
 defuzzificação Mamdani e importe/exporte configurações JSON validadas.
 Use o editor visual para alterar curvas, pesos e condições das regras sem editar JSON.
 O tema escuro é padrão, com opção de tema claro.
-A interface permite alternar português e inglês; os cenários anteriores continuam disponíveis.
+A navbar responsiva inclui marca original, bandeiras circulares Brasil/Reino Unido,
+Aprender com fórmulas e cinco exercícios, além de seis exemplos executáveis.
+Idioma e tema são salvos no navegador quando permitido, sem descartar o experimento
+ao trocar o idioma ou a seção. A interface permite alternar português e inglês; os cenários anteriores continuam disponíveis.
 
 [Importação/exportação experimental FIS Mamdani/Sugeno](doc/fis.pt-BR.md), com
 política explícita para saída sem decisão e comparação numérica independente.

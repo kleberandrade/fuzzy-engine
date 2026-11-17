@@ -3,7 +3,7 @@
 [Open the verified online lab](https://kleberandrade.github.io/fuzzy-engine/).
 
 The Flutter UI runs the same pure Dart inference engines as the console examples.
-Start at the home screen. **English / Português** changes interface language;
+Start at the home screen. **Brazil / United Kingdom circular flag buttons** change interface language;
 variable and term identifiers remain stable so they match JSON and source code.
 
 ![Real desktop capture: shared demand input, membership curves and three inference results](screenshots/inference-desktop.jpg)
@@ -11,6 +11,49 @@ variable and term identifiers remain stable so they match JSON and source code.
 Real Chrome capture of the Web build, November 17, 2026. Demand 40 produces
 Mamdani 44.95, Sugeno 44.00 and Tsukamoto 40.00 with the comparison presets.
 This is a screenshot of the running implementation, not a conceptual illustration.
+
+## Navigation, language and integrated learning
+
+![Real desktop Learn page with original mark, circular language flags and interpreted formulas](screenshots/learn-desktop.jpg)
+
+![Real 390 × 844 Portuguese Learn page with compact navigation and circular flags](screenshots/learn-mobile.jpg)
+
+The responsive navbar contains the original Fuzzy Engine mark, Laboratory, Learn,
+Examples, Documentation and GitHub. On narrow screens, the section and external
+links move into the navigation menu. The compact mark keeps its accessible project
+name; the local Brazil/United Kingdom flag buttons stay visible, with 48 × 48
+hit areas, keyboard focus, language-name tooltips and an outlined selected state.
+
+English and Brazilian Portuguese translate the interface, strategy/shape labels,
+feedback, help and all learning content. Technical variable/term IDs, JSON keys
+and user-authored model text remain unchanged so references stay valid. Language
+changes preserve live inputs, imported models, selected methods and uncommitted
+editor fields. Laboratory/Learn/Examples switch views without disposing the
+experiment navigator. Opening an example adds an independent model page; Back
+returns to the previous experiment, including any editor draft.
+
+Browser storage retains only `fuzzy-lab.language` and `fuzzy-lab.theme` on the
+current origin. Reload restores those preferences, while experimental/model state
+remains in memory and resets on reload. If storage is blocked or unavailable, the
+current session still works; no persistent native storage is claimed. No model
+configuration is uploaded to store a language preference. The document language
+attribute and the built-in Flutter control localization follow the same selection.
+
+**Learn** explains the actual implemented pipeline: membership, default min/max/
+complement and hedges, weighted rule strengths, Mamdani and five defuzzifiers,
+Sugeno constants/linear consequents and its two reductions, monotonic Tsukamoto
+inverses, explicit no-decision behavior and restricted interchange scope. Formulas
+include interpretations and accessible text labels. Source-guide buttons open the
+existing English/Portuguese repository documentation, not an iframe. The content
+identifies core version 0.3.0 and does not present automatic learning, type-2 or
+hybrid inference as implemented features.
+
+**Examples** computes its previews with the production Dart engines and opens six
+runnable presets: Mamdani at demand 25, Sugeno (35), Tsukamoto (25), dry-soil
+irrigation (83.33), two-output climate and deliberately uncovered demand 75
+(**No decision**). Learn ends with exactly five practical exercises, each with a
+completion criterion. The original laboratory scenarios and visual editor remain
+available; neither section duplicates inference logic.
 
 ## Start with a scenario
 
@@ -60,9 +103,9 @@ other families are preserved. The original home scenarios remain independent.
 
 ## Configure curves and rules visually
 
-The lab starts with a dark navy/teal theme. The sun/moon button on the home screen
-switches to the light theme without discarding scenario edits; the choice lasts
-for the current session. Reload starts dark again.
+The lab starts dark unless a saved preference selects light. The navbar sun/moon
+button switches theme without discarding edits. Language and theme preferences
+are restored on reload when browser storage is available.
 
 Choose **Edit scenario curves and rules** on the home screen, or **Visual editor**
 in the workbench. On the climate surface, **Edit a copy in the workbench** opens

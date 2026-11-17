@@ -4,11 +4,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-555555)](https://github.com/kleberandrade/fuzzy-engine/blob/main/LICENSE)
 [![CI](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/ci.yml)
 
+![Original Fuzzy Engine identity](doc/brand/fuzzy-wordmark.svg)
+
 Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter.
 
 **[Open the interactive Fuzzy Lab](https://kleberandrade.github.io/fuzzy-engine/)** —
 compare inference families, inspect curves and rules, try defuzzifiers, edit curves/rules visually and exchange
-validated JSON configurations. The UI defaults to dark mode with a light-theme toggle. No installation needed.
+validated JSON configurations. The UI defaults to dark mode with a light-theme toggle. No installation needed. The responsive navbar includes English/PT-BR circular
+flag controls, an integrated Learn guide and six runnable examples. Language and
+theme preferences are retained in browser storage when available.
 
 ![Running dark Fuzzy Lab: visual membership editor and validated live preview](doc/screenshots/visual-membership-dark.jpg)
 
