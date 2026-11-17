@@ -1,6 +1,9 @@
 // Retain compatibility with Flutter SDKs predating the Material UI extraction.
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'app_settings.dart';
+import 'lab_shell.dart';
 import 'scenarios.dart';
 import 'surface_page.dart';
 import 'workbench_page.dart';
@@ -12,35 +15,64 @@ import 'package:fuzzy_engine/fuzzy_engine.dart';
 void main() => runApp(const FuzzyApp());
 
 class FuzzyApp extends StatefulWidget {
-  const FuzzyApp({super.key});
+  const FuzzyApp({super.key, this.preferences, this.onOpenLink});
+  final PreferenceStore? preferences;
+  final ValueChanged<String>? onOpenLink;
   @override
   State<FuzzyApp> createState() => _FuzzyAppState();
 }
 
 class _FuzzyAppState extends State<FuzzyApp> {
-  bool dark = true;
+  late final settings =
+      AppSettings(widget.preferences ?? const BrowserPreferences());
+  final navigatorKey = GlobalKey<NavigatorState>();
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Fuzzy Lab',
-        debugShowCheckedModeBanner: false,
-        themeMode: dark ? ThemeMode.dark : ThemeMode.light,
-        theme: ThemeData(
-            colorSchemeSeed: const Color(0xff147d77), useMaterial3: true),
-        darkTheme: ThemeData(
-            useMaterial3: true,
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: const Color(0xff0b1220),
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xff65d7d0),
+  void dispose() {
+    settings.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+      animation: settings,
+      builder: (_, __) => MaterialApp(
+            title: settings.portuguese
+                ? 'Fuzzy Engine · Laboratório'
+                : 'Fuzzy Engine · Laboratory',
+            debugShowCheckedModeBanner: false,
+            locale: settings.portuguese
+                ? const Locale('pt', 'BR')
+                : const Locale('en'),
+            supportedLocales: const [Locale('en'), Locale('pt', 'BR')],
+            // Retain compatibility with Flutter before Material extraction.
+            // ignore: deprecated_member_use
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            themeMode: settings.dark ? ThemeMode.dark : ThemeMode.light,
+            theme: ThemeData(
+                colorSchemeSeed: const Color(0xff147d77), useMaterial3: true),
+            darkTheme: ThemeData(
+                useMaterial3: true,
                 brightness: Brightness.dark,
-                surface: const Color(0xff121d31))),
-        home: Lab(toggleTheme: () => setState(() => dark = !dark)),
-      );
+                scaffoldBackgroundColor: const Color(0xff0b1220),
+                colorScheme: ColorScheme.fromSeed(
+                    seedColor: const Color(0xff65d7d0),
+                    brightness: Brightness.dark,
+                    surface: const Color(0xff121d31))),
+            builder: (context, child) =>
+                AppScope(settings: settings, child: child!),
+            home: LabShell(
+                settings: settings,
+                navigatorKey: navigatorKey,
+                onOpenLink: widget.onOpenLink,
+                child: Navigator(
+                    key: navigatorKey,
+                    onGenerateRoute: (_) =>
+                        MaterialPageRoute<void>(builder: (_) => const Lab()))),
+          ));
 }
 
 class Lab extends StatefulWidget {
-  const Lab({super.key, this.toggleTheme});
-  final VoidCallback? toggleTheme;
+  const Lab({super.key});
   @override
   State<Lab> createState() => _LabState();
 }
@@ -48,7 +80,7 @@ class Lab extends StatefulWidget {
 class _LabState extends State<Lab> {
   int selected = 0;
   double value = 25;
-  bool portuguese = true;
+  bool get portuguese => AppScope.pt(context, fallback: true);
   final models = [
     controller('temperature', 'fanSpeed', 0, 50),
     controller('soilMoisture', 'watering', 0, 100),
@@ -63,20 +95,6 @@ class _LabState extends State<Lab> {
         ? ['Climatização', 'Irrigação', 'Jogo']
         : ['Climate', 'Irrigation', 'Game'];
     return Scaffold(
-        appBar: AppBar(title: const Text('Fuzzy Lab'), actions: [
-          IconButton(
-              key: const ValueKey('toggle-theme'),
-              tooltip: portuguese
-                  ? 'Alternar tema claro/escuro'
-                  : 'Toggle light/dark theme',
-              onPressed: widget.toggleTheme,
-              icon: Icon(Theme.of(context).brightness == Brightness.dark
-                  ? Icons.light_mode_outlined
-                  : Icons.dark_mode_outlined)),
-          TextButton(
-              onPressed: () => setState(() => portuguese = !portuguese),
-              child: Text(portuguese ? 'English' : 'Português')),
-        ]),
         body: Center(
             child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 800),

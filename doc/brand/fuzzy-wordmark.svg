@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" role="img" aria-label="Fuzzy Engine">
+  <rect width="280" height="64" rx="16" fill="#0b1220"/>
+  <g transform="translate(8 8)"><rect width="48" height="48" rx="13" fill="#13283a"/><path d="M16 35 25.1 19.3 33 35Z" fill="#65d7d0" opacity=".18"/><g fill="none" stroke-width="3" stroke-linejoin="round"><path d="M7 35 20 11 33 35" stroke="#65d7d0"/><path d="M15 35 30 14 41 35" stroke="#ffb860"/></g><path d="M8 38H40" stroke="#94a8bc" stroke-width="1.5"/><circle cx="25" cy="27" r="3" fill="#f1fbff"/></g>
+  <text x="72" y="40" font-family="system-ui,sans-serif" font-size="25" font-weight="650" fill="#eef8ff">Fuzzy Engine</text>
+</svg>

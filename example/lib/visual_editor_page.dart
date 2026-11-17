@@ -1,5 +1,6 @@
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'app_settings.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'lab_model.dart';
 import 'visual_draft.dart';
@@ -19,13 +20,15 @@ class VisualEditorPage extends StatefulWidget {
 class _VisualEditorPageState extends State<VisualEditorPage> {
   late final draft = VisualDraft(widget.model);
   int inputIndex = 0, outputIndex = 0, ruleIndex = 0;
-  String tr(String en, String pt) => widget.portuguese ? pt : en;
+  String tr(String en, String pt) =>
+      AppScope.pt(context, fallback: widget.portuguese) ? pt : en;
   void change(VoidCallback edit) => setState(edit);
 
   Future<void> rename(bool input, int index, String old) async {
     var name = old;
     String? error;
     await showDialog<void>(
+        useRootNavigator: false,
         context: context,
         builder: (context) => StatefulBuilder(
               builder: (context, update) => AlertDialog(
@@ -35,7 +38,12 @@ class _VisualEditorPageState extends State<VisualEditorPage> {
                     autofocus: true,
                     decoration: InputDecoration(
                         labelText: tr('Term name', 'Nome do termo'),
-                        errorText: error),
+                        errorText: error == null
+                            ? null
+                            : localizedProblem(
+                                error!,
+                                AppScope.pt(context,
+                                    fallback: widget.portuguese))),
                     onChanged: (v) => name = v),
                 actions: [
                   TextButton(
@@ -119,7 +127,7 @@ class _VisualEditorPageState extends State<VisualEditorPage> {
                   error == null
                       ? tr('✓ Valid model · preview uses input midpoints',
                           '✓ Modelo válido · prévia usa pontos médios das entradas')
-                      : '${tr('Fix before applying', 'Corrija antes de aplicar')}: $error',
+                      : '${tr('Fix before applying', 'Corrija antes de aplicar')}: ${localizedProblem(error, AppScope.pt(context, fallback: widget.portuguese))}',
                   key: const ValueKey('draft-status'),
                   style: TextStyle(
                       color: error == null

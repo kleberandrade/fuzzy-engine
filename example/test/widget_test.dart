@@ -24,7 +24,7 @@ void main() {
         .onChanged!(0);
     await tester.pump();
     expect(find.text('Demanda: 50.0 / 100'), findsOneWidget);
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton).first);
     await tester.pumpAndSettle();
     expect(find.text('Climatização'), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -83,7 +83,7 @@ void main() {
       await tester.pump();
       await reveal(find.textContaining('83.3 / 100'));
       expect(find.textContaining('83.3 / 100'), findsOneWidget);
-      await tester.tap(find.text('English'));
+      await tester.tap(find.byKey(const ValueKey('language-en')));
       await tester.pumpAndSettle();
       await reveal(find.text('Irrigation'), delta: -200);
       expect(find.text('Irrigation'), findsOneWidget);

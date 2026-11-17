@@ -5,6 +5,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   fuzzy_engine:
     path: ../
 dev_dependencies:

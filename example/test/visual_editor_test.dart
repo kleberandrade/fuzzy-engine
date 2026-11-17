@@ -51,7 +51,7 @@ void main() {
             .widget<FilledButton>(find.byKey(const ValueKey('apply-visual')))
             .onPressed,
         isNull);
-    await tester.pageBack();
+    await tester.tap(find.byType(BackButton).first);
     await tester.pumpAndSettle();
     expect(find.text('Open'), findsOneWidget);
   });
@@ -146,7 +146,7 @@ void main() {
         scrollable: scrollable);
     await tester.tap(find.byKey(const ValueKey('condition-rule2-type')));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('and').last);
+    await tester.tap(find.text('AND').last);
     await tester.pumpAndSettle();
     expect(find.text('Left condition'), findsOneWidget);
     expect(find.text('Right condition'), findsOneWidget);

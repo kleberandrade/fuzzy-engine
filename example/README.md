@@ -10,13 +10,18 @@ compare Mamdani, Sugeno and Tsukamoto, choose five Mamdani defuzzifiers, inspect
 membership/output curves and active rules, and import/export validated model JSON.
 The visual editor configures curves, ranges, terms and IF–THEN rules without
 manual JSON edits, including constant/linear Sugeno consequents. Dark mode is the
-default; the home theme button switches to light mode. The scenario guide explains
+default when no preference is saved; the navbar theme button switches to light mode.
+Original vector branding, circular Brazil/United Kingdom language buttons, a
+responsive menu and integrated Learn/Examples sections are included. Learn uses the
+project guides, six production-engine presets and five practical exercises. EN/PT-BR
+translations and browser preference storage preserve the current experiment and draft. The scenario guide explains
 Apply, Cancel and which advanced settings remain JSON-only.
 No Flutter dependency is added to the Dart core.
 
 A bancada compara as três inferências, mostra curvas e regras e permite trocar
 configurações JSON validadas. Os cenários e a superfície anteriores são preservados. O editor visual permite
-alterar curvas e regras sem JSON; o tema escuro pode ser alternado para claro.
+alterar curvas e regras sem JSON; a navbar traz bandeiras circulares e as áreas
+Aprender/Exemplos com conteúdo bilíngue e execução de presets reais; o tema escuro pode ser alternado para claro.
 
 Three independent educational models: climate → fan speed, soil moisture →
 watering intensity, player performance → game difficulty. Sliders change crisp

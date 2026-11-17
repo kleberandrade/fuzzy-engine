@@ -1,5 +1,6 @@
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'app_settings.dart';
 import 'package:flutter/services.dart';
 import 'lab_model.dart';
 
@@ -18,7 +19,8 @@ class ConfigurationDialog extends StatefulWidget {
 class _ConfigurationDialogState extends State<ConfigurationDialog> {
   late final text = TextEditingController(text: widget.model.export());
   String? error;
-  String tr(String en, String pt) => widget.portuguese ? pt : en;
+  String tr(String en, String pt) =>
+      AppScope.pt(context, fallback: widget.portuguese) ? pt : en;
   @override
   void dispose() {
     text.dispose();
@@ -39,10 +41,7 @@ class _ConfigurationDialogState extends State<ConfigurationDialog> {
     }
   }
 
-  void invalid(String message) => setState(
-        () => error =
-            '${tr('Invalid configuration', 'Configuração inválida')}: $message',
-      );
+  void invalid(String message) => setState(() => error = message);
   @override
   Widget build(BuildContext context) => AlertDialog(
         title: Text(
@@ -79,7 +78,7 @@ class _ConfigurationDialogState extends State<ConfigurationDialog> {
                   child: Semantics(
                     liveRegion: true,
                     child: Text(
-                      error!,
+                      '${tr('Invalid configuration', 'Configuração inválida')}: ${localizedProblem(error!, AppScope.pt(context, fallback: widget.portuguese))}',
                       style:
                           TextStyle(color: Theme.of(context).colorScheme.error),
                     ),

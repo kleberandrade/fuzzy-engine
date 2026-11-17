@@ -1,5 +1,6 @@
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'app_settings.dart';
 import 'editor_fields.dart';
 import 'visual_draft.dart';
 
@@ -16,7 +17,8 @@ class ConditionEditor extends StatelessWidget {
   final String path;
   final ValueChanged<Map<String, dynamic>> onChanged;
   final bool portuguese;
-  String tr(String en, String pt) => portuguese ? pt : en;
+  String tr(BuildContext context, String en, String pt) =>
+      AppScope.pt(context, fallback: portuguese) ? pt : en;
 
   void changeType(String type) {
     final next = switch (type) {
@@ -60,7 +62,7 @@ class ConditionEditor extends StatelessWidget {
         );
     final typeChoice = editorChoice(
         'condition-$path-type',
-        tr('Condition', 'Condição'),
+        tr(context, 'Condition', 'Condição'),
         type,
         const ['term', 'and', 'or', 'not', 'very', 'somewhat'],
         changeType);
@@ -73,7 +75,7 @@ class ConditionEditor extends StatelessWidget {
             typeChoice,
             editorChoice(
                 'condition-$path-variable',
-                tr('Input', 'Entrada'),
+                tr(context, 'Input', 'Entrada'),
                 node['variable'] as String?,
                 draft.inputs.map((v) => v['name'] as String), (value) {
               node['variable'] = value;
@@ -87,7 +89,7 @@ class ConditionEditor extends StatelessWidget {
             }),
             editorChoice(
                 'condition-$path-term',
-                tr('Is', 'É'),
+                tr(context, 'Is', 'É'),
                 node['term'] as String?,
                 (variable?['terms'] as Map?)?.keys.cast<String>() ??
                     const <String>[], (value) {
@@ -104,17 +106,20 @@ class ConditionEditor extends StatelessWidget {
         key: ValueKey('$path-$type'),
         initiallyExpanded: path.split('-').length < 4,
         tilePadding: EdgeInsets.zero,
-        title: Text(tr('Operands · $type', 'Operandos · $type')),
+        title: Text(
+            '${tr(context, 'Operands', 'Operandos')} · ${translatedOption(context, type)}'),
         children: [
           if (type == 'and' || type == 'or') ...[
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text(tr('Left condition', 'Condição esquerda'))),
+                child:
+                    Text(tr(context, 'Left condition', 'Condição esquerda'))),
             child('left'),
             const SizedBox(height: 16),
             Align(
                 alignment: Alignment.centerLeft,
-                child: Text(tr('Right condition', 'Condição direita'))),
+                child:
+                    Text(tr(context, 'Right condition', 'Condição direita'))),
             child('right'),
           ] else
             child('operand'),

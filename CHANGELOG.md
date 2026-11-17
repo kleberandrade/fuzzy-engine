@@ -1,5 +1,16 @@
 ## Unreleased
 
+- Add a responsive branded navbar and integrated bilingual Learn/Examples areas
+  grounded in the implemented 0.3.0 guides, formulas, six runnable presets and five
+  practical exercises; keep the current experiment and editor draft alive across sections.
+- Add original vector branding, an SVG favicon and circular Brazil/United Kingdom
+  language buttons with selected states, keyboard focus and 48 px touch targets.
+- Translate navigation, forms, strategies, feedback and educational content in
+  English/PT-BR; persist language/theme in browser storage without saving model data.
+- Adiciona navbar responsiva, marca vetorial original, bandeiras circulares e área
+  Aprender/Exemplos bilíngue com fórmulas e presets reais. A troca de idioma mantém
+  o experimento e rascunhos; idioma/tema ficam salvos no navegador quando permitido.
+
 - Add a transactional visual editor for membership shapes, ranges, terms, rule
   conditions/weights and Mamdani, Sugeno or Tsukamoto consequents, with live
   validated previews and application/cancellation from every lab scenario.

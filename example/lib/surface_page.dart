@@ -1,6 +1,7 @@
 // Retain compatibility with Flutter SDKs predating the Material UI extraction.
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'app_settings.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'scenarios.dart';
 import 'lab_model.dart';
@@ -43,7 +44,7 @@ class _SurfacePageState extends State<SurfacePage> {
 
   @override
   Widget build(BuildContext context) {
-    final pt = widget.portuguese;
+    final pt = AppScope.pt(context, fallback: widget.portuguese);
     final result =
         model.evaluate({'temperature': temperature, 'humidity': humidity});
     final value = result.values['fanDemand'];

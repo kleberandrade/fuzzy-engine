@@ -1,6 +1,7 @@
 // Retain compatibility with Flutter before Material was extracted.
 // ignore: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'app_settings.dart';
 import 'configuration_dialog.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'lab_model.dart';
@@ -8,7 +9,12 @@ import 'membership_plot.dart';
 import 'visual_editor_page.dart';
 
 class WorkbenchPage extends StatefulWidget {
-  const WorkbenchPage({super.key, required this.portuguese, this.initialModel});
+  const WorkbenchPage(
+      {super.key,
+      required this.portuguese,
+      this.initialModel,
+      this.initialInputs});
+  final Map<String, double>? initialInputs;
   final LabModel? initialModel;
   final bool portuguese;
   @override
@@ -18,14 +24,18 @@ class WorkbenchPage extends StatefulWidget {
 class _WorkbenchPageState extends State<WorkbenchPage> {
   late List<LabModel> models =
       widget.initialModel == null ? comparisonModels() : [widget.initialModel!];
-  late Map<String, double> values = models.first.initialValues;
+  late Map<String, double> values = widget.initialInputs == null
+      ? models.first.initialValues
+      : Map.of(widget.initialInputs!);
   int selected = 0;
   late bool imported = widget.initialModel != null;
-  String tr(String en, String pt) => widget.portuguese ? pt : en;
+  String tr(String en, String pt) =>
+      AppScope.pt(context, fallback: widget.portuguese) ? pt : en;
   LabModel get model => models[selected];
 
   Future<void> configuration() async {
     final loaded = await showDialog<LabModel>(
+      useRootNavigator: false,
       context: context,
       builder: (_) =>
           ConfigurationDialog(model: model, portuguese: widget.portuguese),
@@ -74,7 +84,9 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
             padding: const EdgeInsets.all(24),
             children: [
               Text(
-                model.document.name ?? tr('Imported model', 'Modelo importado'),
+                model.document.name == null
+                    ? tr('Model', 'Modelo')
+                    : translatedOption(context, model.document.name!),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 8),
@@ -82,8 +94,8 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                 imported
                     ? (model.document.description ??
                         tr(
-                          'Imported model settings',
-                          'Configurações do modelo importado',
+                          'Model settings',
+                          'Configurações do modelo',
                         ))
                     : tr(
                         'Same inputs. Different consequent definitions. Compare mechanisms, not accuracy.',
@@ -185,7 +197,8 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                                 models[i].family,
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
-                              Text(models[i].reduction),
+                              Text(translatedOption(
+                                  context, models[i].reduction)),
                               for (final output in evaluate(
                                 models[i],
                               ).outputs.entries)
@@ -221,7 +234,7 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                 Semantics(
                   liveRegion: true,
                   child: Text(
-                    '${tr('Cannot evaluate these inputs', 'Não foi possível avaliar as entradas')}: ${result.error}',
+                    '${tr('Cannot evaluate these inputs', 'Não foi possível avaliar as entradas')}: ${localizedProblem(result.error!, AppScope.pt(context, fallback: widget.portuguese))}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
                     ),
@@ -239,7 +252,9 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                     isExpanded: true,
                     items: [
                       for (final method in LabModel.methods)
-                        DropdownMenuItem(value: method, child: Text(method))
+                        DropdownMenuItem(
+                            value: method,
+                            child: Text(translatedOption(context, method)))
                     ],
                     onChanged: (method) => setState(() =>
                         models[selected] = model.withDefuzzifier(method!)),
@@ -289,7 +304,9 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                         semanticsValue:
                             '${(rule.strength * 100).toStringAsFixed(1)}%',
                       ),
-                      Text(rule.detail),
+                      Text(AppScope.pt(context, fallback: widget.portuguese)
+                          ? rule.detail.replaceAll('inverse=', 'inverso=')
+                          : rule.detail),
                     ],
                   ),
                 ),
