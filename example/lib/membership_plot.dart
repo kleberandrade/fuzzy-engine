@@ -8,7 +8,7 @@ class MembershipPlot extends CustomPainter {
   final double value;
   @override
   void paint(Canvas canvas, Size size) {
-    const colors = [Colors.blue, Colors.orange, Colors.red];
+    const colors = [Color(0xff54c8ff), Color(0xffffb860), Color(0xffff719d)];
     var index = 0;
     for (final f in variable.terms.values) {
       final path = Path();

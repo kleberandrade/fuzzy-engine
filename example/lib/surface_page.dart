@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'scenarios.dart';
+import 'lab_model.dart';
+import 'workbench_page.dart';
 
 /// Two-input controls, activation explanations and a cached decision heatmap.
 class SurfacePage extends StatefulWidget {
@@ -57,6 +59,19 @@ class _SurfacePageState extends State<SurfacePage> {
                   Text(pt
                       ? 'Temperatura e umidade controlam ventilação e aquecimento.'
                       : 'Temperature and humidity control fan and heater demand.'),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                      icon: const Icon(Icons.tune),
+                      label: Text(pt
+                          ? 'Editar cópia na bancada'
+                          : 'Edit a copy in the workbench'),
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                              builder: (_) => WorkbenchPage(
+                                  portuguese: pt,
+                                  initialModel: LabModel(FuzzyModelDocument(
+                                      engine: climateController(),
+                                      name: 'Climate controller')))))),
                   const SizedBox(height: 16),
                   Text(
                       '${pt ? 'Temperatura' : 'Temperature'}: ${temperature.toStringAsFixed(1)} °C'),

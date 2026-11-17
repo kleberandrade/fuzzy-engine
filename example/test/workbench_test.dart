@@ -57,6 +57,8 @@ void main() {
       -250,
       scrollable: scrollable,
     );
+    await tester.drag(find.byType(ListView).first, const Offset(0, 1000));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('configuration')));
     await tester.pumpAndSettle();
     await tester.enterText(

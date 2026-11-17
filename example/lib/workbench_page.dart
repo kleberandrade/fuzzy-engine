@@ -5,19 +5,22 @@ import 'configuration_dialog.dart';
 import 'package:fuzzy_engine/fuzzy_engine.dart';
 import 'lab_model.dart';
 import 'membership_plot.dart';
+import 'visual_editor_page.dart';
 
 class WorkbenchPage extends StatefulWidget {
-  const WorkbenchPage({super.key, required this.portuguese});
+  const WorkbenchPage({super.key, required this.portuguese, this.initialModel});
+  final LabModel? initialModel;
   final bool portuguese;
   @override
   State<WorkbenchPage> createState() => _WorkbenchPageState();
 }
 
 class _WorkbenchPageState extends State<WorkbenchPage> {
-  late List<LabModel> models = comparisonModels();
+  late List<LabModel> models =
+      widget.initialModel == null ? comparisonModels() : [widget.initialModel!];
   late Map<String, double> values = models.first.initialValues;
   int selected = 0;
-  bool imported = false;
+  late bool imported = widget.initialModel != null;
   String tr(String en, String pt) => widget.portuguese ? pt : en;
   LabModel get model => models[selected];
 
@@ -33,6 +36,19 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
       selected = 0;
       imported = true;
       values = loaded.initialValues;
+    });
+  }
+
+  Future<void> editVisually() async {
+    final edited = await Navigator.of(context).push<LabModel>(MaterialPageRoute(
+        builder: (_) =>
+            VisualEditorPage(model: model, portuguese: widget.portuguese)));
+    if (!mounted || edited == null) return;
+    setState(() {
+      models = [edited];
+      selected = 0;
+      imported = true;
+      values = edited.initialValues;
     });
   }
 
@@ -79,6 +95,11 @@ class _WorkbenchPageState extends State<WorkbenchPage> {
                 spacing: 12,
                 runSpacing: 12,
                 children: [
+                  FilledButton.icon(
+                      key: const ValueKey('visual-editor'),
+                      onPressed: editVisually,
+                      icon: const Icon(Icons.tune),
+                      label: Text(tr('Visual editor', 'Editor visual'))),
                   OutlinedButton.icon(
                     key: const ValueKey('configuration'),
                     onPressed: configuration,
@@ -308,14 +329,15 @@ class _OutputPlot extends CustomPainter {
       );
     }
     path.lineTo(size.width, size.height);
-    canvas.drawPath(path, Paint()..color = Colors.indigo.withAlpha(51));
+    canvas.drawPath(
+        path, Paint()..color = const Color(0xff65d7d0).withAlpha(80));
     if (crisp != null) {
       final x = (crisp! - set.min) / (set.max - set.min) * size.width;
       canvas.drawLine(
         Offset(x, 0),
         Offset(x, size.height),
         Paint()
-          ..color = Colors.indigo
+          ..color = const Color(0xff65d7d0)
           ..strokeWidth = 3,
       );
     }

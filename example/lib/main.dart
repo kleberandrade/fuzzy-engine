@@ -5,23 +5,42 @@ import 'scenarios.dart';
 import 'surface_page.dart';
 import 'workbench_page.dart';
 import 'membership_plot.dart';
+import 'lab_model.dart';
+import 'visual_editor_page.dart';
+import 'package:fuzzy_engine/fuzzy_engine.dart';
 
 void main() => runApp(const FuzzyApp());
 
-class FuzzyApp extends StatelessWidget {
+class FuzzyApp extends StatefulWidget {
   const FuzzyApp({super.key});
+  @override
+  State<FuzzyApp> createState() => _FuzzyAppState();
+}
+
+class _FuzzyAppState extends State<FuzzyApp> {
+  bool dark = true;
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Fuzzy Lab',
         debugShowCheckedModeBanner: false,
+        themeMode: dark ? ThemeMode.dark : ThemeMode.light,
         theme: ThemeData(
-            colorSchemeSeed: const Color(0xff5063e8), useMaterial3: true),
-        home: const Lab(),
+            colorSchemeSeed: const Color(0xff147d77), useMaterial3: true),
+        darkTheme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: const Color(0xff0b1220),
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color(0xff65d7d0),
+                brightness: Brightness.dark,
+                surface: const Color(0xff121d31))),
+        home: Lab(toggleTheme: () => setState(() => dark = !dark)),
       );
 }
 
 class Lab extends StatefulWidget {
-  const Lab({super.key});
+  const Lab({super.key, this.toggleTheme});
+  final VoidCallback? toggleTheme;
   @override
   State<Lab> createState() => _LabState();
 }
@@ -45,6 +64,15 @@ class _LabState extends State<Lab> {
         : ['Climate', 'Irrigation', 'Game'];
     return Scaffold(
         appBar: AppBar(title: const Text('Fuzzy Lab'), actions: [
+          IconButton(
+              key: const ValueKey('toggle-theme'),
+              tooltip: portuguese
+                  ? 'Alternar tema claro/escuro'
+                  : 'Toggle light/dark theme',
+              onPressed: widget.toggleTheme,
+              icon: Icon(Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined)),
           TextButton(
               onPressed: () => setState(() => portuguese = !portuguese),
               child: Text(portuguese ? 'English' : 'Português')),
@@ -75,8 +103,8 @@ class _LabState extends State<Lab> {
                     key: const ValueKey('open-workbench'),
                     icon: const Icon(Icons.science_outlined),
                     label: Text(portuguese
-                        ? 'Comparar inferências e configurar JSON'
-                        : 'Compare inference and configure JSON'),
+                        ? 'Comparar e editar modelos'
+                        : 'Compare and edit models'),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute<void>(
                             builder: (_) =>
@@ -92,8 +120,44 @@ class _LabState extends State<Lab> {
                               selected: selected == i,
                               onSelected: (_) => setState(() {
                                     selected = i;
-                                    value = models[i].inputs.single.max / 2;
+                                    final next = models[i].inputs.single;
+                                    value =
+                                        next.min + (next.max - next.min) / 2;
                                   })))),
+                  const SizedBox(height: 16),
+                  OutlinedButton.icon(
+                      key: const ValueKey('edit-scenario'),
+                      icon: const Icon(Icons.tune),
+                      label: Text(portuguese
+                          ? 'Editar curvas e regras deste cenário'
+                          : 'Edit scenario curves and rules'),
+                      onPressed: () async {
+                        final edited = await Navigator.of(context)
+                            .push<LabModel>(MaterialPageRoute(
+                                builder: (_) => VisualEditorPage(
+                                    model: LabModel(
+                                        FuzzyModelDocument(engine: engine)),
+                                    portuguese: portuguese)));
+                        if (!mounted || edited == null) return;
+                        setState(() {
+                          models[selected] =
+                              edited.document.engine as FuzzyEngine;
+                          final updated = models[selected].inputs.single;
+                          value = value.clamp(updated.min, updated.max);
+                        });
+                      }),
+                  TextButton.icon(
+                      key: const ValueKey('inspect-scenario'),
+                      icon: const Icon(Icons.open_in_new),
+                      label: Text(portuguese
+                          ? 'Inspecionar/exportar este cenário'
+                          : 'Inspect/export this scenario'),
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                              builder: (_) => WorkbenchPage(
+                                  portuguese: portuguese,
+                                  initialModel: LabModel(
+                                      FuzzyModelDocument(engine: engine)))))),
                   const SizedBox(height: 24),
                   Text('${input.name}: ${value.toStringAsFixed(1)}'),
                   Slider(
@@ -120,7 +184,7 @@ class _LabState extends State<Lab> {
                       child: Padding(
                           padding: const EdgeInsets.all(24),
                           child: Text(
-                              '${engine.outputs.single.name}: ${result.outputs.values.single?.toStringAsFixed(1) ?? "—"} / 100',
+                              '${engine.outputs.single.name}: ${result.outputs.values.single?.toStringAsFixed(1) ?? "—"} / ${engine.outputs.single.max.toStringAsFixed(0)}',
                               style:
                                   Theme.of(context).textTheme.headlineSmall))),
                   for (final activation in result.rules)

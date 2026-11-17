@@ -1,5 +1,13 @@
 ## Unreleased
 
+- Add a transactional visual editor for membership shapes, ranges, terms, rule
+  conditions/weights and Mamdani, Sugeno or Tsukamoto consequents, with live
+  validated previews and application/cancellation from every lab scenario.
+- Default the Flutter lab to a dark navy/teal theme with a light-theme toggle;
+  keep the editor scrollable above mobile keyboards and preserve edited ranges.
+- Adiciona editor visual de curvas e regras com prévia validada, aplicação e
+  cancelamento; o laboratório inicia no tema escuro e permite alternar para claro.
+
 - Complete the Flutter lab with Mamdani/Sugeno/Tsukamoto comparison, five Mamdani
   defuzzifiers, membership/output curves, rule explanations, reset and validated
   JSON import/export; preserve the original scenarios and climate surface.
