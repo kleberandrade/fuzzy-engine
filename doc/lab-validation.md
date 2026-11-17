@@ -1,5 +1,52 @@
 # Flutter laboratory validation and action log
 
+## Visual editor and dark theme revision · November 17, 2026
+
+Added a visual draft editor without changing the pure Dart API. The home scenarios
+can be edited in place and opened in the workbench for exact configuration export.
+The multi-output climate surface opens an independent editable workbench copy.
+Workbench edits become a standalone model, retaining its settings and metadata.
+
+Validation for this revision:
+
+- 450 core tests, 4 tool tests and 29 Flutter tests passed; Dart/Flutter analysis
+  found no issues. The Web release build passed with the existing Pages base path
+  and bundled web resources. The toolchain remains Flutter 3.50.0 / Dart 3.14.0.
+- New tests cover isolated drafts, all eleven membership defaults, automatic term
+  reference updates, nested conditions/hedges, invalid references/numbers, apply,
+  cancellation, adding/deleting a composed rule, edited range switching/export,
+  dark/light theme switching, 150% text at 390 × 844 and a 390 × 640 viewport with
+  280 pixels reserved for the virtual keyboard.
+- The pre-implementation draft test failed because VisualDraft did not yet exist.
+  The keyboard regression test then exposed a 26-pixel overflow; moving the status
+  header into each scrolling form fixed the cause. The older workbench test was
+  adjusted to reveal the JSON button after the extra editor button changed wrapping.
+- Actual Chrome checks: dark default, light toggle retaining applied values,
+  triangle low.c 25 → 30 producing midpoint 49.35, invalid c = −1 disabling Apply,
+  AND construction with two operand editors, application to the scenario and
+  cancellation back to the previous configuration. Weight 0.5 after the endpoint
+  edit produced preview 49.83. The editor was also inspected at 390 × 844.
+- Fresh real captures: [curves](screenshots/visual-membership-dark.jpg),
+  [rules](screenshots/visual-rules-dark.jpg),
+  [mobile editor](screenshots/visual-editor-mobile.jpg). Comparison/import captures
+  were refreshed for the dark theme. These are running app screenshots, not mockups.
+
+Action log: inspected the clean checkout/instructions; wrote failing draft tests;
+kept all inference in the existing codec/engines; built isolated forms and recursive
+condition controls; restricted Tsukamoto output shapes to the core inverse contract;
+added dark/light themes and accessible contextual parameter labels; fixed the
+keyboard layout and edited scenario midpoint; connected exact scenario export;
+ran the required checks; inspected the real UI; updated both READMEs and the guide,
+retaining exactly five final exercises. No shared SDK, third-party project, core
+public API, package version or release tag was changed.
+
+The same gated Pages workflow validates the revision before publication. Its
+[CI executions](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/ci.yml)
+and [deployment executions](https://github.com/kleberandrade/fuzzy-engine/actions/workflows/pages.yml)
+provide the commit-specific remote record. Earlier release evidence follows.
+
+## Original laboratory delivery
+
 Date: November 17, 2026. Checkout: `kleberandrade/fuzzy-engine`, branch `main`.
 This record distinguishes local checks from the deployment result recorded below.
 

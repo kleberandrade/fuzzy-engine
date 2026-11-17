@@ -34,7 +34,7 @@ without relying on curve colors. Fuzzy degrees are not probabilities.
 
 ## Compare inference families
 
-Open **Compare inference and configure JSON**. A shared demand input (0–100)
+Open **Compare and edit models**. A shared demand input (0–100)
 fuzzifies into two ramps, low = 1 − demand/100 and high = demand/100. Each family
 has its own consequent definition; their outputs are not interchangeable accuracy
 scores and the presets are not calibrated controllers.
@@ -57,6 +57,61 @@ scores and the presets are not calibrated controllers.
 **Inspect rules** selects the family whose detailed activation bars are shown.
 Changing the Mamdani defuzzifier changes only that model; the shared inputs and
 other families are preserved. The original home scenarios remain independent.
+
+## Configure curves and rules visually
+
+The lab starts with a dark navy/teal theme. The sun/moon button on the home screen
+switches to the light theme without discarding scenario edits; the choice lasts
+for the current session. Reload starts dark again.
+
+Choose **Edit scenario curves and rules** on the home screen, or **Visual editor**
+in the workbench. On the climate surface, **Edit a copy in the workbench** opens
+an independent copy with both inputs and both outputs; it does not mutate the
+cached reference heatmaps.
+
+- **Inputs:** select an existing variable, edit its min/max range, and add,
+  rename or delete membership terms. Choose triangle, trapezoid, Gaussian, ramp,
+  sigmoid, bell, S/Z/Pi shape, rectangle or a discrete point set. Edit numeric
+  parameters or discrete x/μ rows; the valid curves and midpoint decision update
+  immediately. Renaming a term updates its references without changing its color
+  order. Deleting a referenced term blocks Apply until its rules are repaired.
+- **Outputs:** edit Mamdani membership shapes/ranges, or Tsukamoto ramp/S/Z
+  functions. Only these three output shapes implement the core's monotonic inverse
+  contract. Sugeno has no output membership curves: edit its crisp consequents in Rules.
+- **Rules:** select, add or delete a rule. Set its name and weight (0–1), build a
+  term condition or nested AND/OR/NOT/Very/Somewhat expression, then select the
+  target output and consequent term. For Sugeno, choose a constant or a linear
+  intercept plus a coefficient for each input. Expand operand sections to edit
+  deeper condition trees. Desktop leaf-condition fields sit side by side and
+  stack on narrow screens.
+
+![Actual dark editor: changing the low triangle endpoint from 25 to 30 updates the midpoint preview to 49.35](screenshots/visual-membership-dark.jpg)
+
+The editor owns a separate draft and uses the same production codec and browser
+budgets as JSON import. Invalid or incomplete numbers, unsupported references,
+non-monotonic Tsukamoto outputs and impossible shapes disable **Apply** and show
+an explanation. The preview uses each input's midpoint, not the last workbench
+slider position; an uncovered midpoint displays **No decision**. No JSON editing
+is needed for these rule and membership operations.
+
+**Apply** updates the selected home scenario. When launched from the workbench,
+it opens the edited model by itself and resets its inputs to midpoints, so a
+changed input definition is not presented as a shared-input comparison with the
+unchanged presets. **Restore comparison** returns to the presets. **Back** cancels
+the entire uncommitted draft.
+Applied edits live in memory; use JSON export from the workbench to save a copy.
+For a home scenario, **Inspect/export this scenario** opens exactly its applied
+configuration in the workbench before you copy JSON. Home scenario edits are
+retained while switching scenarios and themes, and are cleared on reload.
+
+![Actual dark rule editor: a low-rule weight of 0.5 changes the preview to 49.83 after the endpoint edit](screenshots/visual-rules-dark.jpg)
+
+The variable catalog and variable identifiers remain unchanged. Adding/renaming
+variables, units, engine families and advanced operator/runtime settings remain
+JSON/core configuration operations; the visual editor preserves those existing
+settings rather than replacing them. Custom Dart functions cannot be serialized.
+
+![Actual 390 × 844 editor capture with wrapped parameter controls and pinned Apply](screenshots/visual-editor-mobile.jpg)
 
 ## Import, export and recover
 
@@ -125,9 +180,9 @@ are illustrative, not hardware commands, minutes, probabilities or safety contro
    Finish when you record the five outputs and explain centroid versus maximum selection.
 3. **Explain consequent differences:** inspect Sugeno and Tsukamoto at demand 25.
    Finish when you reproduce 35 and 25 from the displayed strengths and consequents/inverses.
-4. **Practice interchange:** copy a Sugeno configuration, change the constant 80
-   to 60 and import it. Finish when demand 50 produces 40, and malformed JSON is rejected
-   without replacing the valid model. Cancel a draft and verify the model is preserved.
+4. **Edit without JSON:** inspect Sugeno, open Visual editor → Rules and change
+   the low rule's constant from 20 to 40. Finish when Apply produces 60 at demand
+   50, Cancel preserves a previously applied model, and an invalid weight blocks Apply.
 5. **Inspect two outputs:** open the climate surface, set temperature to 40 and
    humidity to zero, then switch fan/heater surfaces. Finish when you record both
    independent decisions and identify which rules drive each one.
