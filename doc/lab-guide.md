@@ -1,0 +1,129 @@
+# Fuzzy Lab: scenarios and limits
+
+The Flutter UI runs the same pure Dart inference engines as the console examples.
+Start at the home screen. **English / Português** changes interface language;
+variable and term identifiers remain stable so they match JSON and source code.
+
+![Real desktop capture: shared demand input, membership curves and three inference results](screenshots/inference-desktop.jpg)
+
+Real Chrome capture of the Web build, November 17, 2026. Demand 40 produces
+Mamdani 44.95, Sugeno 44.00 and Tsukamoto 40.00 with the comparison presets.
+This is a screenshot of the running implementation, not a conceptual illustration.
+
+## Start with a scenario
+
+- **Climate:** temperature 0–50 drives fan speed. At 25 the medium rule is fully
+  active and the output is 50. At the endpoints, centroid outputs are approximately
+  16.67 and 83.33; the shapes explain why they do not reach 0 and 100.
+- **Irrigation:** soil moisture 0–100 drives watering. Dry soil activates high
+  watering; wet soil activates low watering. At zero moisture, expect about 83.33.
+- **Game:** performance 0–100 drives difficulty. This is an interpretable heuristic,
+  not a learned policy or an assessment of an individual player.
+- **Explore two inputs and outputs:** temperature 0–40 and humidity 0–100 control
+  independent fan and heater demand. Switch the selected surface to inspect
+  either output. Eighteen rules cover a cached 21 × 21 grid; the marker and numeric
+  decisions use exact slider inputs. The model performs an explicit FIS round-trip.
+
+Input curves show membership μ from zero to one; the vertical marker is the crisp
+input. Numeric degrees and activation percentages explain the same information
+without relying on curve colors. Fuzzy degrees are not probabilities.
+
+## Compare inference families
+
+Open **Compare inference and configure JSON**. A shared demand input (0–100)
+fuzzifies into two ramps, low = 1 − demand/100 and high = demand/100. Each family
+has its own consequent definition; their outputs are not interchangeable accuracy
+scores and the presets are not calibrated controllers.
+
+- **Mamdani:** low/high triangular output sets occupy 0–50 and 50–100. Minimum
+  implication clips each set, maximum aggregation combines them, and a defuzzifier
+  reduces 201 samples (200 intervals). Select Centroid, Bisector, Mean of maximum,
+  Smallest of maximum or Largest of maximum. The filled curve is the aggregate;
+  its vertical line marks the crisp output. Maximum methods can jump as the
+  dominant peak changes; that is expected behavior.
+- **Sugeno:** low/high rules return crisp constants 20 and 80. The preset uses
+  normalized weighted average, yielding 35 at demand 25. Inspect rules to see z
+  and raw w×z. JSON also supports the core's linear consequents and weighted sum;
+  weighted sum is not normalized and Sugeno outputs have no bounded fuzzy universe.
+- **Tsukamoto:** the output terms are decreasing/increasing ramps over 0–100.
+  Each active rule inverts its weighted strength; the final result is the weighted
+  average of inverse values. Demand 25 gives inverse 25 for both rules and output
+  25. Only monotonic, invertible terms are accepted by the core.
+
+**Inspect rules** selects the family whose detailed activation bars are shown.
+Changing the Mamdani defuzzifier changes only that model; the shared inputs and
+other families are preserved. The original home scenarios remain independent.
+
+## Import, export and recover
+
+**Import / export JSON** opens the selected model as formatted JSON v2, including
+metadata, operators and runtime settings. **Copy JSON** exports text through the
+clipboard; save it as a local `.json` file if needed. Paste a complete v1/v2 model
+and choose **Validate and load**. A successful import replaces the comparison
+with that model and initializes every input to its midpoint. Use **Restore
+comparison** to return to the three presets. Imported models can have multiple
+inputs and outputs; all are displayed.
+
+The UI uses `FuzzyModelCodec` from the core. Unknown fields, versions, references,
+invalid membership parameters, unsupported components and nonfinite numbers are
+rejected. No code is evaluated. The browser adds limits of 100000 UTF-16 code
+units, 2000 JSON nodes, depth 64, 8 inputs, 8 outputs, 64 rules, 10000 total Mamdani
+output samples and 250000 rule/sample operations per evaluation. These UI limits
+are intentionally smaller than the codec defaults. Configuration text remains
+local; there is no upload service or server-side model execution.
+
+Invalid imports leave the current model and inputs untouched and show an error.
+**Cancel**, Escape or dismissing the dialog discards draft edits. **Reset inputs**
+restores the current model's midpoints without replacing its configuration. Valid
+but numerically extreme imported Sugeno models may overflow for particular inputs;
+the UI displays a recoverable evaluation error. Reset or edit the configuration.
+Zero activated area/weight is **No decision**, not zero output.
+
+![Real capture: invalid JSON rejected without replacing the current model](screenshots/configuration-validation.jpg)
+
+## Access and platform limits
+
+The UI is scrollable; comparison cards stack on a narrow screen. Sliders support
+keyboard adjustment, and buttons, numeric memberships and rule percentages are
+exposed to accessibility semantics. Widget tests include a 390 × 844 viewport
+with 150% text scale; Chrome was inspected at desktop size and at 390 × 844.
+These checks are not a complete screen-reader or WCAG conformance audit.
+
+![Real phone-width capture: wrapped controls, membership values and stacked result cards](screenshots/inference-mobile.jpg)
+
+There is no simulation clock or background training task. Decisions update
+synchronously when inputs change, so pause/step controls do not apply. Reset and
+configuration cancellation are tested. Large imported models are bounded to keep
+the work on the UI thread small. Inputs/edits are in memory and are lost on reload.
+The heatmap is educational sampling, not a proof of continuity or complete coverage
+for arbitrary imported models. Core FIS/FCL profiles are restricted; the workbench
+imports JSON rather than guessing unsupported vendor interchange semantics.
+
+The verified target is Flutter Web in Chrome. Native runners are not included or
+validated here. Clipboard export can be restricted by browser policy; the JSON
+field remains selectable for manual copying. Thresholds and output percentages
+are illustrative, not hardware commands, minutes, probabilities or safety controls.
+
+## References and credits
+
+- [Core guide](guide.en.md), [Portuguese guide](guide.pt-BR.md),
+  [JSON v2 schema](model-v2.schema.json), [Tsukamoto details](tsukamoto.en.md).
+- [Validation record and action log](lab-validation.md).
+- UI and examples: Kleber Andrade, under the repository's [MIT license](../LICENSE).
+  Flutter framework icons retain their upstream licensing. No third-party article,
+  artwork or SDK source was incorporated into the package.
+
+## Five practical exercises
+
+1. **Explain overlap:** set demand to 40. Finish when you can record low 0.60,
+   high 0.40 and the two weighted rule strengths without interpreting them as probabilities.
+2. **Compare reductions:** keep demand at 25 and try all five Mamdani methods.
+   Finish when you record the five outputs and explain centroid versus maximum selection.
+3. **Explain consequent differences:** inspect Sugeno and Tsukamoto at demand 25.
+   Finish when you reproduce 35 and 25 from the displayed strengths and consequents/inverses.
+4. **Practice interchange:** copy a Sugeno configuration, change the constant 80
+   to 60 and import it. Finish when demand 50 produces 40, and malformed JSON is rejected
+   without replacing the valid model. Cancel a draft and verify the model is preserved.
+5. **Inspect two outputs:** open the climate surface, set temperature to 40 and
+   humidity to zero, then switch fan/heater surfaces. Finish when you record both
+   independent decisions and identify which rules drive each one.

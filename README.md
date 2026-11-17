@@ -6,7 +6,7 @@
 
 Explainable, dependency-free Mamdani, Sugeno and Tsukamoto fuzzy inference for Dart and Flutter.
 
-[Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md)
+[Português](README.pt-BR.md) · [Concepts and design](doc/guide.en.md) · [Flutter demo](example/README.md) · [Lab scenarios and limits](doc/lab-guide.md)
 
 **Published:** [fuzzy_engine](https://pub.dev/packages/fuzzy_engine).
 Install with `dart pub add fuzzy_engine` or `flutter pub add fuzzy_engine`.

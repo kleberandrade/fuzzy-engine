@@ -1,5 +1,16 @@
 # Flutter Fuzzy Lab / Laboratório Fuzzy
 
+[Scenario guide and limitations](../doc/lab-guide.md) ·
+[Validation and real captures](../doc/lab-validation.md)
+
+The existing scenarios and climate surface are joined by an inference workbench:
+compare Mamdani, Sugeno and Tsukamoto, choose five Mamdani defuzzifiers, inspect
+membership/output curves and active rules, and import/export validated model JSON.
+No Flutter dependency is added to the Dart core.
+
+A bancada compara as três inferências, mostra curvas e regras e permite trocar
+configurações JSON validadas. Os cenários e a superfície anteriores são preservados.
+
 Three independent educational models: climate → fan speed, soil moisture →
 watering intensity, player performance → game difficulty. Sliders change crisp
 inputs; curves show membership; bars show weighted rule activations. The language
@@ -13,13 +24,18 @@ O botão de idioma alterna português e inglês; identificadores técnicos ficam
 
 ## Run / Executar
 
-With Flutter stable installed / Com Flutter stable instalado:
+Validated with Flutter 3.50.0 / Dart 3.14.0; the core retains Dart >=3.3.
+Validado com Flutter 3.50.0 / Dart 3.14.0; o núcleo mantém Dart >=3.3.
+
+With Flutter installed / Com Flutter instalado:
 
 ```sh
 cd example
-flutter create --platforms=web .
 flutter pub get
 flutter run -d chrome
+flutter analyze --no-pub
+flutter test --no-pub
+flutter build web --no-pub --no-web-resources-cdn --base-href /fuzzy-engine/
 ```
 
 A web runner is included. Generate additional platform runners locally as needed.
@@ -62,8 +78,9 @@ dart run example/sugeno_example.dart
 ```
 
 Compares constant/linear consequents and normalized weighted average versus raw
-weighted sum. Console example; the Flutter lab remains Mamdani. Compara conclusões
-constantes/lineares, média normalizada e soma ponderada; exemplo de console.
+weighted sum. The workbench also compares a constant Sugeno preset; JSON imports retain
+constant/linear consequents and reduction settings. Compara conclusões
+constantes/lineares, média normalizada e soma ponderada; a bancada inclui Sugeno.
 
 ## Model JSON and diagnostics / JSON e diagnósticos
 
@@ -83,7 +100,8 @@ dart run example/tsukamoto_example.dart
 
 Shows weighted inverse values, JSON v2 round-trip and sampling diagnostics.
 Exibe valores inversos ponderados, ida e volta JSON v2 e diagnósticos amostrados.
-This is a Dart console example; the Flutter lab UI still uses Mamdani.
+The workbench also includes a monotonic-ramp Tsukamoto preset and JSON v2 import.
+A bancada também inclui Tsukamoto com rampas monotônicas e importação JSON v2.
 
 ## Two-input decision surface / Superfície com duas entradas
 
